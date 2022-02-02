@@ -1,0 +1,435 @@
+{
+
+  "version": "1.0",
+
+  "summaries" : {
+
+           "CGIAR_Action_Areas" : [
+
+		     { "value": "Systems Transformation",
+			   "freq": 20
+			 },
+			 { "value": "Resilient Agrifood Systems",
+			   "freq": 15
+			 },
+			 { "value": "Genetic Innovation",
+			   "freq": 65
+			 }
+
+		 ],
+
+		"Regions" : [
+
+            {   "id": "southAmerica",
+                "value": 115,
+                "name": "South America"
+            },
+            {   "id": "westAfrica",
+                "value": 54,
+                "name": "Western Africa"
+            },
+            {   "id": "centralAmerica",
+                "value": 18,
+                "name": "Central America"
+            },
+            {   "id": "eastAfrica",
+                "value": 18,
+                "name": "Eastern Africa"
+            },
+            {   "id": "northAfrica",
+                "value": 18,
+                "name": "Northern Africa"
+            },
+            {   "id": "middleAfrica",
+                "value": 18,
+                "name": "Middle Africa"
+            },
+            {   "id": "southAfrica",
+                "value": 18,
+                "name": "Southern Africa"
+            },
+            {   "id": "northAmerica",
+                "value": 18,
+                "name": "Northern America"
+            },
+            {   "id": "caribbean",
+                "value": 18,
+                "name": "Caribbean"
+            },
+            {   "id": "eastAsia",
+                "value": 18,
+                "name": "Eastern Asia"
+
+            },
+            {   "id": "southAsia",
+                "value": 18,
+                "name": "Southern Asia"
+            },
+            {   "id": "southeastAsia",
+                "value": 18,
+                "name": "South Eastern Asia"
+            },
+            {   "id": "southEurope",
+                "value": 18,
+                "name": "Southern Europe"
+            },
+            {   "id": "oceania",
+                "value": 18,
+                "name": "Australia and New Zealand"
+            },
+            {   "id": "melanesia",
+                "value": 18,
+                "name": "Melanesia"
+            },
+            {   "id": "micronesia",
+                "value": 18,
+                "name": "Micronesia"
+            },
+            {   "id": "polynesia",
+                "value": 18,
+                "name": "Polynesia"
+            },
+            {   "id": "centralAsia",
+                "value": 18,
+                "name": "Central Asia"
+            },
+            {   "id": "westAsia",
+                "value": 18,
+                "name": "Western Asia"
+            },
+            {   "id": "eastEurope",
+                "value": 18,
+                "name": "Eastern Europe"
+            },
+            {   "id": "northEurope",
+                "value": 18,
+                "name": "Northern Europe"
+            },
+            {   "id": "westEurope",
+                "value": 0,
+                "name": "Western Europe"
+            }
+		],
+
+		"Environmental_benefits" : [
+
+		     { "value": "Air",
+			   "freq": 115
+			 },
+			 { "value": "Biodiversity and ecosystems",
+			   "freq": 54
+			 },
+			 { "value": "Electricity",
+			   "freq": 18
+			 },
+			 { "value": "Food",
+			   "freq": 18
+			 },
+			 { "value": "Forest",
+			   "freq": 18
+			 },
+			 { "value": "Greenhouse gases",
+			   "freq": 18
+			 },
+			 { "value": "Land",
+			   "freq": 18
+			 },
+			 { "value": "Mining and metals",
+			   "freq": 18
+			 },
+			 { "value": "Natural gas",
+			   "freq": 18
+			 },
+			 { "value": "Oil",
+			   "freq": 18
+			 },
+			 { "value": "Sea",
+			   "freq": 18
+			 },
+			 { "value": "Solid fuel",
+			   "freq": 18
+			 },
+			 { "value": "Water",
+			   "freq": 18
+			 },
+			 { "value": "Other",
+			   "freq": 0
+			 }
+		],
+
+		"Type_of_innovation" : [
+
+		     { "value": "Product",
+			   "freq": 115
+			 },
+			 { "value": "Technology",
+			   "freq": 54
+			 },
+			 { "value": "Organisational or institutional arrangement",
+			   "freq": 18
+			 },
+			 { "value": "Other",
+			   "freq": 0
+			 }
+		],
+
+		"Business_category" : [
+
+		     { "value": "Design",
+			   "freq": 115
+			 },
+			 { "value": "Device or Equipment",
+			   "freq": 54
+			 },
+			 { "value": "Facility",
+			   "freq": 18
+			 },
+			 { "value": "Material",
+			   "freq": 18
+			 },
+			 { "value": "Process",
+			   "freq": 18
+			 },
+			 { "value": "System or software",
+			   "freq": 0
+			 }
+		],
+
+		"Technical_field" : [
+
+		     { "value": "Building & Construction",
+			   "freq": 115
+			 },
+			 { "value": "Energy",
+			   "freq": 54
+			 },
+			 { "value": "Farming & Forestry",
+			   "freq": 18
+			 },
+			 { "value": "Pollution & Waste",
+			   "freq": 18
+			 },
+			 { "value": "Product, materials and processes",
+			   "freq": 18
+			 },
+			 { "value": "Transportation",
+			   "freq": 18
+			 },
+			 { "value": "Water",
+			   "freq": 0
+			 }
+		],
+
+		"Gοvernance_type" : [
+
+		     { "value": "private",
+			   "freq": 115
+			 },
+			 { "value": "public",
+			   "freq": 18
+			 },
+			 { "value": "shared private and public",
+			   "freq": 0
+			 }
+		],
+
+		"CGIAR_impact_area" : [
+
+		     { "value": "Nutrition, health and food security",
+			   "freq": 115
+			 },
+			 { "value": "Poverty reduction, livelihoods and jobs",
+			   "freq": 54
+			 },
+			 { "value": "Gender equality, youth and social inclusion",
+			   "freq": 18
+			 },
+			 { "value": "Climate adaptation and mitigation",
+			   "freq": 18
+			 },
+			 { "value": "Environmental health and biodiversity",
+			   "freq": 0
+			 }
+		],
+
+		"sdg" : [
+
+		     { "value": "Goal 1: No Poverty",
+			   "freq": 115
+			 },
+			 { "value": "Goal 2: Zero Hunger",
+			   "freq": 54
+			 },
+			 { "value": "Goal 3: Good Health and Well-Being for People",
+			   "freq": 18
+			 },
+			 { "value": "Goal 4: Quality Education",
+			   "freq": 18
+			 },
+			 { "value": "Goal 5: Gender Equality",
+			   "freq": 18
+			 },
+			 { "value": "Goal 6: Clean Water and Sanitation",
+			   "freq": 18
+			 },
+			 { "value": "Goal 7: Affordable and Clean Energy",
+			   "freq": 18
+			 },
+			 { "value": "Goal 8: Decent Work and Economic Growth",
+			   "freq": 18
+			 },
+			 { "value": "Goal 9: Industry, Innovation, and Infrastructure",
+			   "freq": 18
+			 },
+			 { "value": "Goal 10: Reducing Inequalities",
+			   "freq": 18
+			 },
+			 { "value": "Goal 11: Sustainable Cities and Communities",
+			   "freq": 18
+			 },
+			 { "value": "Goal 12: Responsible Consumption and Production",
+			   "freq": 18
+			 },
+			 { "value": "Goal 13: Climate Action",
+			   "freq": 18
+			 },
+			 { "value": "Goal 14: Life Below Water",
+			   "freq": 18
+			 },
+			 { "value": "Goal 15: Life on Land",
+			   "freq": 18
+			 },
+			 { "value": "Goal 16: Peace, Justice and Strong Institutions",
+			   "freq": 18
+			 },
+			 { "value": "Goal 17: Partnerships for the goals",
+			   "freq": 0
+			 }
+		],
+
+		"Countries" : [
+
+		     { "code": "TZ",
+			   "value": "Tanzania",
+			   "freq": 115
+			 },
+			 { "code": "EC",
+			   "value": "Ecuador",
+			   "freq": 54
+			 },
+			 { "code": "NP",
+			   "value": "Nepal",
+			   "freq": 18
+			 },
+			 { "code": "IQ",
+			   "value": "Iraq",
+			   "freq": 18
+			 },
+			 { "code": "CN",
+			   "value": "China",
+			   "freq": 18
+			 },
+			 { "code": "LB",
+			   "value": "Lebanon",
+			   "freq": 18
+			 },
+			 { "code": "JO",
+			   "value": "Jordan",
+			   "freq": 18
+			 },
+			 { "code": "TR",
+			   "value": "Turkey",
+			   "freq": 18
+			 },
+			 { "code": "NG",
+			   "value": "Nigeria",
+			   "freq": 18
+			 },
+			 { "code": "GH",
+			   "value": "Ghana",
+			   "freq": 34
+			 }
+		],
+
+		"keywords": [
+			{	"value":"livestock",
+				"frequency": 542
+			},
+			{	"value":"climate change",
+				"frequency": 512
+			},
+			{	"value":"biodiversity",
+				"frequency": 486
+			},
+			{	"value":"water management",
+				"frequency": 432
+			},
+			{	"value":"evidence",
+				"frequency": 124
+			}
+
+		]
+
+    },
+
+  "results" : [
+
+     {
+         "innovation_id": "5cd88b65317da7f1ae0cf08c",
+    	"title":"Scaling Readiness",
+
+		"submitter":
+			{
+				"submitter_first_name":"Murat",
+				"submitter_last_name":"Sartas",
+				"submitter_email":"m.sartas@cgiar.org"
+			},
+
+		"last_updated":"2/8/2021",
+
+		"summary": "Scaling Readiness is an approach that can support organizations, projects, and programs in achieving their ambitions to scale innovations and achieve impact. Scaling Readiness encourages critical reflection on how ready innovations are for scaling, and what appropriate actions could accelerate or enhance scaling."
+
+	 },
+
+	 {
+         "innovation_id": "2cd88b65317da7f1ae0cds08c",
+    	"title":"Scaling Readiness v1.0",
+
+		"submitter":
+			{
+				"submitter_first_name":"Panagiotis",
+				"submitter_last_name":"Zervas",
+				"submitter_email":"panagiotis@scio.systems"
+			},
+
+		"last_updated":"5/8/2021",
+
+		"summary": "Scaling Readiness is an approach that can support organizations, projects, and programs in achieving their ambitions to scale innovations and achieve impact. Scaling Readiness encourages critical reflection on how ready innovations are for scaling, and what appropriate actions could accelerate or enhance scaling."
+
+	 },
+
+	 {
+         "innovation_id": "4cd88b65317da7f1ae0cnh08c",
+    	"title":"Scaling Readiness v2.0",
+
+		"submitter":
+			{
+				"submitter_first_name":"Pythagoras",
+				"submitter_last_name":"Karampiperis",
+				"submitter_email":"pythagoras@Scio.systems"
+			},
+
+		"last_updated":"6/8/2021",
+
+		"summary": "Scaling Readiness is an approach that can support organizations, projects, and programs in achieving their ambitions to scale innovations and achieve impact. Scaling Readiness encourages critical reflection on how ready innovations are for scaling, and what appropriate actions could accelerate or enhance scaling."
+
+	 }
+
+  ]
+
+
+
+}
+
+
+

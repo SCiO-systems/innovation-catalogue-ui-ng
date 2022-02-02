@@ -1,0 +1,112 @@
+{
+    "data": {
+
+        "sdg1": [
+            {"title":  "1.1 By 2030, eradicate extreme poverty for all people everywhere, currently measured as people living on less than $1.25 a day"},
+            {"title":  "1.2 By 2030, reduce at least by half the proportion of men, women and children of all ages living in poverty in all its dimensions according to national definitions"},
+            {"title":  "1.4 By 2030, ensure that all men and women, in particular the poor and the vulnerable, have equal rights to economic resources, as well as access to basic services, ownership and control over land and other forms of property, inheritance, natural resources, appropriate new technology and financial services, including microfinance"}
+        ],
+        "sdg2": [
+            {"title":  "2.1 By 2030, end hunger and ensure access by all people, in particular the poor and people in vulnerable situations, including infants, to safe, nutritious and sufficient food all year round"},
+            {"title":  "2.2 By 2030, end all forms of malnutrition, including achieving, by 2025, the internationally agreed targets on stunting and wasting in children under 5 years of age, and address the nutritional needs of adolescent girls, pregnant and lactating women and older persons"},
+            {"title":  "2.c Adopt measures to ensure the proper functioning of food commodity markets and their derivatives and facilitate timely access to market information, including on food reserves, in order to help limit extreme food price volatility"}
+        ],
+        "sdg3": [
+            {"title":  "3.1 By 2030, reduce the global maternal mortality ratio to less than 70 per 100,000 live births"},
+            {"title":  "3.5 Strengthen the prevention and treatment of substance abuse, including narcotic drug abuse and harmful use of alcohol"},
+            {"title":  "3.9 By 2030, substantially reduce the number of deaths and illnesses from hazardous chemicals and air, water and soil pollution and contamination"}
+        ],
+        "sdg4": [
+            {"title":  "4.2 By 2030, ensure that all girls and boys have access to quality early childhood development, care and pre‑primary education so that they are ready for primary education"},
+            {"title":  "4.3 By 2030, ensure equal access for all women and men to affordable and quality technical, vocational and tertiary education, including university"},
+            {"title":  "4.a Build and upgrade education facilities that are child, disability and gender sensitive and provide safe, non-violent, inclusive and effective learning environments for all"}
+        ],
+        "sdg5": [
+            {"title":  "5.3 Eliminate all harmful practices, such as child, early and forced marriage and female genital mutilation"},
+            {"title":  "5.5 Ensure women’s full and effective participation and equal opportunities for leadership at all levels of decision-making in political, economic and public life"},
+            {"title":  "5.6 Ensure universal access to sexual and reproductive health and reproductive rights as agreed in accordance with the Programme of Action of the International Conference on Population and Development and the Beijing Platform for Action and the outcome documents of their review conferences"}
+        ],
+        "sdg6": [
+            {"title":  "6.1 By 2030, achieve universal and equitable access to safe and affordable drinking water for all"},
+            {"title":  "6.2 By 2030, achieve access to adequate and equitable sanitation and hygiene for all and end open defecation, paying special attention to the needs of women and girls and those in vulnerable situations"},
+            {"title":  "6.4 By 2030, substantially increase water-use efficiency across all sectors and ensure sustainable withdrawals and supply of freshwater to address water scarcity and substantially reduce the number of people suffering from water scarcity"}
+        ],
+        "sdg7": [
+            {"title":  "7.1 By 2030, ensure universal access to affordable, reliable and modern energy services"},
+            {"title":  "7.3 By 2030, double the global rate of improvement in energy efficiency"},
+            {"title":  "7.a By 2030, enhance international cooperation to facilitate access to clean energy research and technology, including renewable energy, energy efficiency and advanced and cleaner fossil-fuel technology, and promote investment in energy infrastructure and clean energy technology"}
+        ],
+        "sdg8": [
+            {"title":  "8.1 Sustain per capita economic growth in accordance with national circumstances and, in particular, at least 7 per cent gross domestic product growth per annum in the least developed countries"},
+            {"title":  "8.2 Achieve higher levels of economic productivity through diversification, technological upgrading and innovation, including through a focus on high-value added and labour-intensive sectors"},
+            {"title":  "8.3 Promote development-oriented policies that support productive activities, decent job creation, entrepreneurship, creativity and innovation, and encourage the formalization and growth of micro-, small- and medium-sized enterprises, including through access to financial services"}
+        ],
+        "sdg9": [
+            {"title":  "9.1 Develop quality, reliable, sustainable and resilient infrastructure, including regional and transborder infrastructure, to support economic development and human well-being, with a focus on affordable and equitable access for all"},
+            {"title":  "9.2 Promote inclusive and sustainable industrialization and, by 2030, significantly raise industry’s share of employment and gross domestic product, in line with national circumstances, and double its share in least developed countries"},
+            {"title":  "9.3 Increase the access of small-scale industrial and other enterprises, in particular in developing countries, to financial services, including affordable credit, and their integration into value chains and markets"}
+        ],
+        "sdg10": [
+            {"title":  "10.1 By 2030, progressively achieve and sustain income growth of the bottom 40 per cent of the population at a rate higher than the national average"},
+            {"title":  "10.2 By 2030, empower and promote the social, economic and political inclusion of all, irrespective of age, sex, disability, race, ethnicity, origin, religion or economic or other status"},
+            {"title":  "10.3 Ensure equal opportunity and reduce inequalities of outcome, including by eliminating discriminatory laws, policies and practices and promoting appropriate legislation, policies and action in this regard"}
+        ],
+        "sdg11": [
+            {"title":  "11.1 By 2030, ensure access for all to adequate, safe and affordable housing and basic services and upgrade slums"},
+            {"title":  "11.2 By 2030, provide access to safe, affordable, accessible and sustainable transport systems for all, improving road safety, notably by expanding public transport, with special attention to the needs of those in vulnerable situations, women, children, persons with disabilities and older persons"},
+            {"title":  "11.3 By 2030, enhance inclusive and sustainable urbanization and capacity for participatory, integrated and sustainable human settlement planning and management in all countries"}
+        ],
+        "sdg12": [
+            {"title":  "12.1 Implement the 10‑Year Framework of Programmes on Sustainable Consumption and Production Patterns, all countries taking action, with developed countries taking the lead, taking into account the development and capabilities of developing countries"},
+            {"title":  "12.2 By 2030, achieve the sustainable management and efficient use of natural resources"},
+            {"title":  "12.3 By 2030, halve per capita global food waste at the retail and consumer levels and reduce food losses along production and supply chains, including post-harvest losses"}
+        ],
+        "sdg13": [
+            {"title":  "13.1 Strengthen resilience and adaptive capacity to climate-related hazards and natural disasters in all countries"},
+            {"title":  "13.2 Integrate climate change measures into national policies, strategies and planning"},
+            {"title":  "13.3 Improve education, awareness-raising and human and institutional capacity on climate change mitigation, adaptation, impact reduction and early warning"}
+        ],
+        "sdg14": [
+            {"title":  "14.1 By 2025, prevent and significantly reduce marine pollution of all kinds, in particular from land-based activities, including marine debris and nutrient pollution"},
+            {"title":  "14.2 By 2020, sustainably manage and protect marine and coastal ecosystems to avoid significant adverse impacts, including by strengthening their resilience, and take action for their restoration in order to achieve healthy and productive oceans"},
+            {"title":  "14.3 Minimize and address the impacts of ocean acidification, including through enhanced scientific cooperation at all levels"}
+        ],
+        "sdg15": [
+            {"title":  "15.1 By 2020, ensure the conservation, restoration and sustainable use of terrestrial and inland freshwater ecosystems and their services, in particular forests, wetlands, mountains and drylands, in line with obligations under international agreements"},
+            {"title":  "15.2 By 2020, promote the implementation of sustainable management of all types of forests, halt deforestation, restore degraded forests and substantially increase afforestation and reforestation globally"},
+            {"title":  "15.3 By 2030, combat desertification, restore degraded land and soil, including land affected by desertification, drought and floods, and strive to achieve a land degradation-neutral world"}
+        ],
+        "sdg16": [
+            {"title":  "16.1 Significantly reduce all forms of violence and related death rates everywhere"},
+            {"title":  "16.2 End abuse, exploitation, trafficking and all forms of violence against and torture of children"},
+            {"title":  "16.3 Promote the rule of law at the national and international levels and ensure equal access to justice for all"}
+        ],
+        "sdg17": [
+            {"title":  "17.1 Strengthen domestic resource mobilization, including through international support to developing countries, to improve domestic capacity for tax and other revenue collection"},
+            {"title":  "17.3 Mobilize additional financial resources for developing countries from multiple sources"},
+            {"title":  "17.4 Assist developing countries in attaining long-term debt sustainability through coordinated policies aimed at fostering debt financing, debt relief and debt restructuring, as appropriate, and address the external debt of highly indebted poor countries to reduce debt distress"}
+        ],
+        "impTarget1": [
+            {"title":  "1.1 End hunger for all and enable affordable healthy diets for the 3 billion people who do not currently have access to safe and nutritious food"},
+            {"title":  "1.2 Reduce cases of foodborne illness (600 million annually) and zoonotic disease (1 billion annually) by one third"}
+        ],
+        "impTarget2": [
+            {"title":  "2.1 Lift at least 500 million people living in rural areas above the extreme poverty line of US $1.90 per day (2011 PPP)"},
+            {"title":  "2.2 Reduce by at least half the proportion of men, women and children of all ages living in poverty in all its dimensions according to national definitions"}
+        ],
+        "impTarget3": [
+            {"title":  "3.1 Close the gender gap in rights to economic resources, access to ownership and control over land and natural resources for over 500 million women who work in food, land and water systems"},
+            {"title":  "3.2 Offer rewardable opportunities to 267 million young people who are not in employment, education or training"}
+        ],
+        "impTarget4": [
+            {"title":  "4.1 Implement all National adaptation Plans (NAP) and Nationally Determined Contributions (NDC) to the Paris Agreement"},
+            {"title":  "4.2 Equip 500 million small-scale producers to be more resilient to climate shocks, with climate adaptation solutions available through national innovation systems"},
+            {"title":  "4.3 Turn agriculture and forest systems into a net sink for carbon by 2050, with emissions from agriculture decreasing by 1 Gt per year by 2030 and reaching a floor of 5 Gt per year by 2050"}
+        ],
+        "impTarget5": [
+            {"title":  "5.1 Stay within planetary and regional environmental boundaries: consumptive water use in food production of less than 2500 km3 per year (with a focus on the most stressed basins), zero net deforestation, nitrogen application of 90 Tg per year (with a redistribution towards low-input farming system) and increased use efficiency; and phosphorus application of 10 Tg per year"},
+            {"title":  "5.2 Maintain the genetic diversity of seeds, cultivated plants and farmed and domesticated animals and their related wild species, including through soundly managed genebanks at the national, regional, and international levels"}
+        ]
+    }
+
+}

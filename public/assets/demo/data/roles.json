@@ -1,0 +1,12 @@
+{
+    "roles": [
+        {"role": "Donor"},
+        {"role": "Evaluator"},
+        {"role": "Monitoring"},
+        {"role": "Impact"},
+        {"role": "Km"},
+        {"role": "Proj_Manag"},
+        {"role": "User"}
+    ]
+
+}

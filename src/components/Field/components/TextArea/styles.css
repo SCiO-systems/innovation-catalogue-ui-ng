@@ -1,0 +1,23 @@
+.field .field-messages{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0.5vh;
+}
+
+.field #text-area.p-inputgroup {
+    width: unset;
+    height: unset;
+    min-width: 360px;
+}
+
+.field #text-area.p-inputgroup .p-float-label {
+    width: unset;
+}
+
+.field #text-area.p-inputgroup textarea {
+    width: 320px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}

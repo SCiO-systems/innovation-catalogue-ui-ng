@@ -1,0 +1,5 @@
+.field .p-multiselect {
+    display:  flex !important;
+    border-top-left-radius: 4px !important;
+    border-bottom-left-radius: 4px !important;
+}

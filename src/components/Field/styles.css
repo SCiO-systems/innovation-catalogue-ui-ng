@@ -1,0 +1,70 @@
+.field{
+    display: flex;
+    flex-direction: column;
+    /*width: 360px;*/
+    /*height: 35px;*/
+}
+
+.field .p-inputgroup {
+    align-items: stretch;
+    width: 360px;
+    height: 35px;
+}
+
+/*.field .p-inputgroup .p-float-label {*/
+/*    width: unset;*/
+/*}*/
+
+.field span#mandatory{
+    color: #D32F2F;
+    border: 1px solid #D32F2F;
+    cursor: pointer;
+}
+
+.field span#wocat{
+    color: #D32F2F;
+    border: 1px solid #D32F2F;
+    cursor: pointer;
+}
+.field span#wocat img{
+    width: 50px;
+}
+
+.field span#optional{
+    color: #1E88E5;
+    border: 1px solid #1E88E5;
+    cursor: pointer;
+}
+
+.field span#question{
+    color: #888888;
+    border: 1px solid #888888;
+    cursor: pointer;
+    transition: color .4s, background-color .4s;
+}
+
+.field span#question:hover{
+    color: white;
+    border: 1px solid #888888;
+    background-color: #888888;
+    transition: color .4s, background-color .4s;
+}
+.field span#info{
+    color: #1E88E5;
+    border: 1px solid #1E88E5;
+    transition: color .4s, background-color .4s;
+}
+
+.field span#citation{
+    color: #1E88E5;
+    border: 1px solid #1E88E5;
+    cursor: pointer;
+    transition: color .4s, background-color .4s;
+}
+
+.field span#citation:hover{
+    color: white;
+    border: 1px solid #1E88E5;
+    background-color: #1E88E5;
+    transition: color .4s, background-color .4s;
+}

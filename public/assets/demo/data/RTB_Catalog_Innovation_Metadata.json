@@ -1,0 +1,240 @@
+{
+    "metadata":
+		{
+			"MEL_user_id" :35,
+            "MEL_innovation_id":127,
+            "related_innovations": [
+			 {
+                 "innovation_id": "2cd454588b7da7f1ae0cds08c",
+				"title":"Scaling Readiness",
+
+				"submitter": {
+                    "submitter_first_name": "Murat",
+                    "submitter_last_name": "Sartas",
+                    "submitter_email": "m.sartas@cgiar.org"
+                },
+
+				"last_updated":"2/8/2021",
+
+				"summary": "Scaling Readiness is an approach that can support organizations, projects, and programs in achieving their ambitions to scale innovations and achieve impact. Scaling Readiness encourages critical reflection on how ready innovations are for scaling, and what appropriate actions could accelerate or enhance scaling."
+			 },
+			 {
+                 "innovation_id": "7cd88hjk00b65317da7f1ae0cdsc",
+				"title":"Scaling Readiness",
+
+				"submitter":
+					{
+						"submitter_first_name":"Murat",
+						"submitter_last_name":"Sartas",
+						"submitter_email":"m.sartas@cgiar.org"
+					},
+
+				"last_updated":"2/8/2021",
+
+				"summary": "Scaling Readiness is an approach that can support organizations, projects, and programs in achieving their ambitions to scale innovations and achieve impact. Scaling Readiness encourages critical reflection on how ready innovations are for scaling, and what appropriate actions could accelerate or enhance scaling."
+			 }
+
+			],
+			"title": "Scaling Readiness",
+			"summary": "Scaling Readiness is an approach that can support organizations, projects, and programs in achieving their ambitions to scale innovations and achieve impact. Scaling Readiness encourages critical reflection on how ready innovations are for scaling, and what appropriate actions could accelerate or enhance scaling.",
+			"business_category": ["Device or Equipment", "Facility", "Process"],
+			"keywords": ["Innovation Scaling", "Evidence", "Effectiveness"],
+			"innovation_URL": "https://www.scalingreadiness.org/",
+			"image_of_the_innovation": "https://news4ilri.files.wordpress.com/2020/11/scaling-readiness-report-and-scaling-plan-1.jpg",
+			"image_of_the_innovation_component": ["https://news4ilri.files.wordpress.com/2020/11/scaling-readiness-report-and-scaling-plan-1.jpg", "https://thumbor.hostbox1.epic-sys.io/xMn2nHp05GcDQSHB9FONdbPRcxM=/fit-in/2880x/https%3A%2F%2Fwww.scalingreadiness.org%2Fwp%2Fwp-content%2Fuploads%2F2019%2F11%2Fchart.png", "https://media-exp1.licdn.com/dms/image/C4D12AQG4eHB3Tr_qig/article-inline_image-shrink_1000_1488/0/1531257277582?e=1633564800&v=beta&t=FqWHGJBxyAicNN30oQJLVnP7ArjSb2n5EZMZFwugQF4"],
+			"technical_field": ["Building & Construction", "Farming & Forestry", "Materials and processes"],
+			"type_of_innovation_old": ["Genetic", "Biophysical Research", "Social Science"],
+			"type_of_innovation_new": ["Product", "Technology"],
+			"governance_type": [
+				{ "year": 2019,
+				  "value": ["private", "public"]
+				},
+				{ "year": 2020,
+				  "value": ["private", "public"]
+				},
+				{ "year": 2021,
+				  "value": ["shared private and public", "public"]
+				}
+			],
+			"intervention_name": [
+				{
+					"short":"RTB",
+					"long": "CGIAR Roots, Tubers and Bananas Research Program"
+				},
+				{
+					"short":"SKIM",
+					"long": "Strengthening Knowledge Management for Greater Development Effectiveness in the Near East, North Africa, Central Asia and Europe"
+				},
+				{
+					"short":"ILRI I@S",
+					"long": "ILRI Impact at Scale Program"
+				}
+			],
+			"total_budget_of_interventions": [
+				{ "year": 2019,
+				  "value": 120000
+				},
+				{ "year": 2020,
+				  "value": 180000
+				},
+				{ "year": 2021,
+				  "value": 250000
+				}
+			],
+			"intervention_team_members": ["Murat Sartas", "Marc Schut", "Cees Leeuwis", "Iddo Dror", "Edwin Kangethe", "Akmal Akramkhanov", "Enrico Bonaiuti"],
+			"challenge_statement": "Scaling of innovations is a key requirement for addressing societal challenges in sectors such as health, agriculture, and the environment. Research for development (R4D) programs, projects and other interventions struggle to make particular innovations go to scale. Current conceptualizations of scaling are often too simplistic; more systemic and multidimensional perspectives, frameworks and measures are needed. There is a gap between new complexity-aware theories and perspectives on innovation, and tools and approaches that can improve strategic and operational decision-making in R4D interventions that aim to scale innovations",
+			"objective_statement": "Support organizations, projects, and programs in achieving their ambitions to scale innovations",
+			"long_intervention_description": "RTB is a partnership collaboration of five research centers, led by the International Potato Center, with decades of experience in these crops on different continents, including four CGIAR research centers (Bioversity International, the International Center for Tropical Agriculture, the International Institute of Tropical Agriculture and the International Potato Center) and the French Agricultural Research Centre for International Development (CIRAD). By working with more than 360 other partners, these five centers mobilize complementary expertise and resources; avoid duplication of efforts; and create synergies to increase the benefits of their research for smallholder farmers, consumers and other stakeholders.;;The Impact at Scale program is responsible for spearheading the scaling-up of innovations of all International Livestock Research Institute (ILRI) programs for a sustainable future. The innovations have been tested and proven to be effective. The program aims at ensuring that many people can benefit from these technologies.",
+			"CGIAR_action_areas": ["Systems Transformation", "Resilient Agrifood Systems"],
+			"innovation_submitter":
+				{
+					"first_name":"Murat",
+					"last_name":"Sartas",
+					"email":"m.sartas@cgiar.org",
+					"company":"CGIAR",
+					"country":"Rwanda",
+					"website":"https://www.linkedin.com/in/sartas/",
+					"organizational_logo":"https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/CGIAR-logo.svg/300px-CGIAR-logo.svg.png"
+				},
+			"key_innovation_partners": [
+				{ "year": 2019,
+				  "value": ["Ministry of Agriculture, Land and Fisheries"]
+				},
+				{ "year": 2020,
+				  "value": ["Ministry of Agriculture, Land and Fisheries", "Caribbean Agricultural Research and Development Institute"]
+				},
+				{ "year": 2021,
+				  "value": ["Ministry of Agriculture, Land and Fisheries", "Caribbean Agricultural Research and Development Institute", "Austrian Research Centre for Forests"]
+				}
+			],
+			"key_scaling_partners": [
+				{ "year": 2019,
+				  "value": ["Ministry of Agriculture, Land and Fisheries", "Austrian Research Centre for Forests"]
+				},
+				{ "year": 2020,
+				  "value": ["Ministry of Agriculture, Land and Fisheries", "Caribbean Agricultural Research and Development Institute", "Austrian Research Centre for Forests"]
+				},
+				{ "year": 2021,
+				  "value": ["Ministry of Agriculture, Land and Fisheries", "Caribbean Agricultural Research and Development Institute", "Austrian Research Centre for Forests", "Belgian Development Agency"]
+				}
+			],
+			"key_demand_partners": [
+				{ "year": 2019,
+				  "value": ["Ministry of Agriculture, Land and Fisheries", "Austrian Research Centre for Forests", "Belgian Development Agency"]
+				},
+				{ "year": 2020,
+				  "value": ["Ministry of Agriculture, Land and Fisheries", "Caribbean Agricultural Research and Development Institute", "Austrian Research Centre for Forests", "Belgian Development Agency"]
+				},
+				{ "year": 2021,
+				  "value": ["Ministry of Agriculture, Land and Fisheries", "Caribbean Agricultural Research and Development Institute", "Austrian Research Centre for Forests", "Belgian Development Agency"]
+				}
+			],
+			"locations_of_implementation": [
+				{ "code":"EC",
+				  "value":"Ecuador"
+				},
+				{ "code":"IQ",
+				  "value":"Iraq"
+				},
+				{ "code":"LB",
+				  "value":"Lebanon"
+				},
+				{ "code":"TR",
+				  "value":"Turkey"
+				}
+			],
+			"start_date": "1/1/2016",
+			"end_date": "31/12/2022",
+			"problem_the_innovation_provides_solution": "Lack of evidence based decision making in innovation and scaling interventions",
+			"SDG_target": [
+				{
+					"SDG_name": "Goal 1: No Poverty",
+					"code":"1.5",
+					"value": "By 2030, build the resilience of the poor and those in vulnerable situations and reduce their exposure and vulnerability to climate-related extreme events and other economic"
+				},
+				{
+					"SDG_name": "Goal 2: Zero Hunger",
+					"code":"2.2",
+					"value": "By 2030, end all forms of malnutrition, including achieving, by 2025, the internationally agreed targets on stunting and wasting in children under 5 years of age, and address the nutritional needs of adolescent girls, pregnant and lactating women and older persons"
+				},
+				{
+					"SDG_name": "Goal 13: Climate Action",
+					"code":"13.3",
+					"value": "Improve education, awareness-raising and human and institutional capacity on climate change mitigation, adaptation, impact reduction and early warning"
+				}
+			],
+			"CGIAR_impact_target": [
+                {
+                   "CGIAR_impact_area": "Nutrition, health and food security",
+                   "value":"1.1 End hunger for all and enable affordable healthy diets for the 3 billion people who do not currently have access to safe and nutritious food."
+                },
+                {
+                    "CGIAR_impact_area": "Nutrition, health and food security",
+                    "value":"1.2 Reduce cases of foodborne illness (600 million annually) and zoonotic disease (1 billion annually) by one third."
+                }
+            ],
+            "initative_defined_outcome": "Waiting for Initiatives proposals to use Scaling Readiness",
+			"environmental_benefits": ["Biodiversity and ecosystems", "Greenhouse gases", "Mining and metals"],
+			"technology_development_stage": "TRL 7 – System prototype demonstration in operational environment",
+			"technology_development_project_summary": "Scaling Readiness Cost and Benefit analysis indicated that for every dollar invested in the Scaling Readiness, it create a benefit for 3 USD",
+			"innovation_readiness_levels_of_the_components": "Application Model (proven)",
+			"locations_of_applied_evidence": [
+				{ "code":"EC",
+				  "value":"Ecuador"
+				},
+				{ "code":"IQ",
+				  "value":"Iraq"
+				},
+				{ "code":"LB",
+				  "value":"Lebanon"
+				},
+				{ "code":"TR",
+				  "value":"Turkey"
+				}
+			],
+			"locations_of_experimental_evidence": [
+				{ "code":"NG",
+				  "value":"Nigeria"
+				},
+				{ "code":"GH",
+				  "value":"Ghana"
+				}
+			],
+			"locations_of_impact": [
+				{ "code":"EC",
+				  "value":"Ecuador"
+				},
+				{ "code":"IQ",
+				  "value":"Iraq"
+				},
+				{ "code":"LB",
+				  "value":"Lebanon"
+				},
+				{ "code":"TR",
+				  "value":"Turkey"
+				}
+			],
+			"innovation_reference_materials": ["https://www.sciencedirect.com/science/article/pii/S0308521X19314477", "https://www.cgiar.org/news-events/news/scaling-readiness-a-scientific-approach-to-scaling-innovations/","https://www.linkedin.com/pulse/impact-journey-scaling-readiness-around-world-murat-sartas-ph-d-?trk=public_profile_article_view"],
+			"technology_appraisal": "Lorem ipsum",
+			"technology_appraisal_image": "https://news4ilri.files.wordpress.com/2020/11/scaling-readiness-report-and-scaling-plan-1.jpg",
+			"documentation_to_pottential_investors": "Full Scaling Readiness Assessment Reports (5), Scaling Readiness Innovation Profiles (8)",
+			"type_of_patent_number": "Lorem ipsum",
+			"patent_number": 123141,
+			"patent_office": "Lorem ipsum",
+			"patent_knowhow_info": "http://www.example.com",
+			"administrative_scale_of_the_innovations": ["Subnational", "National", "Multi-National", "Global"],
+			"users_of_the_innovation": ["Private Sector", "Researchers"],
+			"beneficiaries_of_the_innovation": ["Government", "Foundations"],
+			"sponsors_of_the_innovation": "Bilateral And Donor",
+			"value_added_of_the_innovation": "Evidence based prioritization of the impact investments, identification of fit for purpose partnerships",
+			"main_advantages": "Can be integrated into existing MEL and accountability systems",
+			"main_disadvantages": "Unconventional",
+			"investment_sought": "We are looking for private equity or grant to further extend the product",
+			"type_of_investment_sought": ["Grant", "Private Equity"],
+			"estimated_amount_sought": 100000,
+			"innovation_use_levels_of_the_components": "Unconnected delivery and use support stakeholders (rare)",
+			"scaling_readiness_level": 23,
+			"scaling_readiness_score": 4
+ 		}
+
+}
