@@ -31,7 +31,7 @@ const configurationArray = [
                 label: 'Business Category',
                 fieldInformation: '',
                 valid: false,
-                options: []
+                resultsKeyword: 'Business_category'
             },
             {
                 id: "1.4",
@@ -42,7 +42,7 @@ const configurationArray = [
                 label: 'Administrative Scale',
                 fieldInformation: '',
                 valid: false,
-                options: []
+                options: ["Subnational","National","Multi-National"]
             },
             {
                 id: "1.5",
@@ -93,7 +93,7 @@ const configurationArray = [
                 label: 'Technical Field',
                 fieldInformation: '',
                 valid: false,
-                options: []
+                resultsKeyword: 'Technical_field'
             },
             {
                 id: "1.10",
@@ -116,7 +116,7 @@ const configurationArray = [
                 label: 'Type of Innovation',
                 fieldInformation: '',
                 valid: false,
-                options: []
+                resultsKeyword: 'Type_of_innovation'
             },
             {
                 id: "1.12",
@@ -127,7 +127,7 @@ const configurationArray = [
                 label: 'Governance Type',
                 fieldInformation: '',
                 valid: false,
-                options: []
+                resultsKeyword: 'Gοvernance_type'
             },
             {
                 id: "1.13",
@@ -138,7 +138,7 @@ const configurationArray = [
                 label: 'Related Innovations',
                 fieldInformation: '',
                 valid: false,
-                options: []
+                options: ["Innovation 1","Innovation 2","Innovation 3"]
             },
         ]
     },

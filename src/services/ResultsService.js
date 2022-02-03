@@ -3,8 +3,8 @@ const lookup = require('country-code-lookup')
 
 export default class ResultsService {
 
-    getResults() {
-        return axios.get('assets/demo/data/RTB_Catalog_SearchResults.json').then(res => res.data);
+    getResults = () => {
+        return axios.get('assets/demo/data/RTB_Catalog_SearchResults.json')
     }
 
     async getInnovationByTitle(related_innovations){

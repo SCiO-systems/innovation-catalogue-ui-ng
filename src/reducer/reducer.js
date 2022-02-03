@@ -10,6 +10,8 @@ const initState = {
     userData: {name: '',email: ''},
     step: 0,
     descriptionValues: [],
+    benefitImpactValues: [],
+    results: {},
 }
 
 const reducer = (currentState = initState, action) => {
@@ -44,10 +46,20 @@ const reducer = (currentState = initState, action) => {
                 ...currentState,
                 step: action.payload
             }
+        case Actions.SetResults:
+            return{
+                ...currentState,
+                results: action.payload
+            }
         case Actions.SetDescriptionValues:
             return{
                 ...currentState,
                 descriptionValues: action.payload
+            }
+        case Actions.SetBenefitImpactValues:
+            return{
+                ...currentState,
+                benefitImpactValues: action.payload
             }
         default: return currentState
     }

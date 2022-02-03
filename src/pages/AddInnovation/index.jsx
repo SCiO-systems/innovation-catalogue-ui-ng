@@ -5,17 +5,26 @@ import {StepsForms, Forms} from "./components";
 import ResultsService from "../../services/ResultsService";
 import {Button} from "primereact/components/button/Button";
 import {Link} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {Actions} from "../../reducer/actions";
 
 const AddInnovation = () => {
 
-    const [results, setResults] = useState(null);
-    const [activeIndex, setActiveIndex] = useState(0);
+    const dispatch = useDispatch();
+
+    const step = useSelector((state) => state.step)
+    const setStep = (payload) => dispatch({ type: Actions.SetStep, payload });
+
+    const results = useSelector((state) => state.results)
+    const setResults = (payload) => dispatch({ type: Actions.SetResults, payload });
+
     const resultService = new ResultsService();
     const myInnovationsUrl = "/innovations";
 
     useEffect(() => {
 
-        resultService.getResults().then(data => setResults(data));
+        resultService.getResults()
+            .then(data => setResults(data));
 
     },[]);
 
@@ -32,14 +41,14 @@ const AddInnovation = () => {
     ];
 
     const buttonNextHandler = () => {
-        if(activeIndex < items.length -1){
-            setActiveIndex(activeIndex + 1)
+        if(step < items.length -1){
+            setStep(step + 1)
         }
     }
 
     const buttonPrevHandler = () => {
-        if(activeIndex > 0){
-            setActiveIndex(activeIndex - 1)
+        if(step > 0){
+            setStep(step - 1)
         }
     }
 
@@ -52,20 +61,20 @@ const AddInnovation = () => {
                 </div>
                 <div className="steps-container">
                     <Card className="steps-padding step-card">
-                        <Steps model={items} activeIndex={activeIndex} onSelect={(e) => setActiveIndex(e.index)} readOnly={false} />
+                        <Steps model={items} activeIndex={step} onSelect={(e) => setStep(e.index)} readOnly={false} />
                     </Card>
                 </div>
                 <div className="step-1 steps-forms-container">
                     <Card className="forms-card steps-card">
-                        {/*<StepsForms activeIndex={activeIndex} results={results.summaries}></StepsForms>*/}
+                        <StepsForms activeIndex={step} results={results.summaries}></StepsForms>
                         <Forms />
                     </Card>
                     <Card className="margin-bottom-80 buttons-card-steps steps-card">
                         <div className="p-grid p-justify-around">
                             <Button icon="fad fa-chevron-left fa-lg" label="Previous" iconPos="left" className="next-step-button" onClick={buttonPrevHandler}></Button>
-                            {activeIndex < items.length -1 ? <Button icon="fad fa-chevron-right fa-lg" label="Next" iconPos="right" className="next-step-button" onClick={buttonNextHandler}></Button>:console.log()}
+                            {step < items.length -1 ? <Button icon="fad fa-chevron-right fa-lg" label="Next" iconPos="right" className="next-step-button" onClick={buttonNextHandler}></Button>:console.log()}
                             {
-                                activeIndex === 8 ?
+                                step === 8 ?
                                 <Link to={myInnovationsUrl}>
                                     <Button icon="fad fa-plus fa-lg" label="Add Innovation" iconPos="right" className="next-step-button"></Button>
                                 </Link>:console.log()

@@ -5,5 +5,7 @@ export const Actions = {
     SetAccessToken: "SetAccessToken",
     SetUserData: "SetUserData",
     SetStep: "SetStep",
-    SetDescriptionValues: "SetDescriptionValues"
+    SetResults: "SetResults",
+    SetDescriptionValues: "SetDescriptionValues",
+    SetBenefitImpactValues: "SetBenefitImpactValues",
 }

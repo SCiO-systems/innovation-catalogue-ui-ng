@@ -4,12 +4,15 @@ import { MultiSelect } from 'primereact/multiselect';
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
 import './styles.css'
+import {useSelector} from "react-redux";
 
 const List = (props) => {
 
     const {configuration, presetValue, stepValues, stepSetValues, keyName} = props
 
-    const [filteredData, setFilteredData] = useState([])
+    const results = useSelector((state) => state.results)
+
+    const [options, setOptions] = useState([])
 
     const [displayDialog, setDisplayDialog] = useState(false)
     let [value, setValue] = useState(presetValue)
@@ -23,6 +26,17 @@ const List = (props) => {
         );
     }
 
+    useEffect(
+        () => {
+            if (results.data) {
+                if (configuration.resultsKeyword) {
+                    setOptions(results.data.summaries[configuration.resultsKeyword].map(item => {
+                        return item.value
+                    }))
+                }
+            }
+        }, [results]
+    )
 
     useEffect(
         () => {
@@ -113,10 +127,10 @@ const List = (props) => {
                         value={value}
                         onChange={(e) => setValue(e.value)}
                         // onChange={(e) => newSelection(e)}
-                        options={((configuration.index === 2) || (configuration.index === 3)) ? filteredData : configuration.options}
+                        options={configuration.options ? configuration.options : options}
                         maxSelectedLabels={configuration.maxWords}
                         disabled={configuration.disabled}
-                        display="chip"
+                        // display="chip"
                     />
                     {/*<label htmlFor="username">{configuration.label}</label>*/}
                 </span>
