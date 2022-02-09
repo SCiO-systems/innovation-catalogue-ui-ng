@@ -41,6 +41,8 @@ const AddInnovation = () => {
 
     const stakeholdersValues = useSelector((state) => state.stakeholdersValues)
 
+
+
     useEffect(() => {
 
         resultService.getResults()
@@ -63,6 +65,16 @@ const AddInnovation = () => {
     ];
 
     const buttonNextHandler = () => {
+
+        const allFields = [...benefitImpactValues, ...contextValues, ...descriptionValues, ...evidenceValues, ...intellectualPropertyValues, ...interventionsValues, ...investmentValues, ...readinessValues, ...stakeholdersValues]
+        console.log(allFields)
+        const mandatoryFields = allFields.filter(item => item.mandatory === true)
+        console.log(mandatoryFields)
+        const validFields = mandatoryFields.filter(item => item.valid === true)
+        console.log(validFields)
+        const invalidFields = mandatoryFields.filter(item => item.valid === false)
+        console.log(invalidFields)
+
         if(step < items.length -1){
             setStep(step + 1)
         }

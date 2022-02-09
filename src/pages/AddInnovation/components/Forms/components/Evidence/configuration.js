@@ -5,7 +5,7 @@ const configurationArray = [
             {
                 id: "4.1",
                 type: 'upload',
-                mandatory: true,
+                mandatory: false,
                 label: 'Reference Materials',
                 fieldInformation: '<span> Provide URLs of any reference material(s) that describe the Innovation, its stage and/or current use. Reference materials should give a comprehensive overview of the Innovation and its impact potential when used at scale. Please provide a list of links to supporting material for the innovation, such as papers, reports, blogs, testimonies, media articles, images, infographics, videos, presentations, webinars, training materials, and so on.  <br/><br/>' +
                     'Evidence should be presented to validate the specific claims made about the innovation and where it sits from stage 1 to stage 4, as follows. <br/><br/>' +

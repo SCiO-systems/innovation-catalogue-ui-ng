@@ -83,21 +83,31 @@ const List = (props) => {
     useEffect(
         () => {
             if (configuration.minWords) {
-                if (value.length > configuration.maxWords) {
-                    setValid('more than maximum')
-                    return
-                }
-                if (value.length >= configuration.minWords) {
-                    setValid('valid')
-                    return
-                }
-                if (value.length === 0) {
-                    setValid('no data')
-                    return
-                }
-                if (value.length < configuration.minWords) {
-                    setValid('less than minimum')
-                    return
+                if (configuration.maxWords === 1) {
+                    if (value.length === 0) {
+                        setValid('no data')
+                        return
+                    } else {
+                        setValid('valid')
+                        return
+                    }
+                } else {
+                    if (value.length > configuration.maxWords) {
+                        setValid('more than maximum')
+                        return
+                    }
+                    if (value.length >= configuration.minWords) {
+                        setValid('valid')
+                        return
+                    }
+                    if (value.length === 0) {
+                        setValid('no data')
+                        return
+                    }
+                    if (value.length < configuration.minWords) {
+                        setValid('less than minimum')
+                        return
+                    }
                 }
             }
             if (value.length === 0) {
