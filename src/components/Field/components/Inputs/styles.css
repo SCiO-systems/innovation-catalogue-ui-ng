@@ -1,0 +1,30 @@
+.field .field-messages{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    /*padding: 0.5vh;*/
+}
+
+.field  .p-button.add-button{
+    width: fit-content;
+}
+
+.field .inputs-container {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+}
+
+.field .inputs-container span{
+    margin-top: 6px;
+}
+
+.field .inputs-container .p-inputtext{
+    margin: 0;
+}
+
+.field .inputs-container #second.p-inputtext{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}

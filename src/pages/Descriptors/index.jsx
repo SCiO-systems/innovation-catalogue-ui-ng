@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
-import {DataTable} from "primereact/components/datatable/DataTable";
-import {Column} from "primereact/components/column/Column";
+import {DataTable} from "primereact/datatable";
+import {Column} from "primereact/column";
 import TestMyInnovationsService from "../../services/TestMyInnovationsService";
 import {Tooltip} from "primereact/tooltip";
-import {Button} from "primereact/components/button/Button";
+import {Button} from "primereact/button";
 import {InputText} from "primereact/inputtext";
 import {InputNumber} from "primereact/inputnumber";
 import {Dropdown} from "primereact/dropdown";

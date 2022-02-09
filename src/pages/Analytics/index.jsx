@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button} from "primereact/components/button/Button";
+import { Button } from 'primereact/button';
 import {FilterAnalytics,ChartsAnalytics} from "./components";
 import ResultsService from "../../services/ResultsService";
 import {useNavigate, useParams} from "react-router-dom";

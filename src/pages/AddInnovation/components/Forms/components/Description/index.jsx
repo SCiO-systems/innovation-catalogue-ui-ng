@@ -15,6 +15,7 @@ const Description = () => {
         () => {
             const storage = window.localStorage.getItem('descriptionValues')
             if (!storage) {
+                console.log('hi')
                 const temp = []
                 configurationArray.map(tab => {
                     return tab.content.map(item => {
@@ -38,7 +39,7 @@ const Description = () => {
         if (descriptionValues.length === 0) {
             return ''
         } else {
-            return descriptionValues.find(item => item.id === configurationArray[headerIndex].content[contentIndex].id).value
+            return descriptionValues.find(item => item.id === contentIndex).value
         }
     }
 
@@ -50,7 +51,7 @@ const Description = () => {
                         <label>{field.label}</label>
                     </div>
                     <div className="p-col-12 p-sm-12 p-lg-6">
-                        <Field configuration={field} presetValue={presetValues(0,configurationArray[0].content.indexOf(field))} stepValues={descriptionValues} stepSetValues={setDescriptionValues} keyName={'descriptionValues'}/>
+                        <Field configuration={field} presetValue={presetValues(0,field.id)} stepValues={descriptionValues} stepSetValues={setDescriptionValues} keyName={'descriptionValues'}/>
                     </div>
                 </div>
             )

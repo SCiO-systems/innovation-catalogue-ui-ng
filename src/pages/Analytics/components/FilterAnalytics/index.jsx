@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Card} from "primereact/card";
-import {Button} from "primereact/components/button/Button";
+import {Button} from "primereact/button";
 // import { Button } from 'primereact/button';
 import {MultiSelect} from "primereact/multiselect";
 import goal1 from "../../../../assets/sdg/E-WEB-Goal-01.png";

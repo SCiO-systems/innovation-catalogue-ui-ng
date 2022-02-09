@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {DataTable} from "primereact/components/datatable/DataTable";
-import {Column} from "primereact/components/column/Column";
+import {DataTable} from "primereact/datatable";
+import {Column} from "primereact/column";
 import TestMyInnovationsService from "../../services/TestMyInnovationsService";
-import {Button} from "primereact/components/button/Button";
+import {Button} from "primereact/button";
 import {Tooltip} from "primereact/tooltip";
 import {Dialog} from "primereact/dialog";
 import {Link} from "react-router-dom";

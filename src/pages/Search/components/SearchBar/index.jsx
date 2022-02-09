@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {InputText} from "primereact/inputtext";
-import {Button} from "primereact/components/button/Button";
+import {Button} from "primereact/button";
 
 const SearchBar = (props) => {
     const [searchQuery, setSearchQuery] = useState("");

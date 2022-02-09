@@ -3,7 +3,7 @@
     flex-direction: row;
     width: 100%;
     justify-content: space-between;
-    padding: 0.5vh;
+    /*padding: 0.5vh;*/
 }
 
 .field #text-area.p-inputgroup {

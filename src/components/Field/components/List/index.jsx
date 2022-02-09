@@ -3,8 +3,10 @@ import {Tooltip} from "primereact/tooltip";
 import { MultiSelect } from 'primereact/multiselect';
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
+import {Dropdown} from "primereact/dropdown";
 import './styles.css'
 import {useSelector} from "react-redux";
+import ReactHtmlParser from "react-html-parser";
 
 const List = (props) => {
 
@@ -31,7 +33,11 @@ const List = (props) => {
             if (results.data) {
                 if (configuration.resultsKeyword) {
                     setOptions(results.data.summaries[configuration.resultsKeyword].map(item => {
-                        return item.value
+                        return {"value": item.value}
+                    }))
+                } else {
+                    setOptions(configuration.options.map(item => {
+                        return {"value": item}
                     }))
                 }
             }
@@ -62,27 +68,15 @@ const List = (props) => {
             const _values = stepValues
             const index = _values.indexOf(_values.find(item => item.id === configuration.id))
             const validValue = stepValues.find(item => item.id === configuration.id).valid
-            if (valid === 'valid') {
-                _values.splice(index, 1)
-                _values.push({
-                    id: configuration.id,
-                    value: value,
-                    mandatory: configuration.mandatory,
-                    valid: validValue,
-                })
-                stepSetValues(_values)
-                window.localStorage.setItem(keyName, JSON.stringify(_values))
-            } else {
-                _values.splice(index, 1)
-                _values.push({
-                    id: configuration.id,
-                    value: '',
-                    mandatory: configuration.mandatory,
-                    valid: false,
-                })
-                stepSetValues(_values)
-                window.localStorage.setItem(keyName, JSON.stringify(_values))
-            }
+            _values.splice(index, 1)
+            _values.push({
+                id: configuration.id,
+                value: value,
+                mandatory: configuration.mandatory,
+                valid: validValue,
+            })
+            stepSetValues(_values)
+            window.localStorage.setItem(keyName, JSON.stringify(_values))
         }, [value,valid]
     )
 
@@ -122,17 +116,27 @@ const List = (props) => {
             <Tooltip target=".status"  position="top"/>
             <div className="p-inputgroup">
                 <span className="p-float-label">
-                    <MultiSelect
-                        className={((valid != 'valid') && configuration.mandatory) ? "p-invalid p-d-block" : "p-d-block"}
-                        value={value}
-                        onChange={(e) => setValue(e.value)}
-                        // onChange={(e) => newSelection(e)}
-                        options={configuration.options ? configuration.options : options}
-                        maxSelectedLabels={configuration.maxWords}
-                        disabled={configuration.disabled}
-                        // display="chip"
-                    />
-                    {/*<label htmlFor="username">{configuration.label}</label>*/}
+                    {configuration.maxWords === 1 ?
+                        <Dropdown
+                            className={((valid === 'no data') && configuration.mandatory) ? "p-invalid p-d-block" : "p-d-block"}
+                            value={value}
+                            onChange={(e) => setValue(e.value)}
+                            options={options}
+                            maxSelectedLabels={configuration.maxWords}
+                            disabled={configuration.disabled}
+                            filter={configuration.filter}
+                            optionLabel="value"
+                        />
+                        : <MultiSelect
+                            className={((valid != 'valid') && configuration.mandatory) ? "p-invalid p-d-block" : "p-d-block"}
+                            value={value}
+                            onChange={(e) => setValue(e.value)}
+                            options={options}
+                            maxSelectedLabels={configuration.maxWords}
+                            disabled={configuration.disabled}
+                            filter={configuration.filter}
+                            optionLabel="value"
+                        />}
                 </span>
                 <span className="p-inputgroup-addon" id='question' onClick={() => setDisplayDialog(true)}><i className="fad fa-question"/></span>
             </div>
@@ -140,7 +144,7 @@ const List = (props) => {
                 {configuration.minCharacters? <small className="p-d-block">{`Number of characters: ${value.length}/${configuration.maxCharacters}`}</small> : <></>}
             </div>
             <Dialog header={configuration.label} visible={displayDialog} style={{ width: '50vw' }} footer={renderQuesitonFooter('displayBasic')} onHide={() => setDisplayDialog(false)} >
-                <p>{configuration.fieldInformation}</p>
+                {ReactHtmlParser(configuration.fieldInformation)}
             </Dialog>
         </div>
     )

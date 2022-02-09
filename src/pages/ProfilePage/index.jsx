@@ -3,7 +3,7 @@ import {Card} from "primereact/card";
 import {InputText} from "primereact/inputtext";
 import {FileUpload} from "primereact/fileupload";
 import {Dropdown} from "primereact/dropdown";
-import {Button} from "primereact/components/button/Button";
+import { Button } from 'primereact/button';
 import {Toast} from "primereact/toast";
 import {useDispatch, useSelector} from "react-redux";
 import {Actions} from "../../reducer/actions";
@@ -62,7 +62,7 @@ const ProfilePage = () => {
         toast.current.show({severity:'success', summary: 'Profile Saved Successfully ', life: 3000});
     }
 
-    if (userData.name !== '') {
+    if (userData.first_name !== '') {
         return(
             <div>
                 <Toast ref={toast} />
@@ -77,13 +77,13 @@ const ProfilePage = () => {
                                     <div>
                                         <label htmlFor="firstName">First Name</label>
                                     </div>
-                                    <InputText disabled value={userData.name.split(' ')[0]} id="firstName" className="input-profile"></InputText>
+                                    <InputText disabled value={userData.first_name} id="firstName" className="input-profile"></InputText>
                                 </div>
                                 <div className="margin-bottom-40">
                                     <div>
                                         <label htmlFor="lastName">Last Name</label>
                                     </div>
-                                    <InputText disabled value={userData.name.split(' ')[1]} id="lastName" className="input-profile"></InputText>
+                                    <InputText disabled value={userData.last_name} id="lastName" className="input-profile"></InputText>
                                 </div>
                                 <div className="margin-bottom-40">
                                     <div>

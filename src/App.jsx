@@ -59,10 +59,18 @@ const App = () => {
                 localStorage.setItem("accessToken",accessToken);
             }
             if (csrfToken !== '') {
-                if (accessToken !== '') {
+                if (accessToken) {
                     getUserData(csrfToken, accessToken)
-                        .then( async res => {
-                            setUserData(await res.json())
+                        .then(async res => {
+                            const temp = await res.text()
+                            if (temp === 'Access Token has expired') {
+                                localStorage.removeItem("accessToken");
+                                setLoggedIn('logged out')
+                                setUserData({})
+                            } else {
+                                setUserData(JSON.parse(temp))
+                            }
+
                         })
                 }
             }

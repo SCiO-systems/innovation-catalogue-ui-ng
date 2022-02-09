@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect,useState} from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import {Actions} from "../../../../../../reducer/actions";
 import configurationArray from './configuration'
@@ -10,6 +10,8 @@ const BenefitImpact = () => {
 
     const benefitImpactValues = useSelector((state) => state.benefitImpactValues)
     const setBenefitImpactValues = (payload) => dispatch({ type: Actions.SetBenefitImpactValues, payload });
+
+    const [trick, setTrick] = useState(0)
 
     useEffect(
         () => {
@@ -27,11 +29,12 @@ const BenefitImpact = () => {
                     })
                 })
                 setBenefitImpactValues(temp)
+                setTrick(trick + 1)
                 window.localStorage.setItem('benefitImpactValues', JSON.stringify(temp))
             } else {
                 setBenefitImpactValues(JSON.parse(storage))
             }
-        }, []
+        }, [trick]
     )
 
     const presetValues = (headerIndex, contentIndex) => {

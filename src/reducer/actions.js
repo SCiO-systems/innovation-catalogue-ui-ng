@@ -6,6 +6,15 @@ export const Actions = {
     SetUserData: "SetUserData",
     SetStep: "SetStep",
     SetResults: "SetResults",
+    SetAccordionData: "SetAccordionData",
     SetDescriptionValues: "SetDescriptionValues",
     SetBenefitImpactValues: "SetBenefitImpactValues",
+    SetContextValues: "SetContextValues",
+    SetEvidenceValues: "SetEvidenceValues",
+    SetIntellectualPropertyValues: "SetIntellectualPropertyValues",
+    SetInterventionsValues: "SetInterventionsValues",
+    SetInvestmentValues: "SetInvestmentValues",
+    SetReadinessValues: "SetReadinessValues",
+    SetStakeholdersValues: "SetStakeholdersValues",
+
 }

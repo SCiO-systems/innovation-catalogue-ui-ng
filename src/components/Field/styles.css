@@ -1,6 +1,7 @@
 .field{
     display: flex;
     flex-direction: column;
+    gap: 10px;
     /*width: 360px;*/
     /*height: 35px;*/
 }
@@ -67,4 +68,8 @@
     border: 1px solid #1E88E5;
     background-color: #1E88E5;
     transition: color .4s, background-color .4s;
+}
+
+.p-dialog-footer .p-button {
+    background-color: #f9b403 !important;
 }

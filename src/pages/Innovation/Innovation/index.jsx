@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import InnovationService from "../../../services/InnovationService";
 import {Card} from "primereact/card";
 import {MapChart, DivBuilder} from '../components'
-import {Button} from "primereact/components/button/Button";
+import { Button } from 'primereact/button';
 import {Link, useLocation, useParams,useNavigate} from "react-router-dom";
 import {Galleria} from "primereact/galleria";
 import {Panel} from "primereact/panel";

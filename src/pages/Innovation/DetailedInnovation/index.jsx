@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import {Card} from "primereact/card";
 import InnovationService from "../../../services/InnovationService";
 import {MapChart, DivBuilder} from '../components'
-import {Button} from "primereact/components/button/Button";
+import { Button } from 'primereact/button';
 import {TabPanel, TabView} from "primereact/tabview";
 import {Link, useLocation} from "react-router-dom";
 import {Tooltip} from "primereact/tooltip";

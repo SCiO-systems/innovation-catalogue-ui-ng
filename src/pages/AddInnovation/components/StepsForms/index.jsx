@@ -3,7 +3,7 @@ import {InputText} from "primereact/inputtext";
 import {InputTextarea} from "primereact/inputtextarea";
 import {Dropdown} from "primereact/dropdown";
 import {FileUpload} from "primereact/fileupload";
-import {Button} from "primereact/components/button/Button";
+import {Button} from "primereact/button";
 import ResultsService from "../../../../services/ResultsService";
 import {PickList} from "primereact/picklist";
 import {Accordion, AccordionTab} from "primereact/accordion";
@@ -347,7 +347,7 @@ const StepsForms = (props) => {
 
     const showStepOne = () => {
 
-        setSteps("step-1");
+        setSteps(0);
 
         return (
             <>
@@ -466,7 +466,7 @@ const StepsForms = (props) => {
 
     const showStepTwo = () => {
 
-        setSteps("step-2");
+        setSteps(1);
 
         const onChange = (e) => {
             setSource(e.source);

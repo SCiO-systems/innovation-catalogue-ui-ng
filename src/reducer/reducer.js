@@ -9,9 +9,17 @@ const initState = {
     accessToken: '',
     userData: {name: '',email: ''},
     step: 0,
+    results: {},
+    accordionData: {},
     descriptionValues: [],
     benefitImpactValues: [],
-    results: {},
+    contextValues: [],
+    evidenceValues: [],
+    intellectualPropertyValues: [],
+    interventionsValues: [],
+    investmentValues: [],
+    readinessValues: [],
+    stakeholdersValues: [],
 }
 
 const reducer = (currentState = initState, action) => {
@@ -51,6 +59,11 @@ const reducer = (currentState = initState, action) => {
                 ...currentState,
                 results: action.payload
             }
+        case Actions.SetAccordionData:
+            return{
+                ...currentState,
+                accordionData: action.payload
+            }
         case Actions.SetDescriptionValues:
             return{
                 ...currentState,
@@ -60,6 +73,41 @@ const reducer = (currentState = initState, action) => {
             return{
                 ...currentState,
                 benefitImpactValues: action.payload
+            }
+        case Actions.SetContextValues:
+            return{
+                ...currentState,
+                contextValues: action.payload
+            }
+        case Actions.SetEvidenceValues:
+            return{
+                ...currentState,
+                evidenceValues: action.payload
+            }
+        case Actions.SetIntellectualPropertyValues:
+            return{
+                ...currentState,
+                intellectualPropertyValues: action.payload
+            }
+        case Actions.SetInterventionsValues:
+            return{
+                ...currentState,
+                interventionsValues: action.payload
+            }
+        case Actions.SetInvestmentValues:
+            return{
+                ...currentState,
+                investmentValues: action.payload
+            }
+        case Actions.SetReadinessValues:
+            return{
+                ...currentState,
+                readinessValues: action.payload
+            }
+        case Actions.SetStakeholdersValues:
+            return{
+                ...currentState,
+                stakeholdersValues: action.payload
             }
         default: return currentState
     }

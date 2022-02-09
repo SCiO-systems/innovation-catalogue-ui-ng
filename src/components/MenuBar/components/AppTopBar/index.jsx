@@ -4,7 +4,6 @@ import {AppMenu} from './components';
 import { InputText } from 'primereact/inputtext';
 import { Ripple } from 'primereact/ripple';
 import {useNavigate} from "react-router-dom";
-import {Button} from "primereact/components/button/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {Actions} from "../../../../reducer/actions";
 

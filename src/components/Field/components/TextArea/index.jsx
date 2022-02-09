@@ -4,6 +4,7 @@ import { InputTextarea } from 'primereact/inputtextarea';
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
 import './styles.css'
+import ReactHtmlParser from "react-html-parser";
 
 const TextArea = (props) => {
 
@@ -44,27 +45,15 @@ const TextArea = (props) => {
             const _values = stepValues
             const index = _values.indexOf(_values.find(item => item.id === configuration.id))
             const validValue = stepValues.find(item => item.id === configuration.id).valid
-            if (valid === 'valid') {
-                _values.splice(index, 1)
-                _values.push({
-                    id: configuration.id,
-                    value: value,
-                    mandatory: configuration.mandatory,
-                    valid: validValue,
-                })
-                stepSetValues(_values)
-                window.localStorage.setItem(keyName, JSON.stringify(_values))
-            } else {
-                _values.splice(index, 1)
-                _values.push({
-                    id: configuration.id,
-                    value: '',
-                    mandatory: configuration.mandatory,
-                    valid: false,
-                })
-                stepSetValues(_values)
-                window.localStorage.setItem(keyName, JSON.stringify(_values))
-            }
+            _values.splice(index, 1)
+            _values.push({
+                id: configuration.id,
+                value: value,
+                mandatory: configuration.mandatory,
+                valid: validValue,
+            })
+            stepSetValues(_values)
+            window.localStorage.setItem(keyName, JSON.stringify(_values))
         }, [value,valid]
     )
     useEffect(
@@ -124,11 +113,8 @@ const TextArea = (props) => {
                 </span>
                 <span className="p-inputgroup-addon" id='question' onClick={() => setDisplayDialog(true)}><i className="fad fa-question"/></span>
             </div>
-            <div className='field-messages'>
-                {configuration.minCharacters? <small className="p-d-block">{`Number of characters: ${value.length}/${configuration.maxCharacters}`}</small> : <></>}
-            </div>
             <Dialog header={configuration.label} visible={displayDialog} style={{ width: '50vw' }} footer={renderQuesitonFooter('displayBasic')} onHide={() => setDisplayDialog(false)} >
-                <p>{configuration.fieldInformation}</p>
+                {ReactHtmlParser(configuration.fieldInformation)}
             </Dialog>
         </div>
     )

@@ -1,7 +1,14 @@
 import React from 'react'
 import {
     Description,
-    BenefitImpact
+    BenefitImpact,
+    Context,
+    Evidence,
+    IntellectualProperty,
+    Interventions,
+    Investment,
+    Readiness,
+    Stakeholders
 } from './components'
 import {useSelector} from "react-redux";
 
@@ -17,19 +24,19 @@ const Forms = () => {
         case 1:
             return <BenefitImpact/>
         case 2:
-            return <Description/>
+            return <Context/>
         case 3:
-            return <Description/>
+            return <Evidence/>
         case 4:
-            return <Description/>
+            return <IntellectualProperty/>
         case 5:
-            return <Description/>
+            return <Interventions/>
         case 6:
-            return <Description/>
+            return <Investment/>
         case 7:
-            return <Description/>
+            return <Readiness/>
         case 8:
-            return <Description/>
+            return <Stakeholders/>
         default:
             return <Description/>
     }

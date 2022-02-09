@@ -1,0 +1,18 @@
+.field .field-messages{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    /*padding: 0.5vh;*/
+}
+
+.field.accordion .p-inputgroup {
+    height: unset;
+    width: unset;
+}
+
+.field .p-accordion {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}

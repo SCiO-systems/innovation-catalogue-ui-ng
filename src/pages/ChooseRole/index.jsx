@@ -1,5 +1,5 @@
 import React, {useEffect,useState} from "react";
-import {Button} from "primereact/components/button/Button";
+import { Button } from 'primereact/button';
 import user from "../../assets/roles/OF166L0.png";
 import investor from "../../assets/roles/OF166L01.png";
 import evaluator from "../../assets/roles/OF166L02.png";

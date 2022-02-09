@@ -3,7 +3,7 @@ import {Steps} from "primereact/steps";
 import {Card} from "primereact/card";
 import {StepsForms, Forms} from "./components";
 import ResultsService from "../../services/ResultsService";
-import {Button} from "primereact/components/button/Button";
+import {Button} from "primereact/button";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {Actions} from "../../reducer/actions";
@@ -18,14 +18,36 @@ const AddInnovation = () => {
     const results = useSelector((state) => state.results)
     const setResults = (payload) => dispatch({ type: Actions.SetResults, payload });
 
+    const setAccordionData = (payload) => dispatch({ type: Actions.SetAccordionData, payload });
+
     const resultService = new ResultsService();
     const myInnovationsUrl = "/innovations";
+
+    const benefitImpactValues = useSelector((state) => state.benefitImpactValues)
+
+    const contextValues = useSelector((state) => state.contextValues)
+
+    const descriptionValues = useSelector((state) => state.descriptionValues)
+
+    const evidenceValues = useSelector((state) => state.evidenceValues)
+
+    const intellectualPropertyValues = useSelector((state) => state.intellectualPropertyValues)
+
+    const interventionsValues = useSelector((state) => state.interventionsValues)
+
+    const investmentValues = useSelector((state) => state.investmentValues)
+
+    const readinessValues = useSelector((state) => state.readinessValues)
+
+    const stakeholdersValues = useSelector((state) => state.stakeholdersValues)
 
     useEffect(() => {
 
         resultService.getResults()
             .then(data => setResults(data));
 
+        resultService.getSteps()
+            .then(data => setAccordionData(data));
     },[]);
 
     const items = [
@@ -66,7 +88,7 @@ const AddInnovation = () => {
                 </div>
                 <div className="step-1 steps-forms-container">
                     <Card className="forms-card steps-card">
-                        <StepsForms activeIndex={step} results={results.summaries}></StepsForms>
+                        <StepsForms activeIndex={step} results={results.summaries}/>
                         <Forms />
                     </Card>
                     <Card className="margin-bottom-80 buttons-card-steps steps-card">
