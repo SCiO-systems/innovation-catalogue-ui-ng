@@ -16,5 +16,5 @@ export const Actions = {
     SetInvestmentValues: "SetInvestmentValues",
     SetReadinessValues: "SetReadinessValues",
     SetStakeholdersValues: "SetStakeholdersValues",
-
+    SetInnovations: "SetInnovations",
 }

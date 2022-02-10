@@ -4,11 +4,13 @@ import {Card} from "primereact/card";
 import {StepsForms, Forms} from "./components";
 import ResultsService from "../../services/ResultsService";
 import {Button} from "primereact/button";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {Actions} from "../../reducer/actions";
 
 const AddInnovation = () => {
+
+    const navigate = useNavigate();
 
     const dispatch = useDispatch();
 
@@ -24,26 +26,54 @@ const AddInnovation = () => {
     const myInnovationsUrl = "/innovations";
 
     const benefitImpactValues = useSelector((state) => state.benefitImpactValues)
+    const setBenefitImpactValues = (payload) => dispatch({ type: Actions.SetBenefitImpactValues, payload });
 
     const contextValues = useSelector((state) => state.contextValues)
+    const setContextValues = (payload) => dispatch({ type: Actions.SetContextValues, payload });
 
     const descriptionValues = useSelector((state) => state.descriptionValues)
+    const setDescriptionValues = (payload) => dispatch({ type: Actions.SetDescriptionValues, payload });
 
     const evidenceValues = useSelector((state) => state.evidenceValues)
+    const setEvidenceValues = (payload) => dispatch({ type: Actions.SetEvidenceValues, payload });
 
     const intellectualPropertyValues = useSelector((state) => state.intellectualPropertyValues)
+    const setIntellectualPropertyValues = (payload) => dispatch({ type: Actions.SetIntellectualPropertyValues, payload });
 
     const interventionsValues = useSelector((state) => state.interventionsValues)
+    const setInterventionsValues = (payload) => dispatch({ type: Actions.SetInterventionsValues, payload });
 
     const investmentValues = useSelector((state) => state.investmentValues)
+    const setInvestmentValues = (payload) => dispatch({ type: Actions.SetInvestmentValues, payload });
 
     const readinessValues = useSelector((state) => state.readinessValues)
+    const setReadinessValues = (payload) => dispatch({ type: Actions.SetReadinessValues, payload });
 
     const stakeholdersValues = useSelector((state) => state.stakeholdersValues)
+    const setStakeholdersValues = (payload) => dispatch({ type: Actions.SetStakeholdersValues, payload });
 
-
+    const innovations = useSelector((state) => state.innovations)
+    const setInnovations = (payload) => dispatch({ type: Actions.SetInnovations, payload });
 
     useEffect(() => {
+        let storage = window.localStorage.getItem('descriptionValues')
+        if (storage) setDescriptionValues(JSON.parse(storage))
+        storage = window.localStorage.getItem('benefitImpactValues')
+        if (storage) setBenefitImpactValues(JSON.parse(storage))
+        storage = window.localStorage.getItem('contextValues')
+        if (storage) setContextValues(JSON.parse(storage))
+        storage = window.localStorage.getItem('evidenceValues')
+        if (storage) setEvidenceValues(JSON.parse(storage))
+        storage = window.localStorage.getItem('intellectualPropertyValues')
+        if (storage) setIntellectualPropertyValues(JSON.parse(storage))
+        storage = window.localStorage.getItem('interventionsValues')
+        if (storage) setInterventionsValues(JSON.parse(storage))
+        storage = window.localStorage.getItem('investmentValues')
+        if (storage) setInvestmentValues(JSON.parse(storage))
+        storage = window.localStorage.getItem('readinessValues')
+        if (storage) setReadinessValues(JSON.parse(storage))
+        storage = window.localStorage.getItem('stakeholdersValues')
+        if (storage) setStakeholdersValues(JSON.parse(storage))
 
         resultService.getResults()
             .then(data => setResults(data));
@@ -66,15 +96,6 @@ const AddInnovation = () => {
 
     const buttonNextHandler = () => {
 
-        const allFields = [...benefitImpactValues, ...contextValues, ...descriptionValues, ...evidenceValues, ...intellectualPropertyValues, ...interventionsValues, ...investmentValues, ...readinessValues, ...stakeholdersValues]
-        console.log(allFields)
-        const mandatoryFields = allFields.filter(item => item.mandatory === true)
-        console.log(mandatoryFields)
-        const validFields = mandatoryFields.filter(item => item.valid === true)
-        console.log(validFields)
-        const invalidFields = mandatoryFields.filter(item => item.valid === false)
-        console.log(invalidFields)
-
         if(step < items.length -1){
             setStep(step + 1)
         }
@@ -84,6 +105,30 @@ const AddInnovation = () => {
         if(step > 0){
             setStep(step - 1)
         }
+    }
+
+    const addInnovation = () => {
+        const allFields = [...benefitImpactValues, ...contextValues, ...descriptionValues, ...evidenceValues, ...intellectualPropertyValues, ...interventionsValues, ...investmentValues, ...readinessValues, ...stakeholdersValues]
+        const mandatoryFields = allFields.filter(item => item.mandatory === true)
+        const validFields = mandatoryFields.filter(item => item.valid === true)
+        const invalidFields = mandatoryFields.filter(item => item.valid === false)
+        let status
+        if (invalidFields.length === 0 ) {
+            status = 'Submit to the Reviewer'
+        } else {
+            status = 'Draft'
+        }
+        const title = allFields.find(item => item.id === "1.1").value
+        const dateSubmitted = (new Date()).toString()
+        const newInnovation = {
+            id: Math.random(),
+            title,
+            status,
+            dateSubmitted,
+            fields: allFields
+        }
+        setInnovations([...innovations,newInnovation])
+        navigate(myInnovationsUrl)
     }
 
     const renderPage = () => {
@@ -109,9 +154,7 @@ const AddInnovation = () => {
                             {step < items.length -1 ? <Button icon="fad fa-chevron-right fa-lg" label="Next" iconPos="right" className="next-step-button" onClick={buttonNextHandler}></Button>:console.log()}
                             {
                                 step === 8 ?
-                                <Link to={myInnovationsUrl}>
-                                    <Button icon="fad fa-plus fa-lg" label="Add Innovation" iconPos="right" className="next-step-button"></Button>
-                                </Link>:console.log()
+                                <Button icon="fad fa-plus fa-lg" label="Add Innovation" iconPos="right" className="next-step-button" onClick={addInnovation}/> : <></>
                             }
                         </div>
                     </Card>

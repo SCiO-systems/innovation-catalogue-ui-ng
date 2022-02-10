@@ -1,0 +1,12 @@
+.my-innovations-table {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+}
+.my-innovations-table  .table-margin{
+    width: 80%;
+    margin-top: 10%;
+}

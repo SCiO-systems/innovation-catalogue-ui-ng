@@ -20,6 +20,7 @@ const initState = {
     investmentValues: [],
     readinessValues: [],
     stakeholdersValues: [],
+    innovations: [],
 }
 
 const reducer = (currentState = initState, action) => {
@@ -109,6 +110,12 @@ const reducer = (currentState = initState, action) => {
                 ...currentState,
                 stakeholdersValues: action.payload
             }
+        case Actions.SetInnovations:
+            return{
+                ...currentState,
+                innovations: action.payload
+            }
+
         default: return currentState
     }
 }

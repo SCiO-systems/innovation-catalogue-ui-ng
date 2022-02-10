@@ -15,7 +15,6 @@ const Description = () => {
         () => {
             const storage = window.localStorage.getItem('descriptionValues')
             if (!storage) {
-                console.log('hi')
                 const temp = []
                 configurationArray.map(tab => {
                     return tab.content.map(item => {

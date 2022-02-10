@@ -68,6 +68,7 @@ const App = () => {
                                 setLoggedIn('logged out')
                                 setUserData({})
                             } else {
+                                console.log(JSON.parse(temp))
                                 setUserData(JSON.parse(temp))
                             }
 

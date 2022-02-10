@@ -31,13 +31,13 @@ const ProfilePage = () => {
     const toast = useRef(null);
 
     const roles = [
-        { name: 'Innovation User', code: '1' },
-        { name: 'Investor/Donor', code: '2' },
-        { name: 'Evaluator', code: '3' },
-        { name: 'Monitoring Officer', code: '4' },
-        { name: 'Impact Assessment Officer', code: '5' },
-        { name: 'Knowledge Sharing and Communication Officer', code: '6' },
-        { name: 'Project/Program Manager', code: '7' }
+        { name: 'Innovation User', code: '1',keyword: 'user' },
+        { name: 'Investor/Donor', code: '2',keyword: 'donor'  },
+        { name: 'Evaluator', code: '3',keyword: 'evaluator' },
+        { name: 'Monitoring Officer', code: '4' ,keyword: 'monitoring_officer'},
+        { name: 'Impact Assessment Officer', code: '5' ,keyword: 'impact_officer'},
+        { name: 'Knowledge Sharing and Communication Officer', code: '6',keyword: 'km_officer' },
+        { name: 'Project/Program Manager', code: '7',keyword: 'project_manager' }
     ];
 
     const organizations = [
@@ -50,7 +50,17 @@ const ProfilePage = () => {
         { name: 'Mbeya Agricultural Research and Training Institute', code: '7' },
     ];
 
+    useEffect(
+        () => {
+            const temp = localStorage.getItem("selectedRole")
+            if (temp) {
+                setSelectedRole(roles.find(item => item.keyword === temp ))
+            }
+        },[]
+    )
+
     const onRoleChange = (e) => {
+        localStorage.setItem("selectedRole", e.value.keyword)
         setSelectedRole(e.value);
     }
 
