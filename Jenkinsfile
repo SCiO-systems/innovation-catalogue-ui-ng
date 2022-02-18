@@ -27,7 +27,7 @@ pipeline {
 
                     script {
                         sh "cp /envs/reactjs/fontawesome_npmrc .npmrc"
-                        sh "cp /envs/reactjs/${project_name}/${stage_tag}.env ."
+                        sh "cp /envs/reactjs/${project_name}/${stage_tag}.env .env"
 
                         docker.withRegistry('https://index.docker.io/v1/', 'DockerHub') {
                             docker.build("sciohub/${project_name}:${stage_tag}", ".").push()
