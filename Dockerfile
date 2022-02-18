@@ -3,6 +3,7 @@ FROM node:14.18.0-alpine as build
 WORKDIR /app
 
 COPY .npmrc ./
+COPY .env ./
 COPY package*.json ./
 
 RUN npm ci --production
