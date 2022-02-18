@@ -12,9 +12,6 @@ import worldIcon from '../../assets/home/worldIcon.png'
 import {useDispatch, useSelector} from "react-redux";
 import {Actions} from "../../reducer/actions";
 
-import TestService from '../../services/axios-test/testing'
-import CsrfService from '../../services/axios-test/csrf'
-
 const Home = () => {
 
     const dispatch = useDispatch();
@@ -98,12 +95,7 @@ const Home = () => {
                     className="buttons-heading margin-top-120">What do you want to do?</h1>
                 <div className="p-grid p-justify-center margin-top-80 home_todo">
                     <div className="col-4 margin-right-70 responsive-buttons-layout">
-                        <a onClick={async() => {
-                            TestService.test(csrfToken)
-                                .then(res => {
-                                    console.log(res)
-                                })
-                            setHaveWeReceivedPostResponseState(await CsrfService.testCsurfPostClick(csrfToken))
+                        <a onClick={() => {
                             navigate(searchUrl)
                         }}>
                             <img style={{height:"300px"} } src={searchImage}></img>

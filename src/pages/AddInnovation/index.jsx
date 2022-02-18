@@ -7,12 +7,15 @@ import {Button} from "primereact/button";
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {Actions} from "../../reducer/actions";
+import {insertInnovation} from '../../services/httpService/innovation'
 
 const AddInnovation = () => {
 
     const navigate = useNavigate();
 
     const dispatch = useDispatch();
+
+    const csrfToken = useSelector((state) => state.csrfToken)
 
     const step = useSelector((state) => state.step)
     const setStep = (payload) => dispatch({ type: Actions.SetStep, payload });
@@ -21,6 +24,8 @@ const AddInnovation = () => {
     const setResults = (payload) => dispatch({ type: Actions.SetResults, payload });
 
     const setAccordionData = (payload) => dispatch({ type: Actions.SetAccordionData, payload });
+
+    const userData = useSelector((state) => state.userData)
 
     const resultService = new ResultsService();
     const myInnovationsUrl = "/innovations";
@@ -55,7 +60,34 @@ const AddInnovation = () => {
     const innovations = useSelector((state) => state.innovations)
     const setInnovations = (payload) => dispatch({ type: Actions.SetInnovations, payload });
 
+    const editingInnovation = useSelector((state) => state.editingInnovation)
+    const setEditingInnovation = (payload) => dispatch({ type: Actions.SetEditingInnovation, payload });
+
+    const resetInnovation = () => {
+
+        setDescriptionValues([])
+        setBenefitImpactValues([])
+        setContextValues([])
+        setEvidenceValues([])
+        setIntellectualPropertyValues([])
+        setInterventionsValues([])
+        setInvestmentValues([])
+        setReadinessValues([])
+        setStakeholdersValues([])
+
+        window.localStorage.removeItem('descriptionValues')
+        window.localStorage.removeItem('benefitImpactValues')
+        window.localStorage.removeItem('contextValues')
+        window.localStorage.removeItem('evidenceValues')
+        window.localStorage.removeItem('intellectualPropertyValues')
+        window.localStorage.removeItem('interventionsValues')
+        window.localStorage.removeItem('investmentValues')
+        window.localStorage.removeItem('readinessValues')
+        window.localStorage.removeItem('stakeholdersValues')
+    }
+
     useEffect(() => {
+
         let storage = window.localStorage.getItem('descriptionValues')
         if (storage) setDescriptionValues(JSON.parse(storage))
         storage = window.localStorage.getItem('benefitImpactValues')
@@ -81,6 +113,14 @@ const AddInnovation = () => {
         resultService.getSteps()
             .then(data => setAccordionData(data));
     },[]);
+
+    // useEffect(
+    //     () => {
+    //         if(editingInnovation === '') {
+    //             resetInnovation()
+    //         }
+    //     }, [editingInnovation]
+    // )
 
     const items = [
         {label: 'Description'},
@@ -110,6 +150,29 @@ const AddInnovation = () => {
     const addInnovation = () => {
         const allFields = [...benefitImpactValues, ...contextValues, ...descriptionValues, ...evidenceValues, ...intellectualPropertyValues, ...interventionsValues, ...investmentValues, ...readinessValues, ...stakeholdersValues]
         const mandatoryFields = allFields.filter(item => item.mandatory === true)
+        const invalidFields = mandatoryFields.filter(item => item.valid === false)
+        let status
+        if (invalidFields.length === 0 ) {
+            status = 'READY'
+        } else {
+            status = 'DRAFT'
+        }
+
+        console.log(userData.user.userId)
+
+        insertInnovation(csrfToken, userData.user.userId, allFields,status)
+
+        // resetInnovation()
+
+        navigate(myInnovationsUrl)
+    }
+
+    const editInnovation = () => {
+
+        const innovation = innovations.find(item => item.id === editingInnovation)
+
+        const allFields = [...benefitImpactValues, ...contextValues, ...descriptionValues, ...evidenceValues, ...intellectualPropertyValues, ...interventionsValues, ...investmentValues, ...readinessValues, ...stakeholdersValues]
+        const mandatoryFields = allFields.filter(item => item.mandatory === true)
         const validFields = mandatoryFields.filter(item => item.valid === true)
         const invalidFields = mandatoryFields.filter(item => item.valid === false)
         let status
@@ -118,16 +181,24 @@ const AddInnovation = () => {
         } else {
             status = 'Draft'
         }
-        const title = allFields.find(item => item.id === "1.1").value
-        const dateSubmitted = (new Date()).toString()
+        const title = allFields.find(item => item.id === "1.1")?.value
+        const dateSubmitted = innovation.dateSubmitted
+        const dateUpdated = (new Date()).toString()
         const newInnovation = {
-            id: Math.random(),
+            id: editingInnovation,
             title,
             status,
             dateSubmitted,
+            dateUpdated,
             fields: allFields
         }
-        setInnovations([...innovations,newInnovation])
+        const _innovations = innovations.filter(item => item.id !== editingInnovation)
+        setInnovations([..._innovations,newInnovation])
+
+        resetInnovation()
+
+        setEditingInnovation('')
+
         navigate(myInnovationsUrl)
     }
 
@@ -154,7 +225,10 @@ const AddInnovation = () => {
                             {step < items.length -1 ? <Button icon="fad fa-chevron-right fa-lg" label="Next" iconPos="right" className="next-step-button" onClick={buttonNextHandler}></Button>:console.log()}
                             {
                                 step === 8 ?
-                                <Button icon="fad fa-plus fa-lg" label="Add Innovation" iconPos="right" className="next-step-button" onClick={addInnovation}/> : <></>
+                                (
+                                    editingInnovation? <Button icon="fad fa-plus fa-lg" label="Edit Innovation" iconPos="right" className="next-step-button" onClick={editInnovation}/>:
+                                    <Button icon="fad fa-plus fa-lg" label="Add Innovation" iconPos="right" className="next-step-button" onClick={addInnovation}/>
+                                ) : <></>
                             }
                         </div>
                     </Card>

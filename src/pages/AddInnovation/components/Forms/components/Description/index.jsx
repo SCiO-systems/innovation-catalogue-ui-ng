@@ -8,6 +8,8 @@ const Description = () => {
 
     const dispatch = useDispatch();
 
+    const editingInnovation = useSelector((state) => state.editingInnovation)
+
     const descriptionValues = useSelector((state) => state.descriptionValues)
     const setDescriptionValues = (payload) => dispatch({ type: Actions.SetDescriptionValues, payload });
 
@@ -31,7 +33,7 @@ const Description = () => {
             } else {
                 setDescriptionValues(JSON.parse(storage))
             }
-        }, []
+        }, [editingInnovation]
     )
 
     const presetValues = (headerIndex, contentIndex) => {

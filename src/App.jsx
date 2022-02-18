@@ -11,7 +11,7 @@ import DetailedInnovation from './pages/Innovation/DetailedInnovation'
 import ProfilePage from './pages/ProfilePage'
 import Descriptors from './pages/Descriptors'
 import AddInnovation from './pages/AddInnovation'
-import MyInnovations from "./pages/MyInnovations";
+import ManageInnovations from "./pages/ManageInnovations";
 import Login from './pages/Login/Login'
 import LoginRedirected from './pages/Login/LoginRedirected'
 import {HashRouter as Router, Route, Routes} from "react-router-dom";
@@ -23,8 +23,9 @@ import PrimeReact from 'primereact/api';
 import './App.scss';
 import {useDispatch, useSelector} from "react-redux";
 import {Actions} from "./reducer/actions";
-import CsrfService from "./services/axios-test/csrf";
-import {getUserData} from './services/AuthorizationService'
+import {getCsrfToken} from './services/httpService/csrf'
+import {getMelUserData} from './services/httpService/melLogin'
+import {getUserData} from './services/httpService/user'
 
 PrimeReact.ripple = true;
 
@@ -38,44 +39,69 @@ const App = () => {
     const accessToken = useSelector((state) => state.accessToken)
     const setAccessToken = (payload) => dispatch({ type: Actions.SetAccessToken, payload });
 
+    const userData = useSelector((state) => state.userData)
     const setUserData = (payload) => dispatch({ type: Actions.SetUserData, payload });
+
+    const melUserData = useSelector((state) => state.melUserData)
+    const setMelUserData = (payload) => dispatch({ type: Actions.SetMelUserData, payload });
 
     const setLoggedIn = (payload) => dispatch({ type: Actions.SetLoggedIn, payload });
 
     const [menuActive, setMenuActive] = useState(false);
 
-    useEffect(async () => {
-        setCsrfToken(await CsrfService.getCallToForm());
+    useEffect(() => {
+        getCsrfToken()
+            .then(res => {
+                setCsrfToken(res)
+            })
         const token = localStorage.getItem("accessToken");
         if (token) {
             setAccessToken(token)
             setLoggedIn('logged in')
         }
+        const data = localStorage.getItem("melUserData");
+        if (data) {
+            setMelUserData(JSON.parse(data))
+        }
     }, [])
 
     useEffect(
         () => {
-            if (!localStorage.getItem("accessToken")) {
-                localStorage.setItem("accessToken",accessToken);
-            }
             if (csrfToken !== '') {
                 if (accessToken) {
-                    getUserData(csrfToken, accessToken)
+                    getMelUserData(csrfToken, accessToken)
                         .then(async res => {
                             const temp = await res.text()
                             if (temp === 'Access Token has expired') {
                                 localStorage.removeItem("accessToken");
+                                localStorage.removeItem("melUserData");
                                 setLoggedIn('logged out')
-                                setUserData({})
+                                setMelUserData({})
+                                setAccessToken('')
                             } else {
-                                console.log(JSON.parse(temp))
-                                setUserData(JSON.parse(temp))
+                                setMelUserData(JSON.parse(temp))
+                                localStorage.setItem("melUserData",temp);
                             }
-
                         })
+                        .catch(err => console.log(err))
                 }
             }
         }, [accessToken]
+    )
+
+    useEffect(
+        () => {
+            if (melUserData.profile_id) {
+                if (csrfToken !== '') {
+                    getUserData(csrfToken,melUserData.profile_id)
+                        .then(async res => {
+                            setUserData(await res.json())
+                        })
+                        .catch(err => console.log(err))
+                }
+
+                }
+        },[melUserData,csrfToken]
     )
 
     const layoutContainerClassName = classNames('layout-container', {
@@ -101,7 +127,7 @@ const App = () => {
                         <Route path={'/search/'} element={<Search/>} />
                         <Route path={'/role'} element={<ChooseRole/>} />
                         <Route path={'/profile'} element={<ProfilePage/>} />
-                        <Route path={'/innovations'} element={<MyInnovations/>} />
+                        <Route path={'/innovations'} element={<ManageInnovations/>} />
                         <Route path={'/descriptors'} element={<Descriptors/>} />
                         <Route path={'/add-innovation'} element={<AddInnovation/>} />
                         <Route path={'/innovation/:id'} element={<Innovation/>} />

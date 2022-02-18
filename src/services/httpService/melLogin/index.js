@@ -1,6 +1,8 @@
+import {domainUrl} from '../../config'
+
 const getAccessToken = async (csrfToken, code) => {
 
-    const response = await fetch(`http://localHost:5000/api/login/accessToken`, {
+    return await fetch(`${domainUrl}/api/melLogin/accessToken`, {
         method: 'POST',
         headers: {
             Accept: "application/json",
@@ -11,13 +13,11 @@ const getAccessToken = async (csrfToken, code) => {
         credentials: "include",
         mode: "cors"
     })
-
-    return response
 }
 
-const getUserData = async (csrfToken, accessToken) => {
+const getMelUserData = async (csrfToken, accessToken) => {
 
-    const response = await fetch(`http://localHost:5000/api/login/userData`, {
+    return await fetch(`${domainUrl}/api/melLogin/userData`, {
         method: 'POST',
         headers: {
             Accept: "application/json",
@@ -28,8 +28,6 @@ const getUserData = async (csrfToken, accessToken) => {
         credentials: "include",
         mode: "cors"
     })
-
-    return response
 }
 
-export {getAccessToken, getUserData}
+export {getAccessToken, getMelUserData}

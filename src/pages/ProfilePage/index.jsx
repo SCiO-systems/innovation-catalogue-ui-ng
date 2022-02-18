@@ -8,6 +8,7 @@ import {Toast} from "primereact/toast";
 import {useDispatch, useSelector} from "react-redux";
 import {Actions} from "../../reducer/actions";
 import {useNavigate} from "react-router-dom";
+import {updateUserRole} from '../../services/httpService/user'
 
 const ProfilePage = () => {
 
@@ -15,16 +16,9 @@ const ProfilePage = () => {
 
     const navigate = useNavigate();
 
-    const userData = useSelector((state) => state.userData)
-    const setUserData = (payload) => dispatch({ type: Actions.SetUserData, payload });
+    const melUserData = useSelector((state) => state.melUserData)
 
-    // useEffect(
-    //     () => {
-    //         if (userData.name === '') {
-    //             navigate('/login')
-    //         }
-    //     }, [userData]
-    // )
+    const csrfToken = useSelector((state) => state.csrfToken)
 
     const [selectedRole, setSelectedRole] = useState(null);
     const [selectedOrganization, setSelectedOrganization] = useState(null);
@@ -62,6 +56,7 @@ const ProfilePage = () => {
     const onRoleChange = (e) => {
         localStorage.setItem("selectedRole", e.value.keyword)
         setSelectedRole(e.value);
+        updateUserRole(csrfToken,melUserData.profile_id, e.value.name)
     }
 
     const onOrganizationChange = (e) => {
@@ -72,7 +67,7 @@ const ProfilePage = () => {
         toast.current.show({severity:'success', summary: 'Profile Saved Successfully ', life: 3000});
     }
 
-    if (userData.first_name !== '') {
+    if (melUserData.first_name !== '') {
         return(
             <div>
                 <Toast ref={toast} />
@@ -87,19 +82,19 @@ const ProfilePage = () => {
                                     <div>
                                         <label htmlFor="firstName">First Name</label>
                                     </div>
-                                    <InputText disabled value={userData.first_name} id="firstName" className="input-profile"></InputText>
+                                    <InputText disabled value={melUserData.first_name} id="firstName" className="input-profile"></InputText>
                                 </div>
                                 <div className="margin-bottom-40">
                                     <div>
                                         <label htmlFor="lastName">Last Name</label>
                                     </div>
-                                    <InputText disabled value={userData.last_name} id="lastName" className="input-profile"></InputText>
+                                    <InputText disabled value={melUserData.last_name} id="lastName" className="input-profile"></InputText>
                                 </div>
                                 <div className="margin-bottom-40">
                                     <div>
                                         <label htmlFor="email">Email</label>
                                     </div>
-                                    <InputText id="email" disabled value={userData.email} className="input-profile"></InputText>
+                                    <InputText id="email" disabled value={melUserData.email} className="input-profile"></InputText>
                                 </div>
                                 <div className="margin-bottom-40">
                                     <div>

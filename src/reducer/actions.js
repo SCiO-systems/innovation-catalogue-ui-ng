@@ -3,6 +3,7 @@ export const Actions = {
     SetLoggedIn: "SetLoggedIn",
     SetCsrfToken: "SetCsrfToken",
     SetAccessToken: "SetAccessToken",
+    SetMelUserData: "SetMelUserData",
     SetUserData: "SetUserData",
     SetStep: "SetStep",
     SetResults: "SetResults",
@@ -17,4 +18,5 @@ export const Actions = {
     SetReadinessValues: "SetReadinessValues",
     SetStakeholdersValues: "SetStakeholdersValues",
     SetInnovations: "SetInnovations",
+    SetEditingInnovation: "SetEditingInnovation",
 }

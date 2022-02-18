@@ -16,7 +16,7 @@ const Login = () => {
 
 	// useEffect(
 	// 	() => {
-	// 		if (userData.name !== '') {
+	// 		if (user.name !== '') {
 	// 			navigate('/profile')
 	// 		}
 	// 	},[]

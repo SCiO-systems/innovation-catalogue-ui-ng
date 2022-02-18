@@ -1,13 +1,12 @@
 import {Actions} from './actions'
 
-const page = window.location.hash.split('/')[1];
-
 const initState = {
     currentPage: '',
     loggedIn: 'logged out',
     csrfToken: '',
     accessToken: '',
-    userData: {name: '',email: ''},
+    melUserData: {},
+    userData: {},
     step: 0,
     results: {},
     accordionData: {},
@@ -21,6 +20,7 @@ const initState = {
     readinessValues: [],
     stakeholdersValues: [],
     innovations: [],
+    editingInnovation:'',
 }
 
 const reducer = (currentState = initState, action) => {
@@ -44,6 +44,11 @@ const reducer = (currentState = initState, action) => {
             return{
                 ...currentState,
                 accessToken: action.payload
+            }
+        case Actions.SetMelUserData:
+            return{
+                ...currentState,
+                melUserData: action.payload
             }
         case Actions.SetUserData:
             return{
@@ -115,7 +120,11 @@ const reducer = (currentState = initState, action) => {
                 ...currentState,
                 innovations: action.payload
             }
-
+        case Actions.SetEditingInnovation:
+            return{
+                ...currentState,
+                editingInnovation: action.payload
+            }
         default: return currentState
     }
 }

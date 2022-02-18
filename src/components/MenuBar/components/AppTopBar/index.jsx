@@ -14,6 +14,8 @@ const AppTopBar = (props) => {
     const loggedIn = useSelector((state) => state.loggedIn)
     const setLoggedIn = (payload) => dispatch({ type: Actions.SetLoggedIn, payload });
 
+    const setEditingInnovation = (payload) => dispatch({ type: Actions.SetEditingInnovation, payload });
+
     const setUserData = (payload) => dispatch({ type: Actions.SetUserData, payload });
 
     const [role, setRole] = useState(null);
@@ -181,7 +183,10 @@ const AppTopBar = (props) => {
 
                     </li>
                     <li role="menuitem">
-                        <a onClick={() => navigate(addInnovationUrl)}>
+                        <a onClick={() => {
+                            setEditingInnovation('')
+                            navigate(addInnovationUrl)
+                        }}>
                             <button type="button" className="p-link p-ripple" onClick={onItemClick}>
                                 <i className="pi pi-plus icon-menu-topbar"></i>
                                 <span>Add Innovation</span>
