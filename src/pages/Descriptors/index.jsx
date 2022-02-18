@@ -8,7 +8,6 @@ import {InputText} from "primereact/inputtext";
 import {InputNumber} from "primereact/inputnumber";
 import {Dropdown} from "primereact/dropdown";
 import {Dialog} from "primereact/dialog";
-import {disable} from "@amcharts/amcharts4/.internal/core/utils/Debug";
 
 const Descriptors = () => {
     const [innovations, setInnovations] = useState(null);
