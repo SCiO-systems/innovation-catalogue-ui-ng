@@ -3,7 +3,6 @@ import * as am4core from "@amcharts/amcharts4/core";
 import * as am4maps from "@amcharts/amcharts4/maps";
 import am4geodata_worldHigh from "@amcharts/amcharts4-geodata/worldHigh";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-import am4geodata_unRegionsHigh from "@amcharts/amcharts4-geodata/unRegionsHigh";
 
 const MapChart = (props) => {
 
