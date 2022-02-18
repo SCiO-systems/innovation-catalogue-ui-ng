@@ -1,4 +1,4 @@
-import {domainUrl} from '../../config'
+const domainUrl = process.env.REACT_APP_DOMAIN_URL
 
 const insertInnovation = async (csrfToken, id, form_data,status) => {
 

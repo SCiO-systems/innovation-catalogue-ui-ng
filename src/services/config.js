@@ -1,1 +1,0 @@
-export const domainUrl = "http://localHost:5000"

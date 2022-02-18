@@ -1,6 +1,7 @@
-import {domainUrl} from '../../config'
+const domainUrl = process.env.REACT_APP_DOMAIN_URL
 
 const getCsrfToken = async () => {
+
     let fetchGetResponse = await fetch(`${domainUrl}/form`, {
         method: 'GET',
         headers: {
