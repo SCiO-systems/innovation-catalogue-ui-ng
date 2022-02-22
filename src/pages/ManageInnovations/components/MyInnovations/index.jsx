@@ -81,17 +81,32 @@ const MyInnovations = () => {
 
     const editInnovation = (id) => {
 
-        const innovation = innovations.find(item => item.id === id)
+        console.log(innovations)
 
-        setDescriptionValues(innovation.fields.filter(item => item.id[0] === '1'))
-        setBenefitImpactValues(innovation.fields.filter(item => item.id[0] === '2'))
-        setContextValues(innovation.fields.filter(item => item.id[0] === '3'))
-        setEvidenceValues(innovation.fields.filter(item => item.id[0] === '4'))
-        setIntellectualPropertyValues(innovation.fields.filter(item => item.id[0] === '5'))
-        setInterventionsValues(innovation.fields.filter(item => item.id[0] === '6'))
-        setInvestmentValues(innovation.fields.filter(item => item.id[0] === '7'))
-        setReadinessValues(innovation.fields.filter(item => item.id[0] === '8'))
-        setStakeholdersValues(innovation.fields.filter(item => item.id[0] === '9'))
+        const innovation = innovations.find(item => item.innovId === id)
+
+
+        console.log(innovation)
+
+        window.localStorage.setItem('descriptionValues', JSON.stringify(innovation.formData.filter(item => item.id[0] === '1')))
+        window.localStorage.setItem('benefitImpactValues',JSON.stringify(innovation.formData.filter(item => item.id[0] === '2')))
+        window.localStorage.setItem('contextValues',JSON.stringify(innovation.formData.filter(item => item.id[0] === '3')))
+        window.localStorage.setItem('evidenceValues',JSON.stringify(innovation.formData.filter(item => item.id[0] === '4')))
+        window.localStorage.setItem('intellectualPropertyValues',JSON.stringify(innovation.formData.filter(item => item.id[0] === '5')))
+        window.localStorage.setItem('interventionsValues',JSON.stringify(innovation.formData.filter(item => item.id[0] === '6')))
+        window.localStorage.setItem('investmentValues',JSON.stringify(innovation.formData.filter(item => item.id[0] === '7')))
+        window.localStorage.setItem('readinessValues',JSON.stringify(innovation.formData.filter(item => item.id[0] === '8')))
+        window.localStorage.setItem('stakeholdersValues',JSON.stringify(innovation.formData.filter(item => item.id[0] === '9')))
+
+        setDescriptionValues(innovation.formData.filter(item => item.id[0] === '1'))
+        setBenefitImpactValues(innovation.formData.filter(item => item.id[0] === '2'))
+        setContextValues(innovation.formData.filter(item => item.id[0] === '3'))
+        setEvidenceValues(innovation.formData.filter(item => item.id[0] === '4'))
+        setIntellectualPropertyValues(innovation.formData.filter(item => item.id[0] === '5'))
+        setInterventionsValues(innovation.formData.filter(item => item.id[0] === '6'))
+        setInvestmentValues(innovation.formData.filter(item => item.id[0] === '7'))
+        setReadinessValues(innovation.formData.filter(item => item.id[0] === '8'))
+        setStakeholdersValues(innovation.formData.filter(item => item.id[0] === '9'))
 
         setEditingInnovation(id)
 
@@ -104,7 +119,7 @@ const MyInnovations = () => {
             <div>
                 <Tooltip target=".button-edit"  position="left"/>
                 <span className="button-edit" data-pr-tooltip="Edit">
-                    <Button id={data.id} icon="fad fa-pencil fa-lg" className="button-edit-table margin-right" onClick={(e) => editInnovation(e.target.id)}/>
+                    <Button id={data.innovId} icon="fad fa-pencil fa-lg" className="button-edit-table margin-right" onClick={(e) => editInnovation(e.target.id)}/>
                 </span>
                 <Tooltip target=".button-clock"  position="right"/>
                 <span className="button-clock" data-pr-tooltip="Descriptors Time Tracking">
@@ -114,7 +129,7 @@ const MyInnovations = () => {
                 </span>
                 <Tooltip target=".button-trash"  position="right"/>
                 <span className="button-trash" data-pr-tooltip="Delete">
-                    <Button id={data.id} icon="fad fa-trash fa-lg" className="button-trash-table margin-right" onClick={(e) =>  deleteInnovationDialog(e.target.id)}/>
+                    <Button id={data.innovId} icon="fad fa-trash fa-lg" className="button-trash-table margin-right" onClick={(e) =>  deleteInnovationDialog(e.target.id)}/>
                 </span>
             </div>
         );

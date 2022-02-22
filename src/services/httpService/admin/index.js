@@ -2,7 +2,7 @@ const domainUrl = process.env.REACT_APP_DOMAIN_URL
 
 const updateUserPermissions = async (csrfToken, id,permissions) => {
 
-    return await fetch(`${domainUrl}/api/admin/update/permissions`, {
+    return await fetch(`${domainUrl}/rtb-refactored/api/admin/update/permissions`, {
         method: 'POST',
         headers: {
             Accept: "application/json",
@@ -19,7 +19,7 @@ const updateUserPermissions = async (csrfToken, id,permissions) => {
 
 const getAllInnovations = async (csrfToken, id) => {
 
-    return await fetch(`${domainUrl}/api/admin/getInnovations`, {
+    return await fetch(`${domainUrl}/rtb-refactored/api/admin/getInnovations`, {
         method: 'POST',
         headers: {
             Accept: "application/json",
@@ -34,7 +34,7 @@ const getAllInnovations = async (csrfToken, id) => {
 
 const getAllReviwers = async (csrfToken, id) => {
 
-    return await fetch(`${domainUrl}/api/admin/getReviewers`, {
+    return await fetch(`${domainUrl}/rtb-refactored/api/admin/getReviewers`, {
         method: 'POST',
         headers: {
             Accept: "application/json",
@@ -49,7 +49,7 @@ const getAllReviwers = async (csrfToken, id) => {
 
 const assignReviewer = async (csrfToken, id,innovationId,reviewer_ids) => {
 
-    return await fetch(`${domainUrl}/api/admin/assignReviewer`, {
+    return await fetch(`${domainUrl}/rtb-refactored/api/admin/assignReviewer`, {
         method: 'POST',
         headers: {
             Accept: "application/json",

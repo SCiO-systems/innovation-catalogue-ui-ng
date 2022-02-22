@@ -34,11 +34,24 @@ const Interventions = () => {
         }, []
     )
 
+    // const presetValues = (headerIndex, contentIndex) => {
+    //     if (interventionsValues.length === 0) {
+    //         return ''
+    //     } else {
+    //         return interventionsValues.find(item => item.id === configurationArray[headerIndex].content[contentIndex].id).value
+    //     }
+    // }
+
     const presetValues = (headerIndex, contentIndex) => {
         if (interventionsValues.length === 0) {
             return ''
         } else {
-            return interventionsValues.find(item => item.id === configurationArray[headerIndex].content[contentIndex].id).value
+            const temp = interventionsValues.find(item => item.id === contentIndex).value
+            if (temp) {
+                return temp
+            }else {
+                return ''
+            }
         }
     }
 
@@ -50,7 +63,7 @@ const Interventions = () => {
                         <label>{field.label}</label>
                     </div>
                     <div className="p-col-12 p-sm-12 p-lg-6">
-                        <Field configuration={field} presetValue={presetValues(0,configurationArray[0].content.indexOf(field))} stepValues={interventionsValues} stepSetValues={setInterventionsValues} keyName={'interventionsValues'}/>
+                        <Field configuration={field} presetValue={presetValues(0,field.id)} stepValues={interventionsValues} stepSetValues={setInterventionsValues} keyName={'interventionsValues'}/>
                     </div>
                 </div>
             )

@@ -2,7 +2,7 @@ const domainUrl = process.env.REACT_APP_DOMAIN_URL
 
 const getCsrfToken = async () => {
 
-    let fetchGetResponse = await fetch(`${domainUrl}/form`, {
+    let fetchGetResponse = await fetch(`${domainUrl}/rtb-refactored/form`, {
         method: 'GET',
         headers: {
             Accept: "application/json",

@@ -10,6 +10,8 @@ const ManageInnovations = () => {
 
     const userData = useSelector((state) => state.userData)
 
+    console.log(userData)
+
     const [loading, setLoading] = useState(false)
 
     const onHide = () => {
@@ -19,9 +21,7 @@ const ManageInnovations = () => {
     if (userData.user) {
         return (
             <TabView>
-                <TabPanel header="My Innovations">
-                    <MyInnovations/>
-                </TabPanel>
+                <TabPanel header="My Innovations"><MyInnovations/></TabPanel>
                 {userData.user.permissions.find(item => item === 'Reviewer') ?      <TabPanel header="Under Review"> </TabPanel> : <></>}
                 {userData.user.permissions.find(item => item === 'Administrator') ?      <TabPanel header="Manage Innovations"> </TabPanel> : <></>}
                 {userData.user.permissions.find(item => item === 'Administrator') ?      <TabPanel header="Manage Users"> </TabPanel> : <></>}

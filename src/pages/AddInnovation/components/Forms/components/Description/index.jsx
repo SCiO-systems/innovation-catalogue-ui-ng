@@ -36,13 +36,26 @@ const Description = () => {
         }, [editingInnovation]
     )
 
+    // const presetValues = (headerIndex, contentIndex) => {
+    //     if (descriptionValues.length === 0) {
+    //         return ''
+    //     } else {
+    //         return descriptionValues.find(item => item.id === contentIndex).value
+    //     }
+    // }
     const presetValues = (headerIndex, contentIndex) => {
         if (descriptionValues.length === 0) {
             return ''
         } else {
-            return descriptionValues.find(item => item.id === contentIndex).value
+            const temp = descriptionValues.find(item => item.id === contentIndex).value
+            if (temp) {
+                return temp
+            }else {
+                return ''
+            }
         }
     }
+
 
     const renderFields = () => {
         return configurationArray[0].content.map(field => {

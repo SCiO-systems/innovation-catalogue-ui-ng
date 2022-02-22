@@ -37,11 +37,25 @@ const BenefitImpact = () => {
         }, [trick]
     )
 
+    // const presetValues = (headerIndex, contentIndex) => {
+    //     if (benefitImpactValues.length === 0) {
+    //         return ''
+    //     } else {
+    //         return benefitImpactValues.find(item => item.id === configurationArray[headerIndex].content[contentIndex].id).value
+    //     }
+    // }
+
     const presetValues = (headerIndex, contentIndex) => {
+        console.log(benefitImpactValues,contentIndex)
         if (benefitImpactValues.length === 0) {
             return ''
         } else {
-            return benefitImpactValues.find(item => item.id === configurationArray[headerIndex].content[contentIndex].id).value
+            const temp = benefitImpactValues.find(item => item.id === contentIndex).value
+            if (temp) {
+                return temp
+            }else {
+                return ''
+            }
         }
     }
 
@@ -53,7 +67,7 @@ const BenefitImpact = () => {
                         <label>{field.label}</label>
                     </div>
                     <div className="p-col-12 p-sm-12 p-lg-6">
-                        <Field configuration={field} presetValue={presetValues(0,configurationArray[0].content.indexOf(field))} stepValues={benefitImpactValues} stepSetValues={setBenefitImpactValues} keyName={'benefitImpactValues'}/>
+                        <Field configuration={field} presetValue={presetValues(0,field.id)} stepValues={benefitImpactValues} stepSetValues={setBenefitImpactValues} keyName={'benefitImpactValues'}/>
                     </div>
                 </div>
             )

@@ -7,7 +7,7 @@ import {Button} from "primereact/button";
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {Actions} from "../../reducer/actions";
-import {insertInnovation} from '../../services/httpService/innovation'
+import {insertInnovation,editInnovation} from '../../services/httpService/innovation'
 
 const AddInnovation = () => {
 
@@ -158,42 +158,28 @@ const AddInnovation = () => {
             status = 'DRAFT'
         }
 
-        console.log(userData.user.userId)
-
         insertInnovation(csrfToken, userData.user.userId, allFields,status)
 
-        // resetInnovation()
+        resetInnovation()
 
         navigate(myInnovationsUrl)
     }
 
     const editInnovation = () => {
 
-        const innovation = innovations.find(item => item.id === editingInnovation)
+        const innovation = innovations.find(item => item.innovId === editingInnovation)
 
         const allFields = [...benefitImpactValues, ...contextValues, ...descriptionValues, ...evidenceValues, ...intellectualPropertyValues, ...interventionsValues, ...investmentValues, ...readinessValues, ...stakeholdersValues]
         const mandatoryFields = allFields.filter(item => item.mandatory === true)
-        const validFields = mandatoryFields.filter(item => item.valid === true)
         const invalidFields = mandatoryFields.filter(item => item.valid === false)
         let status
         if (invalidFields.length === 0 ) {
-            status = 'Submit to the Reviewer'
+            status = 'READY'
         } else {
-            status = 'Draft'
+            status = 'DRAFT'
         }
-        const title = allFields.find(item => item.id === "1.1")?.value
-        const dateSubmitted = innovation.dateSubmitted
-        const dateUpdated = (new Date()).toString()
-        const newInnovation = {
-            id: editingInnovation,
-            title,
-            status,
-            dateSubmitted,
-            dateUpdated,
-            fields: allFields
-        }
-        const _innovations = innovations.filter(item => item.id !== editingInnovation)
-        setInnovations([..._innovations,newInnovation])
+
+        // editInnovation(csrfToken, allFields,innovation.innovId ,status, userData.user.userId)
 
         resetInnovation()
 

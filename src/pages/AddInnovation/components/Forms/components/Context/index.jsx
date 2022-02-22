@@ -34,11 +34,24 @@ const Context = () => {
         }, []
     )
 
+    // const presetValues = (headerIndex, contentIndex) => {
+    //     if (contextValues.length === 0) {
+    //         return ''
+    //     } else {
+    //         return contextValues.find(item => item.id === contentIndex).value
+    //     }
+    // }
+
     const presetValues = (headerIndex, contentIndex) => {
         if (contextValues.length === 0) {
             return ''
         } else {
-            return contextValues.find(item => item.id === contentIndex).value
+            const temp = contextValues.find(item => item.id === contentIndex).value
+            if (temp) {
+                return temp
+            }else {
+                return ''
+            }
         }
     }
 

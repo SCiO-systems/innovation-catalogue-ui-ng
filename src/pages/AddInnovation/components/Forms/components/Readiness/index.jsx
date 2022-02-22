@@ -34,11 +34,24 @@ const Readiness = () => {
         }, []
     )
 
+    // const presetValues = (headerIndex, contentIndex) => {
+    //     if (readinessValues.length === 0) {
+    //         return ''
+    //     } else {
+    //         return readinessValues.find(item => item.id === configurationArray[headerIndex].content[contentIndex].id).value
+    //     }
+    // }
+
     const presetValues = (headerIndex, contentIndex) => {
         if (readinessValues.length === 0) {
             return ''
         } else {
-            return readinessValues.find(item => item.id === configurationArray[headerIndex].content[contentIndex].id).value
+            const temp = readinessValues.find(item => item.id === contentIndex).value
+            if (temp) {
+                return temp
+            }else {
+                return ''
+            }
         }
     }
 
@@ -50,7 +63,7 @@ const Readiness = () => {
                         <label>{field.label}</label>
                     </div>
                     <div className="p-col-12 p-sm-12 p-lg-6">
-                        <Field configuration={field} presetValue={presetValues(0,configurationArray[0].content.indexOf(field))} stepValues={readinessValues} stepSetValues={setReadinessValues} keyName={'readinessValues'}/>
+                        <Field configuration={field} presetValue={presetValues(0,field.id)} stepValues={readinessValues} stepSetValues={setReadinessValues} keyName={'readinessValues'}/>
                     </div>
                 </div>
             )
