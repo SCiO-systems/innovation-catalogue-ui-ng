@@ -14,7 +14,7 @@ const Interventions = () => {
     useEffect(
         () => {
             const storage = window.localStorage.getItem('interventionsValues')
-            if (!storage) {
+            if (!storage || (storage === "[]")) {
                 const temp = []
                 configurationArray.map(tab => {
                     return tab.content.map(item => {

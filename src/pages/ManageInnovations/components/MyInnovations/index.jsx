@@ -10,6 +10,7 @@ import './styles.css'
 import {useDispatch, useSelector} from "react-redux";
 import {Actions} from "../../../../reducer/actions";
 import {getAllUserInnovations} from '../../../../services/httpService/user'
+import {deleteInnovation} from '../../../../services/httpService/innovation'
 
 const MyInnovations = () => {
 
@@ -55,6 +56,7 @@ const MyInnovations = () => {
             getAllUserInnovations(csrfToken, userData.user.userId)
                 .then(async res => {
                     const temp = await res.json()
+                    console.log(temp.innovations)
                     setInnovations(temp.innovations)
                 })
         },[]
@@ -67,8 +69,24 @@ const MyInnovations = () => {
 
     const deleteInnovation = () => {
 
-        const _innovations = innovations.filter(item => item.id !== deleteInnovationId)
-        setInnovations(_innovations)
+        const body = {
+            user_id: userData.user.userId,
+            innovation_id: deleteInnovationId,
+        }
+
+        fetch(`${process.env.REACT_APP_DOMAIN_URL}/rtb-refactored/api/innovation/delete`, {
+            method: 'POST',
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                "xsrf-token": csrfToken,
+            },
+            body: JSON.stringify(body),
+            credentials: "include",
+            mode: "cors"
+        })
+
+        // deleteInnovation(csrfToken,userData.user.userId,deleteInnovationId);
         setDeleteDialog(false);
     }
 
@@ -81,12 +99,7 @@ const MyInnovations = () => {
 
     const editInnovation = (id) => {
 
-        console.log(innovations)
-
         const innovation = innovations.find(item => item.innovId === id)
-
-
-        console.log(innovation)
 
         window.localStorage.setItem('descriptionValues', JSON.stringify(innovation.formData.filter(item => item.id[0] === '1')))
         window.localStorage.setItem('benefitImpactValues',JSON.stringify(innovation.formData.filter(item => item.id[0] === '2')))
@@ -121,18 +134,21 @@ const MyInnovations = () => {
                 <span className="button-edit" data-pr-tooltip="Edit">
                     <Button id={data.innovId} icon="fad fa-pencil fa-lg" className="button-edit-table margin-right" onClick={(e) => editInnovation(e.target.id)}/>
                 </span>
-                <Tooltip target=".button-clock"  position="right"/>
-                <span className="button-clock" data-pr-tooltip="Descriptors Time Tracking">
-                    <Link to={descriptorsUrl}>
-                        <Button icon="fad fa-clock fa-lg" className="button-clock-table margin-right"/>
-                    </Link>
-                </span>
                 <Tooltip target=".button-trash"  position="right"/>
                 <span className="button-trash" data-pr-tooltip="Delete">
                     <Button id={data.innovId} icon="fad fa-trash fa-lg" className="button-trash-table margin-right" onClick={(e) =>  deleteInnovationDialog(e.target.id)}/>
                 </span>
             </div>
         );
+    }
+
+    const titleBody = (data) => {
+
+        console.log(data.formData.find(item => item.id === "1.1").value)
+
+        return (
+            <span>{data.formData.find(item => item.id === "1.1").value}</span>
+        )
     }
 
     return (
@@ -142,7 +158,7 @@ const MyInnovations = () => {
             </div>
             <div className="card table-margin">
                 <DataTable value={innovations} paginator rows={10} rowsPerPageOptions={[10,20]}>
-                    <Column field="title"  sortable header="Title"/>
+                    <Column field='title' body={(data) => (titleBody(data))}  sortable header="Title"/>
                     <Column field="editing-rights"  sortable header="Editing Rights"/>
                     <Column field="status"  sortable header="Status"/>
                     <Column field="comments"  sortable header="Reviewer's Comments"/>

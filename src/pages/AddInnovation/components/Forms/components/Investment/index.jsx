@@ -14,7 +14,7 @@ const Investment = () => {
     useEffect(
         () => {
             const storage = window.localStorage.getItem('investmentValues')
-            if (!storage) {
+            if (!storage || (storage === "[]")) {
                 const temp = []
                 configurationArray.map(tab => {
                     return tab.content.map(item => {

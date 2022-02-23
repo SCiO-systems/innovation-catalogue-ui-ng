@@ -14,7 +14,7 @@ const IntellectualProperty = () => {
     useEffect(
         () => {
             const storage = window.localStorage.getItem('intellectualPropertyValues')
-            if (!storage) {
+            if (!storage || (storage === "[]")) {
                 const temp = []
                 configurationArray.map(tab => {
                     return tab.content.map(item => {

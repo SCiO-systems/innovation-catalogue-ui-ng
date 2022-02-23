@@ -88,24 +88,24 @@ const AddInnovation = () => {
 
     useEffect(() => {
 
-        let storage = window.localStorage.getItem('descriptionValues')
-        if (storage) setDescriptionValues(JSON.parse(storage))
-        storage = window.localStorage.getItem('benefitImpactValues')
-        if (storage) setBenefitImpactValues(JSON.parse(storage))
-        storage = window.localStorage.getItem('contextValues')
-        if (storage) setContextValues(JSON.parse(storage))
-        storage = window.localStorage.getItem('evidenceValues')
-        if (storage) setEvidenceValues(JSON.parse(storage))
-        storage = window.localStorage.getItem('intellectualPropertyValues')
-        if (storage) setIntellectualPropertyValues(JSON.parse(storage))
-        storage = window.localStorage.getItem('interventionsValues')
-        if (storage) setInterventionsValues(JSON.parse(storage))
-        storage = window.localStorage.getItem('investmentValues')
-        if (storage) setInvestmentValues(JSON.parse(storage))
-        storage = window.localStorage.getItem('readinessValues')
-        if (storage) setReadinessValues(JSON.parse(storage))
-        storage = window.localStorage.getItem('stakeholdersValues')
-        if (storage) setStakeholdersValues(JSON.parse(storage))
+        // let storage = window.localStorage.getItem('descriptionValues')
+        // if (storage) setDescriptionValues(JSON.parse(storage))
+        // storage = window.localStorage.getItem('benefitImpactValues')
+        // if (storage) setBenefitImpactValues(JSON.parse(storage))
+        // storage = window.localStorage.getItem('contextValues')
+        // if (storage) setContextValues(JSON.parse(storage))
+        // storage = window.localStorage.getItem('evidenceValues')
+        // if (storage) setEvidenceValues(JSON.parse(storage))
+        // storage = window.localStorage.getItem('intellectualPropertyValues')
+        // if (storage) setIntellectualPropertyValues(JSON.parse(storage))
+        // storage = window.localStorage.getItem('interventionsValues')
+        // if (storage) setInterventionsValues(JSON.parse(storage))
+        // storage = window.localStorage.getItem('investmentValues')
+        // if (storage) setInvestmentValues(JSON.parse(storage))
+        // storage = window.localStorage.getItem('readinessValues')
+        // if (storage) setReadinessValues(JSON.parse(storage))
+        // storage = window.localStorage.getItem('stakeholdersValues')
+        // if (storage) setStakeholdersValues(JSON.parse(storage))
 
         resultService.getResults()
             .then(data => setResults(data));
@@ -178,6 +178,25 @@ const AddInnovation = () => {
         } else {
             status = 'DRAFT'
         }
+
+        const body = {
+            form_data: JSON.stringify(allFields),
+            innovation_id: innovation.innovId,
+            status: status,
+            user_id: userData.user.userId
+        }
+
+        fetch(`${process.env.REACT_APP_DOMAIN_URL}/rtb-refactored/api/innovation/edit`, {
+            method: 'POST',
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                "xsrf-token": csrfToken,
+            },
+            body: JSON.stringify(body),
+            credentials: "include",
+            mode: "cors"
+        })
 
         // editInnovation(csrfToken, allFields,innovation.innovId ,status, userData.user.userId)
 
