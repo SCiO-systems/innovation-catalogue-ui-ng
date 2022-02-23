@@ -6,8 +6,7 @@ COPY .npmrc ./
 COPY .env ./
 COPY package*.json ./
 
-#RUN npm ci --production
-RUN npm install
+RUN npm ci --production
 
 COPY . .
 
