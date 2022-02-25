@@ -624,6 +624,21 @@ div.save-profile-button button{
     background: #929292;
     color: #fff;
 }
+.button-submit-table{
+    background: transparent;
+    border: 1.4px solid #499239D0;
+    color: #499239D0;
+}
+
+.button-submit-table:enabled:hover{
+    background: #499239D0;
+    color: #fff;
+}
+
+.button-submit-table:enabled:focus{
+    background: #499239D0;
+    color: #fff;
+}
 
 
 /*...descriptors styles...*/

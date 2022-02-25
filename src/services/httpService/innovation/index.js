@@ -1,4 +1,4 @@
-const domainUrl = process.env.REACT_APP_DOMAIN_URL
+const relayUrl = process.env.REACT_APP_RELAY_URL
 
 const insertInnovation = async (csrfToken, id, form_data,status) => {
 
@@ -8,7 +8,7 @@ const insertInnovation = async (csrfToken, id, form_data,status) => {
         status:status
     }
 
-    await fetch(`${domainUrl}/rtb-refactored/api/innovation/insert`, {
+    await fetch(`${relayUrl}/rtb-refactored/api/innovation/insert`, {
         method: 'POST',
         headers: {
             Accept: "application/json",
@@ -30,7 +30,7 @@ const editInnovation = async (csrfToken, form_data, innovationId,status,id) => {
         user_id: id
     }
 
-    await fetch(`${domainUrl}/rtb-refactored/api/innovation/edit`, {
+    await fetch(`${relayUrl}/rtb-refactored/api/innovation/edit`, {
         method: 'POST',
         headers: {
             Accept: "application/json",
@@ -51,7 +51,27 @@ const deleteInnovation = (csrfToken, id, innovationId) => {
         innovation_id: innovationId,
     }
 
-    fetch(`${domainUrl}/rtb-refactored/api/innovation/delete`, {
+    fetch(`${relayUrl}/rtb-refactored/api/innovation/delete`, {
+        method: 'POST',
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "xsrf-token": csrfToken,
+        },
+        body: JSON.stringify(body),
+        credentials: "include",
+        mode: "cors"
+    })
+}
+
+const submitInnovation = (csrfToken, id, innovationId) => {
+
+    const body = {
+        user_id: id,
+        innovation_id: innovationId,
+    }
+
+    fetch(`${relayUrl}/rtb-refactored/api/innovation/submit`, {
         method: 'POST',
         headers: {
             Accept: "application/json",
@@ -74,7 +94,7 @@ const updateVersionInnovation = async (csrfToken, id, innovationId,status,form_d
         version: version + 1
     }
 
-    return await fetch(`${domainUrl}/rtb-refactored/api/innovation/updateVersion`, {
+    return await fetch(`${relayUrl}/rtb-refactored/api/innovation/updateVersion`, {
         method: 'POST',
         headers: {
             Accept: "application/json",
@@ -94,7 +114,7 @@ const publishInnovation = async (csrfToken, id, innovationId) => {
         innovation_id: innovationId,
     }
 
-    return await fetch(`${domainUrl}/rtb-refactored/api/innovation/publish`, {
+    return await fetch(`${relayUrl}/rtb-refactored/api/innovation/publish`, {
         method: 'POST',
         headers: {
             Accept: "application/json",
@@ -115,7 +135,7 @@ const rejectInnovation = async (csrfToken, id, innovationId,comments) => {
         comments: comments
     }
 
-    return await fetch(`${domainUrl}/rtb-refactored/api/innovation/reject`, {
+    return await fetch(`${relayUrl}/rtb-refactored/api/innovation/reject`, {
         method: 'POST',
         headers: {
             Accept: "application/json",
@@ -128,4 +148,4 @@ const rejectInnovation = async (csrfToken, id, innovationId,comments) => {
     })
 }
 
-export {insertInnovation,editInnovation,deleteInnovation,updateVersionInnovation,publishInnovation,rejectInnovation}
+export {insertInnovation,editInnovation,deleteInnovation,submitInnovation,updateVersionInnovation,publishInnovation,rejectInnovation}

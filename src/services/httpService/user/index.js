@@ -1,4 +1,4 @@
-const domainUrl = process.env.REACT_APP_DOMAIN_URL
+const relayUrl = process.env.REACT_APP_RELAY_URL
 
 const getUserData = async (csrfToken, id) => {
 
@@ -6,7 +6,7 @@ const getUserData = async (csrfToken, id) => {
         user_id: id,
     }
 
-    return await fetch(`${domainUrl}/rtb-refactored/api/user/getUserData`, {
+    return await fetch(`${relayUrl}/rtb-refactored/api/user/getUserData`, {
         method: 'POST',
         headers: {
             Accept: "application/json",
@@ -26,7 +26,7 @@ const updateUserRole = async (csrfToken, id,role) => {
         role: role
     }
 
-    return await fetch(`${domainUrl}/rtb-refactored/api/user/update/role`, {
+    return await fetch(`${relayUrl}/rtb-refactored/api/user/update/role`, {
         method: 'POST',
         headers: {
             Accept: "application/json",
@@ -45,7 +45,7 @@ const getAllUserInnovations = async (csrfToken, id) => {
         user_id: id,
     }
 
-    return await fetch(`${domainUrl}/rtb-refactored/api/user/getInnovations`, {
+    return await fetch(`${relayUrl}/rtb-refactored/api/user/getInnovations`, {
         method: 'POST',
         headers: {
             Accept: "application/json",
@@ -64,7 +64,7 @@ const getAssignedReviews = async (csrfToken, id) => {
         user_id: id,
     }
 
-    return await fetch(`${domainUrl}/rtb-refactored/api/user/getAssignedReviews`, {
+    return await fetch(`${relayUrl}/rtb-refactored/api/user/getAssignedReviews`, {
         method: 'POST',
         headers: {
             Accept: "application/json",

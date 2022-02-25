@@ -8,6 +8,7 @@ import {DataView} from "primereact/dataview";
 import {Button} from "primereact/button";
 import {useDispatch} from "react-redux";
 import {Actions} from "../../reducer/actions";
+import Loading from '../../components/Loading'
 
 const Search = () => {
 
@@ -287,7 +288,7 @@ const Search = () => {
 
     return (
         <div>
-            {results?renderPage():console.log()}
+            {results?renderPage():<Loading visible={results}/>}
         </div>
     );
 }

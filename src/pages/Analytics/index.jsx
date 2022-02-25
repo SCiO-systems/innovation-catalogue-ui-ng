@@ -3,10 +3,10 @@ import { Button } from 'primereact/button';
 import {FilterAnalytics,ChartsAnalytics} from "./components";
 import ResultsService from "../../services/ResultsService";
 import {useNavigate, useParams} from "react-router-dom";
-import {ProgressBar} from "primereact/progressbar";
 import {Dialog} from "primereact/dialog";
 import {useDispatch} from "react-redux";
 import {Actions} from "../../reducer/actions";
+import Loading from '../../components/Loading'
 
 const Analytics = () => {
 
@@ -81,13 +81,7 @@ const Analytics = () => {
     const renderPage = () =>{
        return (
            <div>
-               <Dialog header="Loading Data ..." visible={search} position={"top"} modal style={{ width: '50vw' }}
-                       onHide={() => onHide('displayPosition')}
-                       draggable={false} resizable={false}
-                       closable = {false}
-               >
-                   <ProgressBar mode="indeterminate" />
-               </Dialog>
+               <Loading visible={search}/>
 
                <Dialog header="No Results ..." visible={nodata} position={"top"} modal style={{ width: '50vw' }}
                        onHide={() => onHideNoData()}

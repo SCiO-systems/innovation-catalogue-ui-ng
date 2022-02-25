@@ -186,7 +186,7 @@ const AddInnovation = () => {
             user_id: userData.user.userId
         }
 
-        fetch(`${process.env.REACT_APP_DOMAIN_URL}/rtb-refactored/api/innovation/edit`, {
+        fetch(`${process.env.REACT_APP_RELAY_URL}/rtb-refactored/api/innovation/edit`, {
             method: 'POST',
             headers: {
                 Accept: "application/json",

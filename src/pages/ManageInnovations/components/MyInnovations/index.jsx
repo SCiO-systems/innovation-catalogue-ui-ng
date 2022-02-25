@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from "react";
 import {DataTable} from "primereact/datatable";
 import {Column} from "primereact/column";
-import TestMyInnovationsService from "../../../../services/TestMyInnovationsService";
 import {Button} from "primereact/button";
 import {Tooltip} from "primereact/tooltip";
 import {Dialog} from "primereact/dialog";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import './styles.css'
 import {useDispatch, useSelector} from "react-redux";
 import {Actions} from "../../../../reducer/actions";
 import {getAllUserInnovations} from '../../../../services/httpService/user'
-import {deleteInnovation} from '../../../../services/httpService/innovation'
+import {DraftActions, ReadyActions} from './components'
+// import {deleteInnovation,submitInnovation} from '../../../../services/httpService/innovation'
 
 const MyInnovations = () => {
 
@@ -62,11 +62,6 @@ const MyInnovations = () => {
         },[]
     )
 
-    const deleteInnovationDialog = (id) => {
-        setDeleteInnovationId(id)
-        setDeleteDialog(true);
-    }
-
     const deleteInnovation = () => {
 
         const body = {
@@ -74,7 +69,7 @@ const MyInnovations = () => {
             innovation_id: deleteInnovationId,
         }
 
-        fetch(`${process.env.REACT_APP_DOMAIN_URL}/rtb-refactored/api/innovation/delete`, {
+        fetch(`${process.env.REACT_APP_RELAY_URL}/rtb-refactored/api/innovation/delete`, {
             method: 'POST',
             headers: {
                 Accept: "application/json",
@@ -96,6 +91,11 @@ const MyInnovations = () => {
             <Button label="Yes" icon="pi pi-check" className="p-button-text" onClick={deleteInnovation} />
         </>
     );
+
+    const deleteInnovationDialog = (id) => {
+        setDeleteInnovationId(id)
+        setDeleteDialog(true);
+    }
 
     const editInnovation = (id) => {
 
@@ -126,25 +126,37 @@ const MyInnovations = () => {
         navigate('/add-innovation')
     }
 
+    const submitInnovation = (id) => {
+
+        const body = {
+            user_id: userData.user.userId,
+            innovation_id: id,
+        }
+
+        fetch(`${process.env.REACT_APP_RELAY_URL}/rtb-refactored/api/innovation/submit`, {
+            method: 'POST',
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                "xsrf-token": csrfToken,
+            },
+            body: JSON.stringify(body),
+            credentials: "include",
+            mode: "cors"
+        })
+    }
+
     const actionsTemplate = (data) =>{
 
-        return(
-            <div>
-                <Tooltip target=".button-edit"  position="left"/>
-                <span className="button-edit" data-pr-tooltip="Edit">
-                    <Button id={data.innovId} icon="fad fa-pencil fa-lg" className="button-edit-table margin-right" onClick={(e) => editInnovation(e.target.id)}/>
-                </span>
-                <Tooltip target=".button-trash"  position="right"/>
-                <span className="button-trash" data-pr-tooltip="Delete">
-                    <Button id={data.innovId} icon="fad fa-trash fa-lg" className="button-trash-table margin-right" onClick={(e) =>  deleteInnovationDialog(e.target.id)}/>
-                </span>
-            </div>
-        );
+        switch (data.status) {
+            case "DRAFT": return <DraftActions data={data} editInnovation={editInnovation} deleteInnovationDialog={deleteInnovationDialog}/>
+            case "READY": return <ReadyActions data={data} editInnovation={editInnovation} deleteInnovationDialog={deleteInnovationDialog} submitInnovation={submitInnovation}/>
+            default: return <></>
+        }
+
     }
 
     const titleBody = (data) => {
-
-        console.log(data.formData.find(item => item.id === "1.1").value)
 
         return (
             <span>{data.formData.find(item => item.id === "1.1").value}</span>
