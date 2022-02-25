@@ -14,7 +14,7 @@ const Evidence = () => {
     useEffect(
         () => {
             const storage = window.localStorage.getItem('evidenceValues')
-            if (!storage) {
+            if (!storage || (storage === "[]")) {
                 const temp = []
                 configurationArray.map(tab => {
                     return tab.content.map(item => {

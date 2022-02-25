@@ -14,7 +14,7 @@ const Stakeholders = () => {
     useEffect(
         () => {
             const storage = window.localStorage.getItem('stakeholdersValues')
-            if (!storage) {
+            if (!storage || (storage === "[]")) {
                 const temp = []
                 configurationArray.map(tab => {
                     return tab.content.map(item => {

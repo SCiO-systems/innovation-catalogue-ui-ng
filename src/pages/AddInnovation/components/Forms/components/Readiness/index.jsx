@@ -14,7 +14,7 @@ const Readiness = () => {
     useEffect(
         () => {
             const storage = window.localStorage.getItem('readinessValues')
-            if (!storage) {
+            if (!storage || (storage === "[]")) {
                 const temp = []
                 configurationArray.map(tab => {
                     return tab.content.map(item => {

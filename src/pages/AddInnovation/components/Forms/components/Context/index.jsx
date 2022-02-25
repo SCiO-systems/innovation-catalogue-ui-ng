@@ -14,7 +14,7 @@ const Context = () => {
     useEffect(
         () => {
             const storage = window.localStorage.getItem('contextValues')
-            if (!storage) {
+            if (!storage || (storage === "[]")) {
                 const temp = []
                 configurationArray.map(tab => {
                     return tab.content.map(item => {

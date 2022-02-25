@@ -16,7 +16,7 @@ const BenefitImpact = () => {
     useEffect(
         () => {
             const storage = window.localStorage.getItem('benefitImpactValues')
-            if (!storage) {
+            if (!storage || (storage === "[]")) {
                 const temp = []
                 configurationArray.map(tab => {
                     return tab.content.map(item => {
