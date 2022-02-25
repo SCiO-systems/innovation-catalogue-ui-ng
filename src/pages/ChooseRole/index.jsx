@@ -32,6 +32,15 @@ const ChooseRole = () => {
         }, [role]
     )
 
+    useEffect(
+        () => {
+            const temp = localStorage.getItem("selectedRole")
+            if (temp) {
+                setRole(temp)
+            }
+        }, []
+    )
+
     return(
         <div>
             <div className="peach-background-container">

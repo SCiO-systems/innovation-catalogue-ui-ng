@@ -1,22 +1,15 @@
-import React,{useState} from 'react'
+import React from 'react'
 import {MyInnovations} from './components'
 import { TabView, TabPanel } from 'primereact/tabview';
 import {useSelector} from "react-redux";
 import './styles.css'
-import {Dialog} from "primereact/dialog";
-import {ProgressBar} from "primereact/progressbar";
+import Loading from '../../components/Loading'
 
 const ManageInnovations = () => {
 
     const userData = useSelector((state) => state.userData)
 
     console.log(userData)
-
-    const [loading, setLoading] = useState(false)
-
-    const onHide = () => {
-        setLoading(false)
-    }
 
     if (userData.user) {
         return (
@@ -29,13 +22,7 @@ const ManageInnovations = () => {
         )
     }
     return (
-        <Dialog header="Loading Data ..." visible={!userData.user} position={"top"} modal style={{ width: '50vw' }}
-                onHide={onHide}
-                draggable={false} resizable={false}
-                closable = {false}
-        >
-            <ProgressBar mode="indeterminate" />
-        </Dialog>
+        <Loading visible={!userData.user} />
     )
 }
 
