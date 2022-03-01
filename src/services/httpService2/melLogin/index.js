@@ -1,6 +1,6 @@
 import { http } from '../index';
 
-class melService {
+class MelService {
 
     getAccessToken = async (code) => {
         const result = await http.post(`/api/melLogin/accessToken`, {
@@ -17,4 +17,4 @@ class melService {
     }
 }
 
-export default new melService();
+export default new MelService();
