@@ -46,7 +46,6 @@ const BenefitImpact = () => {
     // }
 
     const presetValues = (headerIndex, contentIndex) => {
-        console.log(benefitImpactValues,contentIndex)
         if (benefitImpactValues.length === 0) {
             return ''
         } else {

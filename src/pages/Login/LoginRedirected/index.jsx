@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import {Actions} from "../../../reducer/actions";
 import {useNavigate} from "react-router-dom";
-import {getAccessToken} from '../../../services/httpService/melLogin'
+import melService from '../../../services/httpService2/melLogin'
 
 const LoginRedirected = () => {
 
@@ -20,11 +20,10 @@ const LoginRedirected = () => {
         () => {
             if (csrfToken !== '') {
                 const code = window.location.hash.split('&')[1].slice(5)
-                getAccessToken(csrfToken, code)
-                    .then(async res => {
-                        const temp = await res.json()
-                        setAccessToken(temp)
-                        localStorage.setItem("accessToken",temp);
+                melService.getAccessToken(code)
+                    .then(res => {
+                        setAccessToken(res)
+                        localStorage.setItem("accessToken",res);
                     })
                     .catch(err => console.log(err))
                 setLoggedIn('logged in')

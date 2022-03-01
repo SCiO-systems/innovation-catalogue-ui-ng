@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import {Tooltip} from "primereact/tooltip";
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
@@ -16,6 +16,8 @@ const AccordionTabs = (props) => {
 
     const accordionData = useSelector((state) => state.accordionData)
 
+    const results = useSelector((state) => state.results)
+
     const [displayDialog, setDisplayDialog] = useState(false)
 
     const renderQuesitonFooter = () => {
@@ -31,13 +33,17 @@ const AccordionTabs = (props) => {
         if (presetValue === '') {
             presetValue = []
         }
-        return configuration.options.map(item => {
-            return (
-                <AccordionTab header={item.header}>
-                    <Picklist sourceData={accordionData[item.source]} presetValue={presetValue} item={item} stepValues={stepValues} stepSetValues={stepSetValues} keyName={keyName} configuration={configuration}/>
-                </AccordionTab>
-            )
-        })
+
+        if (results[0]) {
+            const temp = results.find(item => item.header === configuration.resultsKeyword)
+            return temp.value.map(item => {
+                return (
+                    <AccordionTab header={item.title}>
+                        <Picklist sourceData={item.value} presetValue={presetValue} item={item} stepValues={stepValues} stepSetValues={stepSetValues} keyName={keyName} configuration={configuration}/>
+                    </AccordionTab>
+                )
+            })
+        }
     }
 
     return (

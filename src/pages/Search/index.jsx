@@ -93,7 +93,6 @@ const Search = () => {
         }
 
         if(queryJson !== jsonTemplate){
-            console.log(queryJson)
             setQueryPath("/search/" + JSON.stringify(queryJson))
         }
 

@@ -12,7 +12,6 @@ const Inputs = (props) => {
 
     const [displayDialog, setDisplayDialog] = useState(false)
     const [value, setValue] = useState(presetValue)
-    const [valid,setValid] = useState('no data')
 
     useEffect(
         () => {
@@ -22,7 +21,6 @@ const Inputs = (props) => {
 
     useEffect(
         () => {
-            console.log(value)
             if (stepValues.length === 0) return
             const _values = stepValues
             const index = _values.indexOf(_values.find(item => item.id === configuration.id))
@@ -75,7 +73,6 @@ const Inputs = (props) => {
     const renderFields = () => {
 
         const removeInput = (e) => {
-            console.log(e.target.id)
             setValue(value.filter(item => item.id !== e.target.id))
         }
 

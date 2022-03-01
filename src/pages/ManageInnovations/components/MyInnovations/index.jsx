@@ -56,7 +56,6 @@ const MyInnovations = () => {
             getAllUserInnovations(csrfToken, userData.user.userId)
                 .then(async res => {
                     const temp = await res.json()
-                    console.log(temp.innovations)
                     setInnovations(temp.innovations)
                 })
         },[]

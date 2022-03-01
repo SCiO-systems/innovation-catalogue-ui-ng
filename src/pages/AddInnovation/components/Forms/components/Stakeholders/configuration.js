@@ -11,7 +11,8 @@ const configurationArray = [
                 label: 'Users of the Innovation',
                 fieldInformation: 'The individuals or groups that ultimately use and benefit from (end-users) the innovation: acquisition and use of social, institutional, or technological innovations. The people that ultimately make use of results or technologies resulting from research. This can include policy-makers (for policy-related research results) as well as farmers (for technologies, varieties, etc). End users may be the same as intended beneficiaries or may be intermediaries in the results chain. Please select from the following and insert the relevant users separated by comma: Farmers (small-scale or commercial farmers), Community-based Organizations, Private Sector, Researchers, NARES/NARS, Extension Agents, Government, Traders, Foundations, Financial Institutions, Multilateral, Agro-manufacturers, Agro-dealers, Land users, Bilateral and Donor, Women, Youth. ',
                 valid: false,
-                options: ["Farmers (small-scale or commercial farmers)","Community-based Organizations","Private Sector","Researchers","NARES/NARS","Extension Agents","Government","Traders","Foundations","Financial Institutions","Multilateral","Agro-manufacturers","Agro-dealers","Land users","Bilateral And Donor","Women","Youth","Other"]
+                resultsKeyword: 'clarisa_users'
+                // options: ["Farmers (small-scale or commercial farmers)","Community-based Organizations","Private Sector","Researchers","NARES/NARS","Extension Agents","Government","Traders","Foundations","Financial Institutions","Multilateral","Agro-manufacturers","Agro-dealers","Land users","Bilateral And Donor","Women","Youth","Other"]
             },
             {
                 id: "9.2",
@@ -22,7 +23,8 @@ const configurationArray = [
                 label: 'Beneficiaries of the Innovation',
                 fieldInformation: 'The individuals or groups that are involved in the development of the innovation and benefit by any means from the innovation (next-users). The underlying logic here is that next-users are much easier to count/evidence, and that it would be very unusual to have uptake by end-users at scale without involvement of any next-users. Actors such as national research institutions, extension organizations, NGOs, and others, who access CGIAR products directly. Please insert from the following list, separated by commas: Farmers (small-scale or commercial farmers), Community-based Organizations, Private Sector, Researchers, NARES/NARS, Extension Agents, Government, Traders, Foundations, Financial Institutions, Multilateral, Agro-manufacturers, Agro-dealers, Land users, Bilateral and Donor, Women, Youth. ',
                 valid: false,
-                options: ["Farmers (small-scale or commercial farmers)","Community-based Organizations","Private Sector","Researchers","NARES/NARS","Extension Agents","Government","Traders","Foundations","Financial Institutions","Multilateral","Agro-manufacturers","Agro-dealers","Land users","Bilateral And Donor","Women","Youth","Other"]
+                resultsKeyword: 'clarisa_beneficiaries'
+                // options: ["Farmers (small-scale or commercial farmers)","Community-based Organizations","Private Sector","Researchers","NARES/NARS","Extension Agents","Government","Traders","Foundations","Financial Institutions","Multilateral","Agro-manufacturers","Agro-dealers","Land users","Bilateral And Donor","Women","Youth","Other"]
             },
             {
                 id: "9.3",

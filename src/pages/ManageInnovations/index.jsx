@@ -9,8 +9,6 @@ const ManageInnovations = () => {
 
     const userData = useSelector((state) => state.userData)
 
-    console.log(userData)
-
     if (userData.user) {
         return (
             <TabView>

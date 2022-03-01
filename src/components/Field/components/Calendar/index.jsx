@@ -83,7 +83,7 @@ const CalendarInput = (props) => {
             <Tooltip target=".status"  position="top"/>
             <div className="p-inputgroup calendar">
                 <span className="p-float-label">
-                <Calendar className={((valid != 'valid') && configuration.mandatory) ? "p-invalid p-d-block" : "p-d-block"} disabled={configuration.disabled}  selectionMode={configuration.selectionMode} id="icon" value={value} onChange={(e) => setValue(e.value)} showIcon />
+                <Calendar className={((valid !== 'valid') && configuration.mandatory) ? "p-invalid p-d-block" : "p-d-block"} disabled={configuration.disabled}  selectionMode={configuration.selectionMode} id="icon" value={value} onChange={(e) => setValue(e.value)} showIcon />
             </span>
                 <span className="p-inputgroup-addon" id='question' onClick={() => setDisplayDialog(true)}><i className="fad fa-question"/></span>
             </div>

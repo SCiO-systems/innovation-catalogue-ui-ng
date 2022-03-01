@@ -30,11 +30,13 @@ const List = (props) => {
 
     useEffect(
         () => {
-            if (results.data) {
+            if (results[0]) {
                 if (configuration.resultsKeyword) {
-                    setOptions(results.data.summaries[configuration.resultsKeyword].map(item => {
-                        return {"value": item.value}
-                    }))
+                    const temp = results.find(item => item.header === configuration.resultsKeyword)
+                    setOptions(temp?.value)
+                    // setOptions(results.data.summaries[configuration.resultsKeyword].map(item => {
+                    //     return {"value": item.value}
+                    // }))
                 } else {
                     setOptions(configuration.options.map(item => {
                         return {"value": item}

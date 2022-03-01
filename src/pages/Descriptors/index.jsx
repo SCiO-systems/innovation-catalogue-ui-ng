@@ -106,7 +106,6 @@ const Descriptors = () => {
 
     const disableFirstTrashIcon = () => {
         let el = document.querySelector("#trashIcon");
-        console.log(el)
         return "false"
         // return el[0].setAttribute("disabled", "disable");
     };
