@@ -49,7 +49,6 @@ const Analytics = () => {
     useEffect(() => {
         setSearch(true);
         resultService.getSearchResults(queryJson,lazyParams).then(data =>{
-            //console.log(data);
             if(data){
                 setResult(data.data);
             }else{

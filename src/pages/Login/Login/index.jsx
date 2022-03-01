@@ -22,8 +22,6 @@ const Login = () => {
 	// 	},[]
 	// )
 
-	console.log(process.env.REACT_APP_CLIENT_ID)
-
 	return (
 		<div className="login-body">
 			<div className="login-panel ui-fluid">

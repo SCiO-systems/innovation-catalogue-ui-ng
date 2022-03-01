@@ -12,9 +12,10 @@ const Picklist = (props) => {
 
     useEffect(
         () => {
-            const temp = presetValue.find(it => it.source === item.source)
+            const temp = presetValue.find(it => it.id === sourceData[0].value[0])
             if (temp) {
                 setTarget(temp.value)
+                setSource(temp.source)
             }
             setValue(presetValue)
         }, [presetValue]
@@ -23,10 +24,11 @@ const Picklist = (props) => {
     useEffect(
         () => {
             let _value = presetValue
-            const index = _value.findIndex(tab => tab.source === item.source)
+            const index = _value.findIndex(tab => tab.id === sourceData[0].value[0])
             if (index !== -1) _value.splice(index,1)
             _value.push({
-                source: item.source,
+                id: sourceData[0].value[0],
+                source: source,
                 value: target
             })
             setValue([..._value])
@@ -59,7 +61,7 @@ const Picklist = (props) => {
     const itemTemplate = (data) => {
         return (
             <div className="product-item">
-                <p>{data.title}</p>
+                <p>{data.value}</p>
             </div>
         );
     }

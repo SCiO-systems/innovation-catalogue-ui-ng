@@ -73,8 +73,6 @@ export default class ResultsService {
         return axios(config)
             .then(function (response) {
 
-                console.log(response);
-
                 const countriesWithIso2 = response.data.data.response.locations_of_implementation.map(
                     (item) => {
                         if (item === "Viet Nam") {

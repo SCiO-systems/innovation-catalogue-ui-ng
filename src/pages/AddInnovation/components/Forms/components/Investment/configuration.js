@@ -24,7 +24,8 @@ const configurationArray = [
                     '<b>Venture Capital</b>: Venture capital (VC) is a form of private equity and a type of financing that investors provide to startup companies and small businesses that have the potential to grow on a long-term basis. <br/><br/>' +
                     'If <b>other</b>, please specify. </span>',
                 valid: false,
-                options: ["Bonds","Grant", "Guarantee", "Private Equity", "Venture Capital", "Other" ]
+                resultsKeyword: 'clarisa_investment_type'
+                // options: ["Bonds","Grant", "Guarantee", "Private Equity", "Venture Capital", "Other" ]
             },
             {
                 id: "7.3",

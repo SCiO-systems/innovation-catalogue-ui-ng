@@ -21,7 +21,8 @@ const configurationArray = [
                     '<b>TRL 9</b> – Actual system proven in operational environment (stage 4)<br/> <br/>' +
                     'For more information on stages 1,2,3,4 please see above footnote 1,2,3,4.</span>',
                 valid: false,
-                options: ["TRL 1  Basic principles observed","TRL 2  Technology concept formulated","TRL 3  Experimental proof of concept","TRL 4  Technology validated in lab","TRL 5  Technology validated in relevant environment (industrially relevant environment in the case of key enabling technologies)","TRL 6  Technology demonstrated in relevant environment (industrially relevant environment in the case of key enabling technologies)","TRL 7  System prototype demonstration in operational environment","TRL 8  System complete and qualified","TRL 9  Actual system proven in operational environment (competitive manufacturing in the case of key enabling technologies; or in space)"]
+                resultsKeyword: 'clarisa_technology_development_stage'
+                // options: ["TRL 1  Basic principles observed","TRL 2  Technology concept formulated","TRL 3  Experimental proof of concept","TRL 4  Technology validated in lab","TRL 5  Technology validated in relevant environment (industrially relevant environment in the case of key enabling technologies)","TRL 6  Technology demonstrated in relevant environment (industrially relevant environment in the case of key enabling technologies)","TRL 7  System prototype demonstration in operational environment","TRL 8  System complete and qualified","TRL 9  Actual system proven in operational environment (competitive manufacturing in the case of key enabling technologies; or in space)"]
             },
             {
                 id: "8.2",
@@ -50,7 +51,8 @@ const configurationArray = [
                     '•  <b>Innovation (unproven)</b>: Tested capacity of the innovation to meet specific objectives in an uncontrolled environment with support from an intervention.<br/><br/>' +
                     '•  <b>Innovation (proven)</b>: Validated capacity of the innovation to meet specific objectives in an uncontrolled environment without support from an intervention.</span>',
                 valid: false,
-                options: ["Idea","Hypothesis (proven)","Basic Model (unproven)","Basic Model (proven)","Application Model (unproven)","Application Model (proven)","Application (unproven)","Application (proven)","Innovation (unproven)", "Innovation (proven)"]
+                resultsKeyword: 'clarisa_innovation_readiness_levels'
+                // options: ["Idea","Hypothesis (proven)","Basic Model (unproven)","Basic Model (proven)","Application Model (unproven)","Application Model (proven)","Application (unproven)","Application (proven)","Innovation (unproven)", "Innovation (proven)"]
             },
         ]
     },

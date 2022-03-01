@@ -34,7 +34,7 @@ const configurationArray = [
                     'f) <b>System or software</b>: computer program designed to run a computer’s hardware and application programme.' + "<br/>"+ "<br/>" +
                     'Sources: various dictionaries.' + "<br/>"+ "<br/>" + '</span>',
                 valid: false,
-                resultsKeyword: 'Business_category'
+                resultsKeyword: 'clarisa_business_category'
             },
             {
                 id: "1.4",
@@ -45,7 +45,7 @@ const configurationArray = [
                 label: 'Administrative Scale',
                 fieldInformation: 'Select the scope where the innovation is being deployed. ',
                 valid: false,
-                options: ["Subnational","National","Multi-National"]
+                resultsKeyword: 'clarisa_administrative_scale'
             },
             {
                 id: "1.5",
@@ -99,7 +99,7 @@ const configurationArray = [
                     '<b>Transportation</b>: establishment operated for the purpose of conveying persons or goods and services from one place to another<br/><br/>' +
                     '<b>Water</b>: industrial wastewater recycling, reclaimed water discharge, and well water used as plants cleaning, make-up water for power generation systems </span>',
                 valid: false,
-                resultsKeyword: 'Technical_field'
+                resultsKeyword: 'clarisa_technical_field'
             },
             {
                 id: "1.10",
@@ -126,7 +126,7 @@ const configurationArray = [
                     '<b>Organizational</b> or <b>Institutional</b>: A new organizational method in business practices, workplace organization or external relations.<br/><br/>' +
                     'For other, please input the type. </span>',
                 valid: false,
-                resultsKeyword: 'Type_of_innovation'
+                resultsKeyword: 'clarisa_innovation_type'
             },
             {
                 id: "1.12",
@@ -140,7 +140,7 @@ const configurationArray = [
                     '<b>Public</b>:  regulation and soft law, public engagement, and science communication of the technical and design standards.<br/> <br/>' +
                     '<b>Shared PPP</b>: private and public sector governance in the research and development agenda setting with public accountability mechanisms</span>',
                 valid: false,
-                resultsKeyword: 'Gοvernance_type'
+                resultsKeyword: 'clarisa_governance_type'
             },
             {
                 id: "1.13",

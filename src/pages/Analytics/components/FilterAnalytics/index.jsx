@@ -327,7 +327,6 @@ const FilterAnalytics = (props) => {
 
 
     const selectButtonIcon = (e) => {
-        console.log(e.target)
         if(e.target.id === "system-transformation") {
             if (opacity1Button === "1") {
                 updateSelectedFilters("action_areas","system-transformation","add");

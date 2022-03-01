@@ -13,7 +13,6 @@ const Keywords = (props) => {
     const [displayDialog, setDisplayDialog] = useState(false)
     const [value, setValue] = useState(presetValue)
     const [valid,setValid] = useState('no data')
-    const [checked, setChecked] = useState(false);
 
     useEffect(
         () => {
@@ -111,8 +110,8 @@ const Keywords = (props) => {
             <Tooltip target=".status"  position="top"/>
             <div className="p-inputgroup">
                 <span className="p-float-label">
-                    <Chips className={((valid != 'valid') && configuration.mandatory) ? "p-invalid p-d-block" : "p-valid p-d-block"}
-                               disabled={configuration.checkbox ? (configuration.disabled || !checked) : (configuration.disabled)}
+                    <Chips className={((valid !== 'valid') && configuration.mandatory) ? "p-invalid p-d-block" : "p-valid p-d-block"}
+                               disabled={configuration.disabled}
                                value={value} onChange={(e) => setValue(e.target.value)}
                                placeholder={configuration.placeholder} separator=","
                     />

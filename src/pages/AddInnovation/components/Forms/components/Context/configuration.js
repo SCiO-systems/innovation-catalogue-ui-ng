@@ -14,7 +14,7 @@ const configurationArray = [
                     // '(800 words)' +
                     '</span>',
                 valid: false,
-                resultsKeyword: 'Countries',
+                resultsKeyword: 'clarisa_countries',
                 filter: true,
             },
             {
@@ -42,7 +42,7 @@ const configurationArray = [
                 label: 'Locations of Applied Evidence',
                 fieldInformation: 'Please insert countries where the innovation has been applied based on a diagnosis of a context and where supporting evidence can be provided. ',
                 valid: false,
-                resultsKeyword: 'Countries',
+                resultsKeyword: 'clarisa_countries',
                 filter: true,
             },
             {
@@ -54,7 +54,7 @@ const configurationArray = [
                 label: 'Locations of Experimental Evidence',
                 fieldInformation: 'Please insert countries where the innovation has been experimented/piloted and where supporting evidence can be provided.',
                 valid: false,
-                resultsKeyword: 'Countries',
+                resultsKeyword: 'clarisa_countries',
                 filter: true,
             },
             {
@@ -66,7 +66,7 @@ const configurationArray = [
                 label: 'Locations of Impact/Profit Evidence',
                 fieldInformation: 'Please insert countries where the innovation has proven impact and where supporting evidence can be provided.',
                 valid: false,
-                resultsKeyword: 'Countries',
+                resultsKeyword: 'clarisa_countries',
                 filter: true,
             },
         ]

@@ -23,9 +23,10 @@ import PrimeReact from 'primereact/api';
 import './App.scss';
 import {useDispatch, useSelector} from "react-redux";
 import {Actions} from "./reducer/actions";
-import {getCsrfToken} from './services/httpService/csrf'
-import {getMelUserData} from './services/httpService/melLogin'
 import {getUserData} from './services/httpService/user'
+import csrfService from './services/httpService2/csrf'
+import melService from './services/httpService2/melLogin'
+import {http} from "./services/httpService2";
 
 PrimeReact.ripple = true;
 
@@ -39,7 +40,6 @@ const App = () => {
     const accessToken = useSelector((state) => state.accessToken)
     const setAccessToken = (payload) => dispatch({ type: Actions.SetAccessToken, payload });
 
-    const userData = useSelector((state) => state.userData)
     const setUserData = (payload) => dispatch({ type: Actions.SetUserData, payload });
 
     const melUserData = useSelector((state) => state.melUserData)
@@ -50,10 +50,14 @@ const App = () => {
     const [menuActive, setMenuActive] = useState(false);
 
     useEffect(() => {
-        getCsrfToken()
+        
+        csrfService.getCsrfToken()
             .then(res => {
                 setCsrfToken(res)
+                http.defaults.headers.post['X-CSRF-Token'] = res
             })
+            .catch(err => console.log(err))
+
         const token = localStorage.getItem("accessToken");
         if (token) {
             setAccessToken(token)
@@ -69,18 +73,18 @@ const App = () => {
         () => {
             if (csrfToken !== '') {
                 if (accessToken) {
-                    getMelUserData(csrfToken, accessToken)
-                        .then(async res => {
-                            const temp = await res.text()
-                            if (temp === 'Access Token has expired') {
+                    melService.getMelUserData(accessToken)
+                        .then(res => {
+                            if (res === 'Access Token has expired') {
                                 localStorage.removeItem("accessToken");
                                 localStorage.removeItem("melUserData");
                                 setLoggedIn('logged out')
                                 setMelUserData({})
                                 setAccessToken('')
                             } else {
-                                setMelUserData(JSON.parse(temp))
-                                localStorage.setItem("melUserData",temp);
+                                console.log(res)
+                                setMelUserData(res)
+                                localStorage.setItem("melUserData",JSON.stringify(res));
                             }
                         })
                         .catch(err => console.log(err))

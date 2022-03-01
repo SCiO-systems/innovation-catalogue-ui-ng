@@ -88,39 +88,35 @@ const AddInnovation = () => {
 
     useEffect(() => {
 
-        // let storage = window.localStorage.getItem('descriptionValues')
-        // if (storage) setDescriptionValues(JSON.parse(storage))
-        // storage = window.localStorage.getItem('benefitImpactValues')
-        // if (storage) setBenefitImpactValues(JSON.parse(storage))
-        // storage = window.localStorage.getItem('contextValues')
-        // if (storage) setContextValues(JSON.parse(storage))
-        // storage = window.localStorage.getItem('evidenceValues')
-        // if (storage) setEvidenceValues(JSON.parse(storage))
-        // storage = window.localStorage.getItem('intellectualPropertyValues')
-        // if (storage) setIntellectualPropertyValues(JSON.parse(storage))
-        // storage = window.localStorage.getItem('interventionsValues')
-        // if (storage) setInterventionsValues(JSON.parse(storage))
-        // storage = window.localStorage.getItem('investmentValues')
-        // if (storage) setInvestmentValues(JSON.parse(storage))
-        // storage = window.localStorage.getItem('readinessValues')
-        // if (storage) setReadinessValues(JSON.parse(storage))
-        // storage = window.localStorage.getItem('stakeholdersValues')
-        // if (storage) setStakeholdersValues(JSON.parse(storage))
+        fetch(`${process.env.REACT_APP_RELAY_URL}/rtb-refactored/api/clarisaResults`, {
+            method: 'POST',
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                "xsrf-token": csrfToken,
+            },
+            credentials: "include",
+            mode: 'cors'
+        })
+            .then(async res => {
+                const result = await res.text()
+                console.log((JSON).parse(result))
+                setResults((JSON).parse(result))
+            })
+            .catch(err => console.log(err))
 
-        resultService.getResults()
-            .then(data => setResults(data));
+        // resultService.getResults()
+        //     .then(data => setResults(data));
 
         resultService.getSteps()
             .then(data => setAccordionData(data));
-    },[]);
+    },[csrfToken]);
 
-    // useEffect(
-    //     () => {
-    //         if(editingInnovation === '') {
-    //             resetInnovation()
-    //         }
-    //     }, [editingInnovation]
-    // )
+    useEffect(
+        () => {
+            setStep(0)
+        }, []
+    )
 
     const items = [
         {label: 'Description'},
@@ -148,16 +144,19 @@ const AddInnovation = () => {
     }
 
     const addInnovation = () => {
+        let status
         const allFields = [...benefitImpactValues, ...contextValues, ...descriptionValues, ...evidenceValues, ...intellectualPropertyValues, ...interventionsValues, ...investmentValues, ...readinessValues, ...stakeholdersValues]
         const mandatoryFields = allFields.filter(item => item.mandatory === true)
         const invalidFields = mandatoryFields.filter(item => item.valid === false)
-        let status
-        if (invalidFields.length === 0 ) {
-            status = 'READY'
+        if ((descriptionValues.length === 0) || (benefitImpactValues.length === 0) || (contextValues.length === 0) || (readinessValues.length === 0) || (stakeholdersValues.length === 0)) {
+            status = "DRAFT"
         } else {
-            status = 'DRAFT'
+            if (invalidFields.length === 0 ) {
+                status = 'READY'
+            } else {
+                status = 'DRAFT'
+            }
         }
-
         insertInnovation(csrfToken, userData.user.userId, allFields,status)
 
         resetInnovation()
@@ -169,14 +168,18 @@ const AddInnovation = () => {
 
         const innovation = innovations.find(item => item.innovId === editingInnovation)
 
+        let status
         const allFields = [...benefitImpactValues, ...contextValues, ...descriptionValues, ...evidenceValues, ...intellectualPropertyValues, ...interventionsValues, ...investmentValues, ...readinessValues, ...stakeholdersValues]
         const mandatoryFields = allFields.filter(item => item.mandatory === true)
         const invalidFields = mandatoryFields.filter(item => item.valid === false)
-        let status
-        if (invalidFields.length === 0 ) {
-            status = 'READY'
+        if ((descriptionValues.length === 0) || (benefitImpactValues.length === 0) || (contextValues.length === 0) || (readinessValues.length === 0) || (stakeholdersValues.length === 0)) {
+            status = "DRAFT"
         } else {
-            status = 'DRAFT'
+            if (invalidFields.length === 0 ) {
+                status = 'READY'
+            } else {
+                status = 'DRAFT'
+            }
         }
 
         const body = {
