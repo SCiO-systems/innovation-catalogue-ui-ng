@@ -48,6 +48,7 @@ const MyInnovations = () => {
 
     const [deleteDialog, setDeleteDialog] = useState(false);
     const [deleteInnovationId, setDeleteInnovationId] = useState('')
+    const [resfreshTrigger, setRefreshTrigger] = useState(false)
 
     const descriptorsUrl = '/descriptors/';
 
@@ -58,7 +59,7 @@ const MyInnovations = () => {
                     const temp = await res.json()
                     setInnovations(temp.innovations)
                 })
-        },[]
+        },[resfreshTrigger]
     )
 
     const deleteInnovation = () => {
@@ -79,6 +80,7 @@ const MyInnovations = () => {
             credentials: "include",
             mode: "cors"
         })
+            .then(setRefreshTrigger(!resfreshTrigger))
 
         // deleteInnovation(csrfToken,userData.user.userId,deleteInnovationId);
         setDeleteDialog(false);
@@ -143,6 +145,7 @@ const MyInnovations = () => {
             credentials: "include",
             mode: "cors"
         })
+            .then(setRefreshTrigger(!resfreshTrigger))
     }
 
     const actionsTemplate = (data) =>{

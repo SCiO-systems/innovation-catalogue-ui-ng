@@ -25,7 +25,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Actions} from "./reducer/actions";
 import {getUserData} from './services/httpService/user'
 import csrfService from './services/httpService2/csrf'
-import melService from './services/httpService2/melLogin'
+import MelService from './services/httpService2/melLogin'
 import {http} from "./services/httpService2";
 
 PrimeReact.ripple = true;
@@ -73,7 +73,7 @@ const App = () => {
         () => {
             if (csrfToken !== '') {
                 if (accessToken) {
-                    melService.getMelUserData(accessToken)
+                    MelService.getMelUserData(accessToken)
                         .then(res => {
                             if (res === 'Access Token has expired') {
                                 localStorage.removeItem("accessToken");
