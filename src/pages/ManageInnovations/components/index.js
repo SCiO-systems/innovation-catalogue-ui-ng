@@ -1,3 +1,4 @@
 import MyInnovations from './MyInnovations'
+import ManageUsers from './ManageUsers'
 
-export {MyInnovations}
+export {MyInnovations, ManageUsers}

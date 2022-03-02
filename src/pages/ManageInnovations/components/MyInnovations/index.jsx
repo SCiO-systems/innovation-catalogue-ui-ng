@@ -2,15 +2,14 @@ import React, {useEffect, useState} from "react";
 import {DataTable} from "primereact/datatable";
 import {Column} from "primereact/column";
 import {Button} from "primereact/button";
-import {Tooltip} from "primereact/tooltip";
 import {Dialog} from "primereact/dialog";
 import {useNavigate} from "react-router-dom";
 import './styles.css'
 import {useDispatch, useSelector} from "react-redux";
 import {Actions} from "../../../../reducer/actions";
-import {getAllUserInnovations} from '../../../../services/httpService/user'
 import {DraftActions, ReadyActions} from './components'
-// import {deleteInnovation,submitInnovation} from '../../../../services/httpService/innovation'
+import UserService from '../../../../services/httpService2/user'
+import InnovationService from '../../../../services/httpService2/innovation'
 
 const MyInnovations = () => {
 
@@ -48,41 +47,23 @@ const MyInnovations = () => {
 
     const [deleteDialog, setDeleteDialog] = useState(false);
     const [deleteInnovationId, setDeleteInnovationId] = useState('')
-    const [resfreshTrigger, setRefreshTrigger] = useState(false)
+    const [resfreshTrigger, setRefreshTrigger] = useState(0)
 
     const descriptorsUrl = '/descriptors/';
 
     useEffect(
         () => {
-            getAllUserInnovations(csrfToken, userData.user.userId)
-                .then(async res => {
-                    const temp = await res.json()
-                    setInnovations(temp.innovations)
+            UserService.getAllUserInnovations(userData.user.userId)
+                .then(res => {
+                    setInnovations(res.innovations)
                 })
         },[resfreshTrigger]
     )
 
     const deleteInnovation = () => {
 
-        const body = {
-            user_id: userData.user.userId,
-            innovation_id: deleteInnovationId,
-        }
-
-        fetch(`${process.env.REACT_APP_RELAY_URL}/rtb-refactored/api/innovation/delete`, {
-            method: 'POST',
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                "xsrf-token": csrfToken,
-            },
-            body: JSON.stringify(body),
-            credentials: "include",
-            mode: "cors"
-        })
-            .then(setRefreshTrigger(!resfreshTrigger))
-
-        // deleteInnovation(csrfToken,userData.user.userId,deleteInnovationId);
+        InnovationService.deleteInnovation(userData.user.userId,deleteInnovationId)
+            .then(setRefreshTrigger(resfreshTrigger + 1))
         setDeleteDialog(false);
     }
 
@@ -129,23 +110,8 @@ const MyInnovations = () => {
 
     const submitInnovation = (id) => {
 
-        const body = {
-            user_id: userData.user.userId,
-            innovation_id: id,
-        }
-
-        fetch(`${process.env.REACT_APP_RELAY_URL}/rtb-refactored/api/innovation/submit`, {
-            method: 'POST',
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                "xsrf-token": csrfToken,
-            },
-            body: JSON.stringify(body),
-            credentials: "include",
-            mode: "cors"
-        })
-            .then(setRefreshTrigger(!resfreshTrigger))
+        InnovationService.submitInnovation(userData.user.userId,id)
+            .then(setRefreshTrigger(resfreshTrigger + 1))
     }
 
     const actionsTemplate = (data) =>{
@@ -173,7 +139,7 @@ const MyInnovations = () => {
             <div className="card table-margin">
                 <DataTable value={innovations} paginator rows={10} rowsPerPageOptions={[10,20]}>
                     <Column field='title' body={(data) => (titleBody(data))}  sortable header="Title"/>
-                    <Column field="editing-rights"  sortable header="Editing Rights"/>
+                    {/*<Column field="editing-rights"  sortable header="Editing Rights"/>*/}
                     <Column field="status"  sortable header="Status"/>
                     <Column field="comments"  sortable header="Reviewer's Comments"/>
                     <Column field="dateSubmitted" sortable header="Date Submitted"/>

@@ -4,7 +4,7 @@ import axios from 'axios'
 export const RELAY = process.env.REACT_APP_RELAY_URL
 
 export const http = axios.create({
-    timeout: 2000,
+    timeout: 10000,
     baseURL: `${RELAY}/rtb-refactored`,
     withCredentials: true,
     headers: {

@@ -1,6 +1,6 @@
 import { http } from '../index';
 
-class csrfService {
+class CsrfService {
 
     getCsrfToken = async () => {
         const result = await http.get(`/form`)
@@ -8,4 +8,4 @@ class csrfService {
     }
 }
 
-export default new csrfService();
+export default new CsrfService();

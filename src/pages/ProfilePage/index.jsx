@@ -6,9 +6,8 @@ import {Dropdown} from "primereact/dropdown";
 import { Button } from 'primereact/button';
 import {Toast} from "primereact/toast";
 import {useDispatch, useSelector} from "react-redux";
-import {Actions} from "../../reducer/actions";
 import {useNavigate} from "react-router-dom";
-import {updateUserRole} from '../../services/httpService/user'
+import UserService from '../../services/httpService2/user'
 
 const ProfilePage = () => {
 
@@ -18,7 +17,9 @@ const ProfilePage = () => {
 
     const melUserData = useSelector((state) => state.melUserData)
 
-    const csrfToken = useSelector((state) => state.csrfToken)
+    const userData = useSelector((state) => state.userData)
+
+    console.log(userData)
 
     const [selectedRole, setSelectedRole] = useState(null);
     const [selectedOrganization, setSelectedOrganization] = useState(null);
@@ -49,14 +50,16 @@ const ProfilePage = () => {
             const temp = localStorage.getItem("selectedRole")
             if (temp) {
                 setSelectedRole(roles.find(item => item.keyword === temp ))
+            } else {
+                setSelectedRole(roles.find(item => item.name === userData.user?.role))
             }
-        },[]
+        },[userData]
     )
 
     const onRoleChange = (e) => {
         localStorage.setItem("selectedRole", e.value.keyword)
         setSelectedRole(e.value);
-        updateUserRole(csrfToken,melUserData.profile_id, e.value.name)
+        UserService.updateUserRole(melUserData.profile_id, e.value.name)
     }
 
     const onOrganizationChange = (e) => {

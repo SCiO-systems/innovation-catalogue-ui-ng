@@ -3,7 +3,7 @@
 @import '@fullcalendar/daygrid/main.css';
 @import '@fullcalendar/timegrid/main.css';
 @import './AppDemo.scss';
-@import "@fortawesome/fontawesome-pro/css/all.css";
+//@import "@fortawesome/fontawesome-pro/css/all.css";
 
 /*...general styles...*/
 
@@ -637,6 +637,22 @@ div.save-profile-button button{
 
 .button-submit-table:enabled:focus{
     background: #499239D0;
+    color: #fff;
+}
+
+.button-permissions-table{
+    background: transparent;
+    border: 1.4px solid #170849;
+    color: #170849;
+}
+
+.button-permissions-table:enabled:hover{
+    background: #170849;
+    color: #fff;
+}
+
+.button-permissions-table:enabled:focus{
+    background: #170849;
     color: #fff;
 }
 

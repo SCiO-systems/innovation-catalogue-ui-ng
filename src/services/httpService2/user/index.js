@@ -1,11 +1,35 @@
 import { http } from '../index';
 
-class QueueService {
+class UserService {
 
-    abandonTicket = async (ticket) => {
-        const result = await http.get(`/queue/${ticket.queueId}/AbandonTicket/${ticket.id}`)
-        return result
+    getUserData = async (id) => {
+        const result = await http.post(`/api/user/getUserData`, {
+            user_id: id,
+        })
+        return result.data
+    }
+
+    updateUserRole = async (id,role) => {
+        const result = await http.post(`/api/user/update/role`, {
+            user_id: id,
+            role: role
+        })
+        return result.data
+    }
+
+    getAllUserInnovations = async (id) => {
+        const result = await http.post(`/api/user/getInnovations`, {
+            user_id: id,
+        })
+        return result.data
+    }
+
+    getAssignedReviews = async (id) => {
+        const result = await http.post(`/api/user/getAssignedReviews`, {
+            user_id: id,
+        })
+        return result.data
     }
 }
 
-export default new QueueService();
+export default new UserService();

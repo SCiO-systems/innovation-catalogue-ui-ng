@@ -1,0 +1,16 @@
+.manage-users .p-chips-input-token {
+    display: none;
+}
+.manage-users .p-chips-token-icon {
+    display: none;
+}
+.manage-users .p-chips-multiple-container {
+    border: 0px;
+}
+
+.p-chip {
+    background-color: #ffd398;
+    border-radius: 4px;
+    margin: 4px;
+    cursor: pointer;
+}

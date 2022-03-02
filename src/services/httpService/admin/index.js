@@ -1,11 +1,11 @@
 const relayUrl = process.env.REACT_APP_RELAY_URL
 
-const updateUserPermissions = async (csrfToken, id,permissions) => {
+const updateUserPermissions = async (csrfToken, id,permissions,targetId) => {
 
     const body = {
         user_id: id,
         permissions: permissions,
-        targetid: id
+        target_id: targetId
     }
 
     return await fetch(`${relayUrl}/rtb-refactored/api/admin/update/permissions`, {
@@ -40,7 +40,7 @@ const getAllInnovations = async (csrfToken, id) => {
     })
 }
 
-const getAllReviwers = async (csrfToken, id) => {
+const getAllReviewers = async (csrfToken, id) => {
 
     const body = {
         user_id: id,
@@ -80,4 +80,4 @@ const assignReviewer = async (csrfToken, id,innovationId,reviewer_ids) => {
     })
 }
 
-export {updateUserPermissions,getAllInnovations,getAllReviwers,assignReviewer}
+export {updateUserPermissions,getAllInnovations,getAllReviewers,assignReviewer}
