@@ -58,7 +58,7 @@ const getAllUserInnovations = async (csrfToken, id) => {
     })
 }
 
-const getAssignedReviews = async (csrfToken, id) => {
+const getAssignedInnovations = async (csrfToken, id) => {
 
     const body = {
         user_id: id,

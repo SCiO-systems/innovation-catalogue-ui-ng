@@ -1,5 +1,5 @@
 import React from 'react'
-import {MyInnovations, ManageUsers} from './components'
+import {MyInnovations, ManageUsers,ManageUserInnovations,AssignedInnovations} from './components'
 import { TabView, TabPanel } from 'primereact/tabview';
 import {useSelector} from "react-redux";
 import './styles.css'
@@ -13,8 +13,8 @@ const ManageInnovations = () => {
         return (
             <TabView>
                 <TabPanel header="My Innovations"><MyInnovations/></TabPanel>
-                {userData.user.permissions.find(item => item === 'Reviewer') ?      <TabPanel header="My Review Assignments"> </TabPanel> : <></>}
-                {userData.user.permissions.find(item => item === 'Administrator') ?      <TabPanel header="Manage Innovations"> </TabPanel> : <></>}
+                {userData.user.permissions.find(item => item === 'Reviewer') ?      <TabPanel header="My Assignments"><AssignedInnovations/></TabPanel> : <></>}
+                {userData.user.permissions.find(item => item === 'Administrator') ?      <TabPanel header="Manage Innovations"><ManageUserInnovations/></TabPanel> : <></>}
                 {userData.user.permissions.find(item => item === 'Administrator') ?      <TabPanel header="Manage Users"><ManageUsers/></TabPanel> : <></>}
             </TabView>
         )

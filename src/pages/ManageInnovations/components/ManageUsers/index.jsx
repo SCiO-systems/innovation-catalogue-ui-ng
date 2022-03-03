@@ -25,7 +25,6 @@ const ManageUsers = () => {
         () => {
             AdministratorService.getAllUsers(userData.user.userId)
                 .then(res => {
-                    console.log(res)
                     setUsers(res.users)
                 })
         },[resfreshTrigger]
@@ -111,7 +110,7 @@ const ManageUsers = () => {
                 </DataTable>
             </div>
             <Dialog visible={permissionsDialog} style={{ width: '450px' }} header="Confirm" modal footer={permissionsFooter} onHide={() => setPermissionsDialog(false)}>
-                <span>Click to enable or disable permissions</span>
+                <span className='manage-users-dialog-info'>Click to enable or disable permissions</span>
                 {renderChips()}
             </Dialog>
         </div>

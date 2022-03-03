@@ -147,5 +147,3 @@ const rejectInnovation = async (csrfToken, id, innovationId,comments) => {
         mode: "cors"
     })
 }
-
-export {insertInnovation,editInnovation,deleteInnovation,submitInnovation,updateVersionInnovation,publishInnovation,rejectInnovation}

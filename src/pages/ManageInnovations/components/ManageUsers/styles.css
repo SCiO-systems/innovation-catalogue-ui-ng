@@ -14,3 +14,8 @@
     margin: 4px;
     cursor: pointer;
 }
+
+.manage-users-dialog-info {
+    display: flex;
+    margin-bottom: 20px;
+}

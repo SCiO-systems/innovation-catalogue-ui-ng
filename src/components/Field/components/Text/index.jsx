@@ -116,15 +116,10 @@ const Text = (props) => {
                                value={value} onChange={(e) => setValue(e.target.value)}
                                placeholder={configuration.placeholder}
                     />
-                    {/*<label htmlFor="username">{configuration.label}</label>*/}
                 </span>
                 <span className="p-inputgroup-addon" id='question' onClick={() => setDisplayDialog(true)}><i className="fad fa-question"/></span>
             </div>
-            {/*<div className='field-messages'>*/}
-            {/*    {configuration.minCharacters? <small className="p-d-block">{`Number of characters: ${value.length}/${configuration.maxCharacters}`}</small> : <></>}*/}
-            {/*</div>*/}
             <Dialog header={configuration.label} visible={displayDialog} style={{ width: '50vw' }} footer={renderQuesitonFooter('displayBasic')} onHide={() => setDisplayDialog(false)} >
-                {/*<p>{configuration.fieldInformation}</p>*/}
                 {ReactHtmlParser(configuration.fieldInformation)}
             </Dialog>
         </div>

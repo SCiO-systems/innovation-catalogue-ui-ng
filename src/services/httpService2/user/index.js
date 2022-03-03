@@ -24,8 +24,8 @@ class UserService {
         return result.data
     }
 
-    getAssignedReviews = async (id) => {
-        const result = await http.post(`/api/user/getAssignedReviews`, {
+    getAssignedInnovations = async (id) => {
+        const result = await http.post(`/api/user/getAssignedInnovations`, {
             user_id: id,
         })
         return result.data

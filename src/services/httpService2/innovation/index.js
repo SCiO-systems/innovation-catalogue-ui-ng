@@ -29,6 +29,15 @@ class InnovationService {
         return result.data
     }
 
+    deleteRejectedInnovation = async (id, innovationId, timestamp) => {
+        const result = await http.post(`/api/innovation/deleteRejected`, {
+            user_id: id,
+            innovation_id: innovationId,
+            timestamp: timestamp
+        })
+        return result.data
+    }
+
     submitInnovation = async (id, innovationId) => {
         const result = await http.post(`/api/innovation/submit`, {
             user_id: id,
@@ -37,6 +46,42 @@ class InnovationService {
         return result.data
     }
 
+    publishInnovation = async (id, innovationId) => {
+        const result = await http.post(`/api/innovation/publish`, {
+            user_id: id,
+            innovation_id: innovationId,
+        })
+        return result.data
+    }
+
+    rejectInnovation = async (id, innovationId,comments) => {
+        const result = await http.post(`/api/innovation/reject`, {
+            user_id: id,
+            innovation_id: innovationId,
+            comments: comments
+        })
+        return result.data
+    }
+
+    addComment = async (id, innovationId,comments) => {
+        const result = await http.post(`/api/innovation/addComment`, {
+            user_id: id,
+            innovation_id: innovationId,
+            comments: comments
+        })
+        return result.data
+    }
+
+    updateVersionInnovation = async (id, innovationId,status,formData,version) => {
+        const result = await http.post(`/api/innovation/updateVersion`, {
+            user_id: id,
+            innovation_id: innovationId,
+            status: status,
+            form_data: JSON.stringify(formData),
+            version: version
+        })
+        return result.data
+    }
 }
 
 export default new InnovationService();

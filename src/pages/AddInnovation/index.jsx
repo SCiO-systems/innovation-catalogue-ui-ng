@@ -7,7 +7,6 @@ import {Button} from "primereact/button";
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {Actions} from "../../reducer/actions";
-import {insertInnovation,editInnovation} from '../../services/httpService/innovation'
 import InnovationService from '../../services/httpService2/innovation'
 
 const AddInnovation = () => {
@@ -199,7 +198,7 @@ const AddInnovation = () => {
                 </div>
                 <div className="step-1 steps-forms-container">
                     <Card className="forms-card steps-card">
-                        <StepsForms activeIndex={step} results={results.summaries}/>
+                        {/*<StepsForms activeIndex={step} results={results.summaries}/>*/}
                         <Forms />
                     </Card>
                     <Card className="margin-bottom-80 buttons-card-steps steps-card">
