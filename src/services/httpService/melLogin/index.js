@@ -1,33 +1,20 @@
-const relayUrl = process.env.REACT_APP_RELAY_URL
+import { http } from '../index';
 
-const getAccessToken = async (csrfToken, code) => {
+class MelService {
 
-    return await fetch(`${relayUrl}/rtb-refactored/api/melLogin/accessToken`, {
-        method: 'POST',
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            "xsrf-token": csrfToken,
+    getAccessToken = async (code) => {
+        const result = await http.post(`/api/melLogin/accessToken`, {
             code: code
-        },
-        credentials: "include",
-        mode: "cors"
-    })
-}
+        })
+        return result.data
+    }
 
-const getMelUserData = async (csrfToken, accessToken) => {
-
-    return await fetch(`${relayUrl}/rtb-refactored/api/melLogin/userData`, {
-        method: 'POST',
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            "xsrf-token": csrfToken,
+    getMelUserData = async (accessToken) => {
+        const result = await http.post(`/api/melLogin/userData`, {
             accessToken: accessToken
-        },
-        credentials: "include",
-        mode: "cors"
-    })
+        })
+        return result.data
+    }
 }
 
-export {getAccessToken, getMelUserData}
+export default new MelService();

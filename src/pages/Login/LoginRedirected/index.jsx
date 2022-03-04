@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import {Actions} from "../../../reducer/actions";
 import {useNavigate} from "react-router-dom";
-import MelService from '../../../services/httpService2/melLogin'
+import MelService from '../../../services/httpService/melLogin'
 
 const LoginRedirected = () => {
 

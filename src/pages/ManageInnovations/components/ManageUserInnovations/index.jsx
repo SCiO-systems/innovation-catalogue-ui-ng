@@ -4,8 +4,8 @@ import {Column} from "primereact/column";
 import {Dialog} from "primereact/dialog";
 import {Button} from "primereact/button";
 import { Dropdown } from 'primereact/dropdown';
-import AdministratorService from "../../../../services/httpService2/admin";
-import InnovationService from "../../../../services/httpService2/innovation";
+import AdministratorService from "../../../../services/httpService/admin";
+import InnovationService from "../../../../services/httpService/innovation";
 import {useSelector} from "react-redux";
 import {AssignAction,DeleteAction,RejectedActions} from './components'
 
@@ -70,7 +70,7 @@ const ManageUserInnovations = () => {
     );
 
     const deleteRejectedDialog = (data) => {
-        setRejectedTimestamp(data.timestamp)
+        setRejectedTimestamp(data.createdAt)
         setSelectedInnovationId(data.innovId)
         setRejectedDialog(true);
     }
@@ -144,6 +144,27 @@ const ManageUserInnovations = () => {
         }
     }
 
+    const createdAtTemplate = (data) => {
+        const date = new Date(data.createdAt)
+        return (
+            <div>
+                <p>{date.toLocaleDateString()}</p>
+                <p>{date.toLocaleTimeString()}</p>
+            </div>
+        )
+
+    }
+
+    const updatedAtTemplate = (data) => {
+        const date = new Date(data.updatedAt)
+        return (
+            <div>
+                <p>{date.toLocaleDateString()}</p>
+                <p>{date.toLocaleTimeString()}</p>
+            </div>
+        )
+    }
+
     return (
         <div className='my-innovations-table'>
             <div className="peach-background-container">
@@ -155,8 +176,8 @@ const ManageUserInnovations = () => {
                     <Column field="status" body={statusTemplate} sortable header="Status"/>
                     <Column field="version" sortable header="Version"/>
                     <Column field="reviewers" body={reviewersTemplate} sortable header="Reviewer"/>
-                    <Column field="created_at" sortable header="Date Submitted"/>
-                    <Column field="updated_at" sortable header="Last Updated"/>
+                    <Column field="createdΑt" body={createdAtTemplate} sortable header="Date Created"/>
+                    <Column field="updatedΑt" body={updatedAtTemplate} sortable header="Last Updated"/>
                     <Column field="actions" header="Actions" body={actionsTemplate} style={{width: "250px"}}/>
                 </DataTable>
             </div>

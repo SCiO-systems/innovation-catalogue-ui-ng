@@ -5,8 +5,8 @@ import {Dialog} from "primereact/dialog";
 import {Tooltip} from "primereact/tooltip";
 import {Button} from "primereact/button";
 import { InputTextarea } from 'primereact/inputtextarea';
-import UserService from "../../../../services/httpService2/user";
-import InnovationService from '../../../../services/httpService2/innovation'
+import UserService from "../../../../services/httpService/user";
+import InnovationService from '../../../../services/httpService/innovation'
 import {useSelector} from "react-redux";
 
 
@@ -109,6 +109,16 @@ const AssignedInnovations = () => {
         )
     }
 
+    const updatedAtTemplate = (data) => {
+        const date = new Date(data.updatedAt)
+        return (
+            <div>
+                <p>{date.toLocaleDateString()}</p>
+                <p>{date.toLocaleTimeString()}</p>
+            </div>
+        )
+    }
+
     return (
         <div className='my-innovations-table'>
             <div className="peach-background-container">
@@ -118,7 +128,7 @@ const AssignedInnovations = () => {
                 <DataTable value={innovations} paginator rows={10} rowsPerPageOptions={[10,20]}>
                     <Column field='title' body={(data) => (titleBody(data))}  sortable header="Title"/>
                     <Column field="comments" sortable header="Comments"/>
-                    <Column field="updated_at" sortable header="Last Updated"/>
+                    <Column field="updatedΑt" body={updatedAtTemplate} sortable header="Last Updated"/>
                     <Column field="actions" header="Actions" body={actionsTemplate} style={{width: "250px"}}/>
                 </DataTable>
             </div>

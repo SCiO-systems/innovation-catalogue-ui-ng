@@ -8,8 +8,8 @@ import './styles.css'
 import {useDispatch, useSelector} from "react-redux";
 import {Actions} from "../../../../reducer/actions";
 import {DraftActions, ReadyActions,RejectedActions,AcceptedActions} from './components'
-import UserService from '../../../../services/httpService2/user'
-import InnovationService from '../../../../services/httpService2/innovation'
+import UserService from '../../../../services/httpService/user'
+import InnovationService from '../../../../services/httpService/innovation'
 
 const MyInnovations = () => {
 
@@ -99,7 +99,7 @@ const MyInnovations = () => {
     );
 
     const deleteRejectedDialog = (data) => {
-        setRejectedTimestamp(data.timestamp)
+        setRejectedTimestamp(data.createdAt)
         setDeleteInnovationId(data.innovId)
         setRejectedDialog(true);
     }
@@ -191,6 +191,27 @@ const MyInnovations = () => {
         }
     }
 
+    const createdAtTemplate = (data) => {
+        const date = new Date(data.createdAt)
+        return (
+            <div>
+                <p>{date.toLocaleDateString()}</p>
+                <p>{date.toLocaleTimeString()}</p>
+            </div>
+        )
+
+    }
+
+    const updatedAtTemplate = (data) => {
+        const date = new Date(data.updatedAt)
+        return (
+            <div>
+                <p>{date.toLocaleDateString()}</p>
+                <p>{date.toLocaleTimeString()}</p>
+            </div>
+        )
+    }
+
     return (
         <div className='my-innovations-table'>
             <div className="peach-background-container">
@@ -203,8 +224,8 @@ const MyInnovations = () => {
                     <Column field="status" body={statusTemplate} sortable header="Status"/>
                     <Column field="version" sortable header="Version"/>
                     <Column field="comments"  sortable header="Reviewer's Comments"/>
-                    <Column field="created_at" sortable header="Date Submitted"/>
-                    <Column field="updated_at" sortable header="Last Updated"/>
+                    <Column field="createdΑt" body={createdAtTemplate} sortable header="Date Created"/>
+                    <Column field="updatedΑt" body={updatedAtTemplate} sortable header="Last Updated"/>
                     <Column field="actions" header="Actions" body={actionsTemplate} style={{width: "250px"}}/>
                 </DataTable>
             </div>

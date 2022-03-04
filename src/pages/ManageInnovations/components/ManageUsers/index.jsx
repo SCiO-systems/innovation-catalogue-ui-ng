@@ -5,7 +5,7 @@ import {Dialog} from "primereact/dialog";
 import { Chips } from 'primereact/chips';
 import { Chip } from 'primereact/chip';
 import { Ripple } from 'primereact/ripple';
-import AdministratorService from '../../../../services/httpService2/admin'
+import AdministratorService from '../../../../services/httpService/admin'
 import {useSelector} from "react-redux";
 import './styles.css'
 import {Tooltip} from "primereact/tooltip";

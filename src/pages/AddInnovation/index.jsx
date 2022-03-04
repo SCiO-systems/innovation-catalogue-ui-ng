@@ -7,7 +7,7 @@ import {Button} from "primereact/button";
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {Actions} from "../../reducer/actions";
-import InnovationService from '../../services/httpService2/innovation'
+import InnovationService from '../../services/httpService/innovation'
 
 const AddInnovation = () => {
 

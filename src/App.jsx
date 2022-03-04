@@ -23,10 +23,10 @@ import PrimeReact from 'primereact/api';
 import './App.scss';
 import {useDispatch, useSelector} from "react-redux";
 import {Actions} from "./reducer/actions";
-import CsrfService from './services/httpService2/csrf'
-import MelService from './services/httpService2/melLogin'
-import UserService from './services/httpService2/user'
-import {http} from "./services/httpService2";
+import CsrfService from './services/httpService/csrf'
+import MelService from './services/httpService/melLogin'
+import UserService from './services/httpService/user'
+import {http} from "./services/httpService";
 import "@fortawesome/fontawesome-pro/css/all.css"
 
 PrimeReact.ripple = true;
