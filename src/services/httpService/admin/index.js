@@ -1,83 +1,45 @@
-const relayUrl = process.env.REACT_APP_RELAY_URL
+import { http } from '../index';
 
-const updateUserPermissions = async (csrfToken, id,permissions) => {
+class AdministratorService {
 
-    const body = {
-        user_id: id,
-        permissions: permissions,
-        targetid: id
+    getAllUsers = async ( id) => {
+        const result = await http.post(`/api/admin/getAllUsers`, {
+            user_id: id,
+        })
+        return result.data
     }
 
-    return await fetch(`${relayUrl}/rtb-refactored/api/admin/update/permissions`, {
-        method: 'POST',
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            "xsrf-token": csrfToken,
-        },
-        body: JSON.stringify(body),
-        credentials: "include",
-        mode: "cors"
-    })
-}
-
-const getAllInnovations = async (csrfToken, id) => {
-
-    const body = {
-        user_id: id,
+    updateUserPermissions = async ( id,permissions,targetId) => {
+        const result = await http.post(`/api/admin/update/permissions`, {
+            user_id: id,
+            permissions: permissions,
+            target_id: targetId
+        })
+        return result.data
     }
 
-    return await fetch(`${relayUrl}/rtb-refactored/api/admin/getInnovations`, {
-        method: 'POST',
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            "xsrf-token": csrfToken,
-        },
-        body: JSON.stringify(body),
-        credentials: "include",
-        mode: "cors"
-    })
-}
-
-const getAllReviwers = async (csrfToken, id) => {
-
-    const body = {
-        user_id: id,
+    getAllInnovations = async ( id) => {
+        const result = await http.post(`/api/admin/getInnovations`, {
+            user_id: id,
+        })
+        return result.data
     }
 
-    return await fetch(`${relayUrl}/rtb-refactored/api/admin/getReviewers`, {
-        method: 'POST',
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            "xsrf-token": csrfToken,
-        },
-        body: JSON.stringify(body),
-        credentials: "include",
-        mode: "cors"
-    })
-}
-
-const assignReviewer = async (csrfToken, id,innovationId,reviewer_ids) => {
-
-    const body = {
-        user_id: id,
-        innovation_id: innovationId,
-        reviewer_ids: reviewer_ids
+    getAllReviewers = async ( id) => {
+        const result = await http.post(`/api/admin/getReviewers`, {
+            user_id: id,
+        })
+        return result.data
     }
 
-    return await fetch(`${relayUrl}/rtb-refactored/api/admin/assignReviewer`, {
-        method: 'POST',
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            "xsrf-token": csrfToken,
-        },
-        body: JSON.stringify(body),
-        credentials: "include",
-        mode: "cors"
-    })
+    assignReviewer = async ( id,innovationId,reviewer_id) => {
+        const result = await http.post(`/api/admin/assignReviewer`, {
+            user_id: id,
+            innovation_id: innovationId,
+            reviewer_id: reviewer_id
+        })
+        return result.data
+    }
 }
 
-export {updateUserPermissions,getAllInnovations,getAllReviwers,assignReviewer}
+export default new AdministratorService();

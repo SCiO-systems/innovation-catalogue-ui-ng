@@ -23,10 +23,11 @@ import PrimeReact from 'primereact/api';
 import './App.scss';
 import {useDispatch, useSelector} from "react-redux";
 import {Actions} from "./reducer/actions";
-import {getUserData} from './services/httpService/user'
-import csrfService from './services/httpService2/csrf'
-import MelService from './services/httpService2/melLogin'
-import {http} from "./services/httpService2";
+import CsrfService from './services/httpService/csrf'
+import MelService from './services/httpService/melLogin'
+import UserService from './services/httpService/user'
+import {http} from "./services/httpService";
+import "@fortawesome/fontawesome-pro/css/all.css"
 
 PrimeReact.ripple = true;
 
@@ -50,8 +51,8 @@ const App = () => {
     const [menuActive, setMenuActive] = useState(false);
 
     useEffect(() => {
-        
-        csrfService.getCsrfToken()
+
+        CsrfService.getCsrfToken()
             .then(res => {
                 setCsrfToken(res)
                 http.defaults.headers.post['X-CSRF-Token'] = res
@@ -97,11 +98,8 @@ const App = () => {
         () => {
             if (melUserData.profile_id) {
                 if (csrfToken !== '') {
-                    getUserData(csrfToken,melUserData.profile_id)
-                        .then(async res => {
-                            setUserData(await res.json())
-                        })
-                        .catch(err => console.log(err))
+                    UserService.getUserData(melUserData.profile_id)
+                        .then(res => setUserData(res))
                 }
             }
         },[melUserData,csrfToken]

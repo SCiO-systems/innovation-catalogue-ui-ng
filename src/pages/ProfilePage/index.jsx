@@ -6,9 +6,9 @@ import {Dropdown} from "primereact/dropdown";
 import { Button } from 'primereact/button';
 import {Toast} from "primereact/toast";
 import {useDispatch, useSelector} from "react-redux";
-import {Actions} from "../../reducer/actions";
 import {useNavigate} from "react-router-dom";
-import {updateUserRole} from '../../services/httpService/user'
+import UserService from '../../services/httpService/user'
+import './styles.css'
 
 const ProfilePage = () => {
 
@@ -18,7 +18,9 @@ const ProfilePage = () => {
 
     const melUserData = useSelector((state) => state.melUserData)
 
-    const csrfToken = useSelector((state) => state.csrfToken)
+    const userData = useSelector((state) => state.userData)
+
+    console.log(melUserData)
 
     const [selectedRole, setSelectedRole] = useState(null);
     const [selectedOrganization, setSelectedOrganization] = useState(null);
@@ -49,14 +51,16 @@ const ProfilePage = () => {
             const temp = localStorage.getItem("selectedRole")
             if (temp) {
                 setSelectedRole(roles.find(item => item.keyword === temp ))
+            } else {
+                setSelectedRole(roles.find(item => item.name === userData.user?.role))
             }
-        },[]
+        },[userData]
     )
 
     const onRoleChange = (e) => {
         localStorage.setItem("selectedRole", e.value.keyword)
         setSelectedRole(e.value);
-        updateUserRole(csrfToken,melUserData.profile_id, e.value.name)
+        UserService.updateUserRole(melUserData.profile_id, e.value.name)
     }
 
     const onOrganizationChange = (e) => {
@@ -102,9 +106,9 @@ const ProfilePage = () => {
                                     </div>
                                     <Dropdown className="input-profile"  value={selectedRole} options={roles} onChange={onRoleChange} optionLabel="name" placeholder="Choose your role"></Dropdown>
                                 </div>
-                                <div className="margin-bottom-40 margin-top-55">
-                                    <FileUpload className="upload-profile-image" mode="basic" name="demo[]" url="./upload" accept="image/*" maxFileSize={1000000} auto chooseLabel="Upload Your Profile Image" />
-                                </div>
+                                {/*<div className="margin-bottom-40 margin-top-55">*/}
+                                {/*    <FileUpload className="upload-profile-image" mode="basic" name="demo[]" url="./upload" accept="image/*" maxFileSize={1000000} auto chooseLabel="Upload Your Profile Image" />*/}
+                                {/*</div>*/}
                             </div>
                             <div className="-p-col-6 p-col-align-start margin-left-40">
 
@@ -123,11 +127,18 @@ const ProfilePage = () => {
                                 <div>
                                     <label htmlFor="organization">Organization</label>
                                 </div>
-                                <Dropdown className="input-profile" value={selectedOrganization} options={organizations} onChange={onOrganizationChange} optionLabel="name" placeholder="Select Organization"></Dropdown>
+                                <InputText id="website" className="input-profile" placeholder={melUserData.organization} disabled/>
+                                {/*<Dropdown className="input-profile" value={selectedOrganization} options={organizations} onChange={onOrganizationChange} optionLabel="name" placeholder="Select Organization"></Dropdown>*/}
                                 <div className="margin-bottom-40 margin-top-55">
                                     <FileUpload className="upload-organization-logo" mode="basic" name="demo[]" url="./upload" accept="image/*" maxFileSize={1000000} auto chooseLabel="Upload Organization Logo" />
                                 </div>
                             </div>
+                        </div>
+                        <div className="margin-bottom-40 margin-top-55">
+                            <div style={{marginBottom: '10px'}}>
+                                <label htmlFor="website">Profile Image</label>
+                            </div>
+                            <img src={`https://mel.cgiar.org/graph/getcimage/width/500/height/500/image/-user-${melUserData.photo}`} alt='profile' style={{width:'50%'}} />
                         </div>
                         <div className="p-grid p-justify-center margin-top-20">
                             <div className="save-profile-button">

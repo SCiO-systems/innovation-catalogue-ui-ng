@@ -7,7 +7,7 @@ import {Button} from "primereact/button";
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {Actions} from "../../reducer/actions";
-import {insertInnovation,editInnovation} from '../../services/httpService/innovation'
+import InnovationService from '../../services/httpService/innovation'
 
 const AddInnovation = () => {
 
@@ -104,11 +104,6 @@ const AddInnovation = () => {
             })
             .catch(err => console.log(err))
 
-        // resultService.getResults()
-        //     .then(data => setResults(data));
-
-        resultService.getSteps()
-            .then(data => setAccordionData(data));
     },[csrfToken]);
 
     useEffect(
@@ -156,11 +151,11 @@ const AddInnovation = () => {
                 status = 'DRAFT'
             }
         }
-        insertInnovation(csrfToken, userData.user.userId, allFields,status)
-
-        resetInnovation()
-
-        navigate(myInnovationsUrl)
+        InnovationService.insertInnovation(userData.user.userId, allFields,status)
+            .then(() => {
+                resetInnovation()
+                navigate(myInnovationsUrl)
+            })
     }
 
     const editInnovation = () => {
@@ -181,32 +176,12 @@ const AddInnovation = () => {
             }
         }
 
-        const body = {
-            form_data: JSON.stringify(allFields),
-            innovation_id: innovation.innovId,
-            status: status,
-            user_id: userData.user.userId
-        }
-
-        fetch(`${process.env.REACT_APP_RELAY_URL}/rtb-refactored/api/innovation/edit`, {
-            method: 'POST',
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                "xsrf-token": csrfToken,
-            },
-            body: JSON.stringify(body),
-            credentials: "include",
-            mode: "cors"
-        })
-
-        // editInnovation(csrfToken, allFields,innovation.innovId ,status, userData.user.userId)
-
-        resetInnovation()
-
-        setEditingInnovation('')
-
-        navigate(myInnovationsUrl)
+        InnovationService.editInnovation(allFields,innovation.innovId ,status, userData.user.userId)
+            .then(() => {
+                resetInnovation()
+                setEditingInnovation('')
+                navigate(myInnovationsUrl)
+            })
     }
 
     const renderPage = () => {
@@ -223,7 +198,7 @@ const AddInnovation = () => {
                 </div>
                 <div className="step-1 steps-forms-container">
                     <Card className="forms-card steps-card">
-                        <StepsForms activeIndex={step} results={results.summaries}/>
+                        {/*<StepsForms activeIndex={step} results={results.summaries}/>*/}
                         <Forms />
                     </Card>
                     <Card className="margin-bottom-80 buttons-card-steps steps-card">

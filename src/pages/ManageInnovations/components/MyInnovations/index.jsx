@@ -2,23 +2,20 @@ import React, {useEffect, useState} from "react";
 import {DataTable} from "primereact/datatable";
 import {Column} from "primereact/column";
 import {Button} from "primereact/button";
-import {Tooltip} from "primereact/tooltip";
 import {Dialog} from "primereact/dialog";
 import {useNavigate} from "react-router-dom";
 import './styles.css'
 import {useDispatch, useSelector} from "react-redux";
 import {Actions} from "../../../../reducer/actions";
-import {getAllUserInnovations} from '../../../../services/httpService/user'
-import {DraftActions, ReadyActions} from './components'
-// import {deleteInnovation,submitInnovation} from '../../../../services/httpService/innovation'
+import {DraftActions, ReadyActions,RejectedActions,AcceptedActions} from './components'
+import UserService from '../../../../services/httpService/user'
+import InnovationService from '../../../../services/httpService/innovation'
 
 const MyInnovations = () => {
 
     const navigate = useNavigate();
 
     const dispatch = useDispatch();
-
-    const csrfToken = useSelector((state) => state.csrfToken)
 
     const userData = useSelector((state) => state.userData)
 
@@ -46,43 +43,30 @@ const MyInnovations = () => {
     const editingInnovation = useSelector((state) => state.editingInnovation)
     const setEditingInnovation = (payload) => dispatch({ type: Actions.SetEditingInnovation, payload });
 
-    const [deleteDialog, setDeleteDialog] = useState(false);
     const [deleteInnovationId, setDeleteInnovationId] = useState('')
-    const [resfreshTrigger, setRefreshTrigger] = useState(false)
+    const [resfreshTrigger, setRefreshTrigger] = useState(0)
+    const [rejectedTimestamp ,setRejectedTimestamp] = useState('')
+
+    const [deleteDialog, setDeleteDialog] = useState(false);
+    const [rejectedDialog, setRejectedDialog] = useState(false)
 
     const descriptorsUrl = '/descriptors/';
 
     useEffect(
         () => {
-            getAllUserInnovations(csrfToken, userData.user.userId)
-                .then(async res => {
-                    const temp = await res.json()
-                    setInnovations(temp.innovations)
+            UserService.getAllUserInnovations(userData.user.userId)
+                .then(res => {
+                    setInnovations(res.innovations)
                 })
         },[resfreshTrigger]
     )
 
     const deleteInnovation = () => {
 
-        const body = {
-            user_id: userData.user.userId,
-            innovation_id: deleteInnovationId,
-        }
-
-        fetch(`${process.env.REACT_APP_RELAY_URL}/rtb-refactored/api/innovation/delete`, {
-            method: 'POST',
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                "xsrf-token": csrfToken,
-            },
-            body: JSON.stringify(body),
-            credentials: "include",
-            mode: "cors"
-        })
-            .then(setRefreshTrigger(!resfreshTrigger))
-
-        // deleteInnovation(csrfToken,userData.user.userId,deleteInnovationId);
+        InnovationService.deleteInnovation(userData.user.userId,deleteInnovationId)
+            .then(() => {
+                setRefreshTrigger(resfreshTrigger + 1)
+            })
         setDeleteDialog(false);
     }
 
@@ -96,6 +80,28 @@ const MyInnovations = () => {
     const deleteInnovationDialog = (id) => {
         setDeleteInnovationId(id)
         setDeleteDialog(true);
+    }
+
+    const deleteRejectedInnovation = () => {
+
+        InnovationService.deleteRejectedInnovation(userData.user.userId,deleteInnovationId,rejectedTimestamp)
+            .then((res) => {
+                setRefreshTrigger(resfreshTrigger + 1)
+            })
+        setRejectedDialog(false);
+    }
+
+    const deleteRejectedDialogFooter = (
+        <>
+            <Button label="No" icon="pi pi-times" className="p-button-text" onClick={() => setRejectedDialog(false)} />
+            <Button label="Yes" icon="pi pi-check" className="p-button-text" onClick={deleteRejectedInnovation} />
+        </>
+    );
+
+    const deleteRejectedDialog = (data) => {
+        setRejectedTimestamp(data.createdAt)
+        setDeleteInnovationId(data.innovId)
+        setRejectedDialog(true);
     }
 
     const editInnovation = (id) => {
@@ -127,32 +133,39 @@ const MyInnovations = () => {
         navigate('/add-innovation')
     }
 
-    const submitInnovation = (id) => {
+    const updateVersion = (data) => {
 
-        const body = {
-            user_id: userData.user.userId,
-            innovation_id: id,
-        }
-
-        fetch(`${process.env.REACT_APP_RELAY_URL}/rtb-refactored/api/innovation/submit`, {
-            method: 'POST',
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                "xsrf-token": csrfToken,
-            },
-            body: JSON.stringify(body),
-            credentials: "include",
-            mode: "cors"
-        })
-            .then(setRefreshTrigger(!resfreshTrigger))
+        InnovationService.updateVersionInnovation(userData.user.userId,data.innovId,"DRAFT",data.formData,data.version)
+            .then((res) => {
+                if (res.errorMessage === 'New version of innovation already existing in Draft or Ready status') {
+                    return
+                } else {
+                    UserService.getAllUserInnovations(userData.user.userId)
+                        .then(res => {
+                            setInnovations(res.innovations)
+                        })
+                        .then(() => {
+                            editInnovation(data.innovId)
+                        })
+                }
+            })
     }
 
-    const actionsTemplate = (data) =>{
+    const submitInnovation = (id) => {
+
+        InnovationService.submitInnovation(userData.user.userId,id)
+            .then(() => {
+                setRefreshTrigger(resfreshTrigger + 1)
+            })
+    }
+
+    const actionsTemplate = (data) => {
 
         switch (data.status) {
             case "DRAFT": return <DraftActions data={data} editInnovation={editInnovation} deleteInnovationDialog={deleteInnovationDialog}/>
             case "READY": return <ReadyActions data={data} editInnovation={editInnovation} deleteInnovationDialog={deleteInnovationDialog} submitInnovation={submitInnovation}/>
+            case "REJECTED": return <RejectedActions data={data} deleteRejectedDialog={deleteRejectedDialog}/>
+            case "ACCEPTED": return <AcceptedActions data={data} updateVersion={updateVersion}/>
             default: return <></>
         }
 
@@ -165,6 +178,40 @@ const MyInnovations = () => {
         )
     }
 
+    const statusTemplate = (data) => {
+
+        switch (data.status) {
+            case "DRAFT": return <p>Draft</p>
+            case "READY": return <p>Ready</p>
+            case "SUBMITTED": return <p>Submitted</p>
+            case "UNDER_REVIEW": return <p>Under Review</p>
+            case "ACCEPTED": return <p>Accepted</p>
+            case "REJECTED": return <p>Rejected</p>
+            default: return <p>{data.status}</p>
+        }
+    }
+
+    const createdAtTemplate = (data) => {
+        const date = new Date(data.createdAt)
+        return (
+            <div>
+                <p>{date.toLocaleDateString()}</p>
+                <p>{date.toLocaleTimeString()}</p>
+            </div>
+        )
+
+    }
+
+    const updatedAtTemplate = (data) => {
+        const date = new Date(data.updatedAt)
+        return (
+            <div>
+                <p>{date.toLocaleDateString()}</p>
+                <p>{date.toLocaleTimeString()}</p>
+            </div>
+        )
+    }
+
     return (
         <div className='my-innovations-table'>
             <div className="peach-background-container">
@@ -173,15 +220,22 @@ const MyInnovations = () => {
             <div className="card table-margin">
                 <DataTable value={innovations} paginator rows={10} rowsPerPageOptions={[10,20]}>
                     <Column field='title' body={(data) => (titleBody(data))}  sortable header="Title"/>
-                    <Column field="editing-rights"  sortable header="Editing Rights"/>
-                    <Column field="status"  sortable header="Status"/>
+                    {/*<Column field="editing-rights"  sortable header="Editing Rights"/>*/}
+                    <Column field="status" body={statusTemplate} sortable header="Status"/>
+                    <Column field="version" sortable header="Version"/>
                     <Column field="comments"  sortable header="Reviewer's Comments"/>
-                    <Column field="dateSubmitted" sortable header="Date Submitted"/>
-                    <Column field="dateUpdated" sortable header="Date Updated"/>
+                    <Column field="createdΑt" body={createdAtTemplate} sortable header="Date Created"/>
+                    <Column field="updatedΑt" body={updatedAtTemplate} sortable header="Last Updated"/>
                     <Column field="actions" header="Actions" body={actionsTemplate} style={{width: "250px"}}/>
                 </DataTable>
             </div>
             <Dialog visible={deleteDialog} style={{ width: '450px' }} header="Confirm" modal footer={deleteDialogFooter} onHide={() => setDeleteDialog(false)}>
+                <div className="confirmation-content">
+                    <i className="pi pi-exclamation-triangle p-mr-3" style={{ fontSize: '2rem'}} />
+                    {<span>Are you sure you want to delete <b>Innovation</b>?</span>}
+                </div>
+            </Dialog>
+            <Dialog visible={rejectedDialog} style={{ width: '450px' }} header="Confirm" modal footer={deleteRejectedDialogFooter} onHide={() => setRejectedDialog(false)}>
                 <div className="confirmation-content">
                     <i className="pi pi-exclamation-triangle p-mr-3" style={{ fontSize: '2rem'}} />
                     {<span>Are you sure you want to delete <b>Innovation</b>?</span>}

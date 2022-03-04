@@ -1,18 +1,11 @@
-const relayUrl = process.env.REACT_APP_RELAY_URL
+import { http } from '../index';
 
-const getCsrfToken = async () => {
+class CsrfService {
 
-    let fetchGetResponse = await fetch(`${relayUrl}/rtb-refactored/form`, {
-        method: 'GET',
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-        },
-        credentials: "include",
-        mode: 'cors'
-    })
-    let parsedResponse = await fetchGetResponse.json();
-    return parsedResponse.csrfToken
+    getCsrfToken = async () => {
+        const result = await http.get(`/form`)
+        return result.data.csrfToken
+    }
 }
 
-export {getCsrfToken}
+export default new CsrfService();

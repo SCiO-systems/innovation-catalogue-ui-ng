@@ -36,13 +36,6 @@ const Description = () => {
         }, [editingInnovation]
     )
 
-    // const presetValues = (headerIndex, contentIndex) => {
-    //     if (descriptionValues.length === 0) {
-    //         return ''
-    //     } else {
-    //         return descriptionValues.find(item => item.id === contentIndex).value
-    //     }
-    // }
     const presetValues = (headerIndex, contentIndex) => {
         if (descriptionValues.length === 0) {
             return ''

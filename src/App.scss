@@ -3,7 +3,7 @@
 @import '@fullcalendar/daygrid/main.css';
 @import '@fullcalendar/timegrid/main.css';
 @import './AppDemo.scss';
-@import "@fortawesome/fontawesome-pro/css/all.css";
+//@import "@fortawesome/fontawesome-pro/css/all.css";
 
 /*...general styles...*/
 
@@ -626,17 +626,84 @@ div.save-profile-button button{
 }
 .button-submit-table{
     background: transparent;
-    border: 1.4px solid #499239D0;
-    color: #499239D0;
+    border: 1.4px solid #1E88E5;
+    color: #1E88E5;
+    //border: 1.4px solid #499239D0;
+    //color: #499239D0;
 }
 
 .button-submit-table:enabled:hover{
-    background: #499239D0;
+    background: #1E88E5;
+    //background: #499239D0;
     color: #fff;
 }
 
 .button-submit-table:enabled:focus{
+    background: #1E88E5;
+    //background: #499239D0;
+    color: #fff;
+}
+
+.button-permissions-table{
+    background: transparent;
+    border: 1.4px solid #56323d;
+    color: #56323d;
+}
+
+.button-permissions-table:enabled:hover{
+    background: #56323d;
+    color: #fff;
+}
+
+.button-permissions-table:enabled:focus{
+    background: #56323d;
+    color: #fff;
+}
+
+.button-assign-table{
+    background: transparent;
+    border: 1.4px solid #ff8546;
+    color: #ff8546;
+}
+
+.button-assign-table:enabled:hover{
+    background: #ff8546;
+    color: #fff;
+}
+
+.button-assign-table:enabled:focus{
+    background: #ff8546;
+    color: #fff;
+}
+
+.button-publish-table{
+    background: transparent;
+    border: 1.4px solid #499239D0;
+    color: #499239D0;
+}
+
+.button-publish-table:enabled:hover{
     background: #499239D0;
+    color: #fff;
+}
+
+.button-publish-table:enabled:focus{
+    background: #499239D0;
+    color: #fff;
+}
+.button-reject-table{
+    background: transparent;
+    border: 1.4px solid #b72d2b;
+    color: #b72d2b;
+}
+
+.button-reject-table:enabled:hover{
+    background: #b72d2b;
+    color: #fff;
+}
+
+.button-reject-table:enabled:focus{
+    background: #b72d2b;
     color: #fff;
 }
 

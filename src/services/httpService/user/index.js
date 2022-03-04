@@ -1,80 +1,35 @@
-const relayUrl = process.env.REACT_APP_RELAY_URL
+import { http } from '../index';
 
-const getUserData = async (csrfToken, id) => {
+class UserService {
 
-    const body = {
-        user_id: id,
+    getUserData = async (id) => {
+        const result = await http.post(`/api/user/getUserData`, {
+            user_id: id,
+        })
+        return result.data
     }
 
-    return await fetch(`${relayUrl}/rtb-refactored/api/user/getUserData`, {
-        method: 'POST',
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            "xsrf-token": csrfToken,
-        },
-        body: JSON.stringify(body),
-        credentials: "include",
-        mode: "cors"
-    })
-}
-
-const updateUserRole = async (csrfToken, id,role) => {
-
-    const body = {
-        user_id: id,
-        role: role
+    updateUserRole = async (id,role) => {
+        const result = await http.post(`/api/user/update/role`, {
+            user_id: id,
+            role: role
+        })
+        return result.data
     }
 
-    return await fetch(`${relayUrl}/rtb-refactored/api/user/update/role`, {
-        method: 'POST',
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            "xsrf-token": csrfToken,
-        },
-        body: JSON.stringify(body),
-        credentials: "include",
-        mode: "cors"
-    })
-}
-
-const getAllUserInnovations = async (csrfToken, id) => {
-
-    const body = {
-        user_id: id,
+    getAllUserInnovations = async (id) => {
+        const result = await http.post(`/api/user/getInnovations`, {
+            user_id: id,
+        })
+        return result.data
     }
 
-    return await fetch(`${relayUrl}/rtb-refactored/api/user/getInnovations`, {
-        method: 'POST',
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            "xsrf-token": csrfToken,
-        },
-        body: JSON.stringify(body),
-        credentials: "include",
-        mode: "cors"
-    })
-}
-
-const getAssignedReviews = async (csrfToken, id) => {
-
-    const body = {
-        user_id: id,
+    getAssignedInnovations = async (id) => {
+        const result = await http.post(`/api/user/getAssignedInnovations`, {
+            user_id: id,
+        })
+        return result.data
     }
-
-    return await fetch(`${relayUrl}/rtb-refactored/api/user/getAssignedReviews`, {
-        method: 'POST',
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            "xsrf-token": csrfToken,
-        },
-        body: JSON.stringify(body),
-        credentials: "include",
-        mode: "cors"
-    })
 }
 
-export {getUserData,updateUserRole,getAllUserInnovations}
+export default new UserService();
