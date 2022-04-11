@@ -9,15 +9,16 @@ const ManageInnovations = () => {
 
     const userData = useSelector((state) => state.userData)
 
+    const innovationManagement = useSelector((state) => state.innovationManagement)
+
     if (userData.user) {
-        return (
-            <TabView>
-                <TabPanel header="My Innovations"><MyInnovations/></TabPanel>
-                {userData.user.permissions.find(item => item === 'Reviewer') ?      <TabPanel header="My Assignments"><AssignedInnovations/></TabPanel> : <></>}
-                {userData.user.permissions.find(item => item === 'Administrator') ?      <TabPanel header="Manage Innovations"><ManageUserInnovations/></TabPanel> : <></>}
-                {userData.user.permissions.find(item => item === 'Administrator') ?      <TabPanel header="Manage Users"><ManageUsers/></TabPanel> : <></>}
-            </TabView>
-        )
+        switch (innovationManagement) {
+            case 'my innovations': return <MyInnovations/>
+            case 'my assignments': return <AssignedInnovations/>
+            case 'manage innovations': return <ManageUserInnovations/>
+            case 'manage users': return <ManageUsers/>
+            default: return <MyInnovations/>
+        }
     }
     return (
         <Loading visible={!userData.user} />

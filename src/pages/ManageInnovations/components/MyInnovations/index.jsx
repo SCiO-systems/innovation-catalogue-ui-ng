@@ -168,7 +168,6 @@ const MyInnovations = () => {
             case "ACCEPTED": return <AcceptedActions data={data} updateVersion={updateVersion}/>
             default: return <></>
         }
-
     }
 
     const titleBody = (data) => {

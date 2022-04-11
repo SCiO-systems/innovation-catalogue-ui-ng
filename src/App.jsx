@@ -62,7 +62,6 @@ const App = () => {
         const token = localStorage.getItem("accessToken");
         if (token) {
             setAccessToken(token)
-            setLoggedIn('logged in')
         }
         const data = localStorage.getItem("melUserData");
         if (data) {
@@ -99,7 +98,10 @@ const App = () => {
             if (melUserData.profile_id) {
                 if (csrfToken !== '') {
                     UserService.getUserData(melUserData.profile_id)
-                        .then(res => setUserData(res))
+                        .then(res => {
+                            setLoggedIn('logged in')
+                            setUserData(res)
+                        })
                 }
             }
         },[melUserData,csrfToken]

@@ -1,32 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import classNames from 'classnames';
-import {AppMenu} from './components';
-import { InputText } from 'primereact/inputtext';
-import { Ripple } from 'primereact/ripple';
+import {AppMenu,LoginMenu} from './components';
 import {useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {Actions} from "../../../../reducer/actions";
+import { useSelector} from "react-redux";
 
 const AppTopBar = (props) => {
 
-    const dispatch = useDispatch();
-
     const loggedIn = useSelector((state) => state.loggedIn)
-    const setLoggedIn = (payload) => dispatch({ type: Actions.SetLoggedIn, payload });
 
-    const setEditingInnovation = (payload) => dispatch({ type: Actions.SetEditingInnovation, payload });
-
-    const setUserData = (payload) => dispatch({ type: Actions.SetUserData, payload });
-
-    const [role, setRole] = useState(null);
-
-    const profileUrl = '/profile/';
-    const myInnovationsUrl = '/innovations/';
-    const addInnovationUrl = '/add-innovation/';
     const loginUrl = "/login"
-    // const loginUrl = "/comingsoon"
 
-    let topbarMenuClassName = classNames('layout-profile-menu fadeInDown ', { 'layout-profile-menu-active': props.topbarUserMenuActive });
 	let menuButtonClassName = classNames('layout-menubutton ', { 'layout-menubutton-active': props.menuActive })
     let roleMapping = [
         {type: "user", role_name: "Innovation User"},
@@ -39,63 +22,6 @@ const AppTopBar = (props) => {
     ];
 
     const navigate = useNavigate();
-
-    useEffect(() => {
-
-        let selectedRole = localStorage.getItem("selectedRole");
-
-        if(selectedRole === "user"){
-            setRole("Innovation User");
-        }
-        if(selectedRole === "evaluator"){
-            setRole("Evaluator");
-        }
-        if(selectedRole === "donor"){
-            setRole("Investor/Donor");
-        }
-        if(selectedRole === "monitoring_officer"){
-            setRole("Monitoring Officer");
-        }
-        if(selectedRole === "impact_officer"){
-            setRole("Impact Assessment Officer");
-        }
-        if(selectedRole === "km_officer"){
-            setRole("Knowledge Sharing and Communiction Officer");
-        }
-        if(selectedRole === "project_manager"){
-            setRole("Project/Program Manager");
-        }
-    },[]);
-
-	const getInk = (el) => {
-        for (let i = 0; i < el.children.length; i++) {
-            if (typeof el.children[i].className === 'string' && el.children[i].className.indexOf('p-ink') !== -1) {
-                return el.children[i];
-            }
-        }
-        return null;
-	}
-
-	const removeClass = (element, className) => {
-        if (element.classList)
-            element.classList.remove(className);
-        else
-            element.className = element.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
-    }
-
-	const onItemClick = (event) => {
-		const ink = getInk(event.currentTarget);
-		if (ink) {
-			removeClass(ink, 'p-ink-active');
-		}
-	}
-
-	const onClickLogout = () => {
-	    localStorage.removeItem("accessToken");
-        setLoggedIn('logged out')
-        setUserData({})
-        navigate("/");
-    }
 
     const guestInfo = () =>{
 
@@ -137,81 +63,9 @@ const AppTopBar = (props) => {
         );
     }
 
-	const loginMenu = () =>{
-
-	    return(
-            <div className="layout-topbar-grid-column layout-topbar-grid-column-fixed">
-                <button type="button" className="p-link profile-menu-button" onClick={props.onTopbarUserMenuButtonClick}>
-                    <img src="assets/layout/images/avatar.png" alt="Profile" />
-                </button>
-                <ul className={topbarMenuClassName} onClick={props.onTopbarUserMenuClick}>
-                    <li className="layout-profile-menu-search">
-							<span className="p-float-label">
-								<InputText type="text" />
-								<label>Search</label>
-							</span>
-                    </li>
-                    <li role="menuitem">
-                        <div className="user-info-topbar">
-                            <span>Anna Miller</span>
-                            <Ripple />
-                        </div>
-                    </li>
-                    <li role="menuitem">
-                        <div className="user-info-topbar">
-                            <span className="role-topbar">{role}</span>
-                            <Ripple />
-                        </div>
-                    </li>
-                    <li role="menuitem">
-                        <a onClick={() => navigate(profileUrl)}>
-                            <button type="button" className="p-link p-ripple">
-                                <i className="pi pi-user icon-menu-topbar"></i>
-                                <span>Profile</span>
-                                <Ripple />
-                            </button>
-                        </a>
-                    </li>
-                    <li role="menuitem">
-                        <a onClick={() => navigate(myInnovationsUrl)}>
-                            <button type="button" className="p-link p-ripple" >
-                                <i className="pi pi-list icon-menu-topbar"></i>
-                                <span>My Innovations</span>
-                                <Ripple />
-                            </button>
-                        </a>
-
-                    </li>
-                    <li role="menuitem">
-                        <a onClick={() => {
-                            setEditingInnovation('')
-                            navigate(addInnovationUrl)
-                        }}>
-                            <button type="button" className="p-link p-ripple" onClick={onItemClick}>
-                                <i className="pi pi-plus icon-menu-topbar"></i>
-                                <span>Add Innovation</span>
-                                <Ripple />
-                            </button>
-                        </a>
-                    </li>
-                    <li role="menuitem">
-                        <button type="button" className="p-link p-ripple" onClick={onClickLogout}>
-                            <i className="pi pi-sign-out icon-menu-topbar"></i>
-                            <span>Logout</span>
-                            <Ripple />
-                        </button>
-                    </li>
-                </ul>
-            </div>
-        );
-    }
-
     const loginCheck = () => {
-
-        // let tokenStorage = localStorage.getItem("token");
-
         if(loggedIn === 'logged in'){
-           return loginMenu();
+           return <LoginMenu topbarUserMenuActive={props.topbarUserMenuActive} onTopbarUserMenuButtonClick={props.onTopbarUserMenuButtonClick} onTopbarUserMenuClick={props.onTopbarUserMenuClick} />;
         }else{
             return loginButton();
         }

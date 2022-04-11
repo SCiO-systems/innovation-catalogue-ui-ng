@@ -7,6 +7,7 @@ const initState = {
     accessToken: '',
     melUserData: {},
     userData: {},
+    innovationManagement: 'my innovations',
     step: 0,
     results: {},
     accordionData: {},
@@ -54,6 +55,11 @@ const reducer = (currentState = initState, action) => {
             return{
                 ...currentState,
                 userData: action.payload
+            }
+        case Actions.SetInnovationManagement:
+            return{
+                ...currentState,
+                innovationManagement: action.payload
             }
         case Actions.SetStep:
             return{
