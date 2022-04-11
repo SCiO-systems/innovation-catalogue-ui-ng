@@ -1,3 +1,4 @@
 import AppMenu from './AppMenu'
+import LoginMenu from './LoginMenu'
 
-export {AppMenu}
+export {AppMenu,LoginMenu}
