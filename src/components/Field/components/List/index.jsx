@@ -12,6 +12,8 @@ const List = (props) => {
 
     const {configuration, presetValue, stepValues, stepSetValues, keyName} = props
 
+    const viewing = useSelector((state) => state.viewing)
+
     const results = useSelector((state) => state.results)
 
     const [options, setOptions] = useState([])
@@ -135,7 +137,7 @@ const List = (props) => {
                             onChange={(e) => setValue(e.value)}
                             options={options}
                             maxSelectedLabels={configuration.maxWords}
-                            disabled={configuration.disabled}
+                            disabled={configuration.disabled || (viewing && (configuration.id[0] !== '8'))}
                             filter={configuration.filter}
                             optionLabel="value"
                         />
@@ -145,7 +147,7 @@ const List = (props) => {
                             onChange={(e) => setValue(e.value)}
                             options={options}
                             maxSelectedLabels={configuration.maxWords}
-                            disabled={configuration.disabled}
+                            disabled={configuration.disabled || (viewing && (configuration.id[0] !== '8'))}
                             filter={configuration.filter}
                             optionLabel="value"
                         />}

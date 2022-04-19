@@ -23,13 +23,6 @@ class UserService {
         })
         return result.data
     }
-
-    getAssignedInnovations = async (id) => {
-        const result = await http.post(`/api/user/getAssignedInnovations`, {
-            user_id: id,
-        })
-        return result.data
-    }
 }
 
 export default new UserService();

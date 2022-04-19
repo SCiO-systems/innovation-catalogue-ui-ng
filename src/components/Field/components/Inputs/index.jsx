@@ -5,10 +5,13 @@ import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
 import './styles.css'
 import ReactHtmlParser from "react-html-parser";
+import {useSelector} from "react-redux";
 
 const Inputs = (props) => {
 
     const {configuration, presetValue, stepValues, stepSetValues, keyName} = props
+
+    const viewing = useSelector((state) => state.viewing)
 
     const [displayDialog, setDisplayDialog] = useState(false)
     const [value, setValue] = useState(presetValue)
@@ -103,10 +106,11 @@ const Inputs = (props) => {
                             <div className='inputs-container'>
                                 {configuration.double ? <><InputText
                                     value={value.find(val => item.id === val.id).value[0]}
+                                    disabled={viewing}
                                     className="input-size margin-right-7 input-width responsive-layout-input"
                                     onChange={(e) => handleInput1(e.target.value, item)}/><span
                                     className="dash">&#8212;</span></> : <></>}
-                                <InputText value={configuration.double ? value.find(val => item.id === val.id).value[1]: value.find(val => item.id === val.id).value} id={'second'}
+                                <InputText disabled={viewing} value={configuration.double ? value.find(val => item.id === val.id).value[1]: value.find(val => item.id === val.id).value} id={'second'}
                                            className="input-size margin-right-7 input-width responsive-layout-input"
                                            onChange={(e) => handleInput2(e.target.value, item)}/>
                             </div>

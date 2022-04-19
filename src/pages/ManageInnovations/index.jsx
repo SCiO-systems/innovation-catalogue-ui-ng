@@ -1,5 +1,5 @@
 import React from 'react'
-import {MyInnovations, ManageUsers,ManageUserInnovations,AssignedInnovations} from './components'
+import {MyInnovations, ManageUsers,ManageUserInnovations,AssignedInnovations,SRAssignments} from './components'
 import { TabView, TabPanel } from 'primereact/tabview';
 import {useSelector} from "react-redux";
 import './styles.css'
@@ -17,6 +17,7 @@ const ManageInnovations = () => {
             case 'my assignments': return <AssignedInnovations/>
             case 'manage innovations': return <ManageUserInnovations/>
             case 'manage users': return <ManageUsers/>
+            case 'my sr assignments': return <SRAssignments/>
             default: return <MyInnovations/>
         }
     }

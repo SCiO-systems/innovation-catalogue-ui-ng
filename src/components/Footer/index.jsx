@@ -22,7 +22,7 @@ const Footer = () => {
                                 fontFamily: "Montserrat"
                             }}
                         className="p-mb-2"
-                    >CGIAR Research Program on Roots, Tubers and Bannanas (RTB)</div>
+                    >CGIAR Research Program on Roots, Tubers and Bananas (RTB)</div>
                     <div style=
                              {{  color: "#fff" ,
                                  fontSize: "12px",

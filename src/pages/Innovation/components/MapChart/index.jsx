@@ -32,27 +32,27 @@ const MapChart = (props) => {
 
         chart.events.on("ready", function(ev) {
             if(props.mapData){
-                props.mapData.forEach(
-                    (item)=>{
-                        if(!item.madeFromGeoData){
-                            let country = polygonSeries.getPolygonById(item.id)
-                            if (north == undefined || (country.north > north)) {
-                                north = country.north;
-                            }
-                            if (south == undefined || (country.south < south)) {
-                                south = country.south;
-                            }
-                            if (west == undefined || (country.west < west)) {
-                                west = country.west;
-                            }
-                            if (east == undefined || (country.east > east)) {
-                                east = country.east;
-                            }
-                            country.isActive = true;
-
-                        }
-                    }
-                )
+                // props.mapData?.forEach(
+                //     (item)=>{
+                //         if(!item.madeFromGeoData){
+                //             let country = polygonSeries.getPolygonById(item.id)
+                //             if (north == undefined || (country.north > north)) {
+                //                 north = country.north;
+                //             }
+                //             if (south == undefined || (country.south < south)) {
+                //                 south = country.south;
+                //             }
+                //             if (west == undefined || (country.west < west)) {
+                //                 west = country.west;
+                //             }
+                //             if (east == undefined || (country.east > east)) {
+                //                 east = country.east;
+                //             }
+                //             country.isActive = true;
+                //
+                //         }
+                //     }
+                // )
 
             }
 

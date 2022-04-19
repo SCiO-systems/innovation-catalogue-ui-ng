@@ -5,10 +5,13 @@ import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
 import './styles.css'
 import ReactHtmlParser from "react-html-parser";
+import {useSelector} from "react-redux";
 
 const TextArea = (props) => {
 
     const {configuration, presetValue, stepValues, stepSetValues, keyName} = props
+
+    const viewing = useSelector((state) => state.viewing)
 
     const [displayDialog, setDisplayDialog] = useState(false)
     const [value, setValue] = useState(presetValue)
@@ -108,7 +111,7 @@ const TextArea = (props) => {
             <Tooltip target=".status"  position="top"/>
             <div className="p-inputgroup" id='text-area'>
                 <span className="p-float-label">
-                    <InputTextarea  className={((valid != 'valid') && configuration.mandatory) ? "p-invalid p-d-block" : "p-d-block"} disabled={configuration.disabled}  value={value} onChange={(e) => setValue(e.target.value)}/>
+                    <InputTextarea  className={((valid != 'valid') && configuration.mandatory) ? "p-invalid p-d-block" : "p-d-block"} disabled={configuration.disabled ||  (viewing && (configuration.id[0] !== '8'))}  value={value} onChange={(e) => setValue(e.target.value)}/>
                     {/*<label htmlFor="username">{configuration.label}</label>*/}
                 </span>
                 <span className="p-inputgroup-addon" id='question' onClick={() => setDisplayDialog(true)}><i className="fad fa-question"/></span>

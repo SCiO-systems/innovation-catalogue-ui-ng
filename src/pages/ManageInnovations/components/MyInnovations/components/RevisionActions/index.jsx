@@ -2,9 +2,9 @@ import React from 'react'
 import {Tooltip} from "primereact/tooltip";
 import {Button} from "primereact/button";
 
-const DraftActions = (props) => {
+const RevisionActions = (props) => {
 
-    const {data,editInnovation,deleteInnovationDialog} = props
+    const {data,editInnovation,approveInnovationDialog} = props
 
     return (
         <div>
@@ -12,12 +12,12 @@ const DraftActions = (props) => {
             <span className="button-edit" data-pr-tooltip="Edit">
                 <Button icon="fad fa-pencil fa-lg" className="button-edit-table margin-right" onClick={() => editInnovation(data.innovId,data.status)}/>
             </span>
-            <Tooltip target=".button-trash"  position="right"/>
-            <span className="button-trash" data-pr-tooltip="Delete">
-                <Button id={data.innovId} icon="fad fa-trash fa-lg" className="button-trash-table margin-right" onClick={(e) =>  deleteInnovationDialog(e.target.id)}/>
+            <Tooltip target=".button-approve"  position="right"/>
+            <span className="button-approve" data-pr-tooltip="Approve">
+                <Button icon="fa-solid fa-check fa-lg" className="button-approve-table margin-right" onClick={() =>  approveInnovationDialog(data.innovId)}/>
             </span>
         </div>
     )
 }
 
-export default DraftActions
+export default RevisionActions

@@ -14,6 +14,7 @@ import AddInnovation from './pages/AddInnovation'
 import ManageInnovations from "./pages/ManageInnovations";
 import Login from './pages/Login/Login'
 import LoginRedirected from './pages/Login/LoginRedirected'
+import ViewInnovation from "./pages/Innovation/ViewInnovation";
 import {HashRouter as Router, Route, Routes} from "react-router-dom";
 import classNames from 'classnames';
 import 'primeicons/primeicons.css';
@@ -99,8 +100,11 @@ const App = () => {
                 if (csrfToken !== '') {
                     UserService.getUserData(melUserData.profile_id)
                         .then(res => {
-                            setLoggedIn('logged in')
-                            setUserData(res)
+                            console.log(res)
+                            if (res.user) {
+                                setLoggedIn('logged in')
+                                setUserData(res)
+                            }
                         })
                 }
             }
@@ -138,6 +142,7 @@ const App = () => {
                         <Route path={'/comingsoon'} element={<Comingsoon/>} />
                         <Route path={'/login'} element={<Login/>} />
                         <Route path={'/login/callback/'} element={<LoginRedirected/>} />
+                        <Route path={'/preview'} element={<ViewInnovation/>} />
                     </Routes>
                     <Footer />
                 </div>

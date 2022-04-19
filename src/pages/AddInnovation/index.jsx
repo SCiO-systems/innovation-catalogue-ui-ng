@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import {Steps} from "primereact/steps";
 import {Card} from "primereact/card";
 import {StepsForms, Forms} from "./components";
-import ResultsService from "../../services/ResultsService";
 import {Button} from "primereact/button";
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
@@ -23,12 +22,11 @@ const AddInnovation = () => {
     const results = useSelector((state) => state.results)
     const setResults = (payload) => dispatch({ type: Actions.SetResults, payload });
 
-    const setAccordionData = (payload) => dispatch({ type: Actions.SetAccordionData, payload });
-
     const userData = useSelector((state) => state.userData)
 
-    const resultService = new ResultsService();
     const myInnovationsUrl = "/innovations";
+
+    const viewing = useSelector((state) => state.viewing)
 
     const benefitImpactValues = useSelector((state) => state.benefitImpactValues)
     const setBenefitImpactValues = (payload) => dispatch({ type: Actions.SetBenefitImpactValues, payload });
@@ -109,6 +107,7 @@ const AddInnovation = () => {
     useEffect(
         () => {
             setStep(0)
+            if (viewing) setStep(8)
         }, []
     )
 
@@ -120,9 +119,20 @@ const AddInnovation = () => {
         {label: 'Intellectual Property'},
         {label: 'Interventions'},
         {label: 'Investment'},
-        {label: 'Readiness'},
-        {label: 'Stakeholders'}
+        {label: 'Stakeholders'},
     ];
+
+    const sreItems = [
+        {label: 'Description'},
+        {label: 'Benefit/Impact'},
+        {label: 'Context'},
+        {label: 'Evidence'},
+        {label: 'Intellectual Property'},
+        {label: 'Interventions'},
+        {label: 'Investment'},
+        {label: 'Stakeholders'},
+        {label: 'Readiness'}
+    ]
 
     const buttonNextHandler = () => {
 
@@ -142,7 +152,7 @@ const AddInnovation = () => {
         const allFields = [...benefitImpactValues, ...contextValues, ...descriptionValues, ...evidenceValues, ...intellectualPropertyValues, ...interventionsValues, ...investmentValues, ...readinessValues, ...stakeholdersValues]
         const mandatoryFields = allFields.filter(item => item.mandatory === true)
         const invalidFields = mandatoryFields.filter(item => item.valid === false)
-        if ((descriptionValues.length === 0) || (benefitImpactValues.length === 0) || (contextValues.length === 0) || (readinessValues.length === 0) || (stakeholdersValues.length === 0)) {
+        if ((descriptionValues.length === 0) || (benefitImpactValues.length === 0) || (contextValues.length === 0)  || (stakeholdersValues.length === 0)) {
             status = "DRAFT"
         } else {
             if (invalidFields.length === 0 ) {
@@ -160,13 +170,13 @@ const AddInnovation = () => {
 
     const editInnovation = () => {
 
-        const innovation = innovations.find(item => item.innovId === editingInnovation)
+        const innovation = innovations.find(item => ((item.innovId === editingInnovation.id) && (item.status === editingInnovation.status)))
 
         let status
         const allFields = [...benefitImpactValues, ...contextValues, ...descriptionValues, ...evidenceValues, ...intellectualPropertyValues, ...interventionsValues, ...investmentValues, ...readinessValues, ...stakeholdersValues]
         const mandatoryFields = allFields.filter(item => item.mandatory === true)
         const invalidFields = mandatoryFields.filter(item => item.valid === false)
-        if ((descriptionValues.length === 0) || (benefitImpactValues.length === 0) || (contextValues.length === 0) || (readinessValues.length === 0) || (stakeholdersValues.length === 0)) {
+        if ((descriptionValues.length === 0) || (benefitImpactValues.length === 0) || (contextValues.length === 0) || (stakeholdersValues.length === 0)) {
             status = "DRAFT"
         } else {
             if (invalidFields.length === 0 ) {
@@ -175,11 +185,15 @@ const AddInnovation = () => {
                 status = 'DRAFT'
             }
         }
-
+        console.log(innovation.status)
+        if (innovation.status === 'UNDER_REVIEW' || innovation.status === 'UNDER_SR_ASSESSMENT' || innovation.status === "REVISIONS_REQUESTED") {
+            status = innovation.status
+        }
+        console.log(status)
         InnovationService.editInnovation(allFields,innovation.innovId ,status, userData.user.userId)
             .then(() => {
                 resetInnovation()
-                setEditingInnovation('')
+                setEditingInnovation({})
                 navigate(myInnovationsUrl)
             })
     }
@@ -193,25 +207,34 @@ const AddInnovation = () => {
                 </div>
                 <div className="steps-container">
                     <Card className="steps-padding step-card">
-                        <Steps model={items} activeIndex={step} onSelect={(e) => setStep(e.index)} readOnly={false} />
+                        <Steps model={viewing? sreItems : items} activeIndex={step} onSelect={(e) => setStep(e.index)} readOnly={false} />
                     </Card>
                 </div>
                 <div className="step-1 steps-forms-container">
                     <Card className="forms-card steps-card">
-                        {/*<StepsForms activeIndex={step} results={results.summaries}/>*/}
                         <Forms />
                     </Card>
                     <Card className="margin-bottom-80 buttons-card-steps steps-card">
                         <div className="p-grid p-justify-around">
                             <Button icon="fad fa-chevron-left fa-lg" label="Previous" iconPos="left" className="next-step-button" onClick={buttonPrevHandler}></Button>
                             {step < items.length -1 ? <Button icon="fad fa-chevron-right fa-lg" label="Next" iconPos="right" className="next-step-button" onClick={buttonNextHandler}></Button>:console.log()}
-                            {
-                                step === 8 ?
+                            {viewing ?
                                 (
-                                    editingInnovation? <Button icon="fad fa-plus fa-lg" label="Edit Innovation" iconPos="right" className="next-step-button" onClick={editInnovation}/>:
-                                    <Button icon="fad fa-plus fa-lg" label="Add Innovation" iconPos="right" className="next-step-button" onClick={addInnovation}/>
-                                ) : <></>
+                                    step === 8 ?
+                                    (
+                                        editingInnovation? <Button icon="fad fa-plus fa-lg" label="Edit Innovation" iconPos="right" className="next-step-button" onClick={editInnovation}/>:
+                                            <Button icon="fad fa-plus fa-lg" label="Add Innovation" iconPos="right" className="next-step-button" onClick={addInnovation}/>
+                                    ) : <></>
+                                ) : (
+                                    step === 7 ?
+                                        (
+                                            editingInnovation? <Button icon="fad fa-plus fa-lg" label="Edit Innovation" iconPos="right" className="next-step-button" onClick={editInnovation}/>:
+                                                <Button icon="fad fa-plus fa-lg" label="Add Innovation" iconPos="right" className="next-step-button" onClick={addInnovation}/>
+                                        ) : <></>
+                                )
+
                             }
+
                         </div>
                     </Card>
                 </div>

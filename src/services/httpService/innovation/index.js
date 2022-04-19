@@ -46,6 +46,14 @@ class InnovationService {
         return result.data
     }
 
+    approveInnovation = async (id, innovationId) => {
+        const result = await http.post(`/api/innovation/approve`, {
+            user_id: id,
+            innovation_id: innovationId,
+        })
+        return result.data
+    }
+
     publishInnovation = async (id, innovationId) => {
         const result = await http.post(`/api/innovation/publish`, {
             user_id: id,
@@ -54,8 +62,16 @@ class InnovationService {
         return result.data
     }
 
-    rejectInnovation = async (id, innovationId,comments) => {
+    rejectInnovation = async (id, innovationId) => {
         const result = await http.post(`/api/innovation/reject`, {
+            user_id: id,
+            innovation_id: innovationId,
+        })
+        return result.data
+    }
+
+    requestRevision = async (id, innovationId,comments) => {
+        const result = await http.post(`/api/innovation/revision`, {
             user_id: id,
             innovation_id: innovationId,
             comments: comments

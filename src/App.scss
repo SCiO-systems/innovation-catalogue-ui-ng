@@ -691,6 +691,22 @@ div.save-profile-button button{
     background: #499239D0;
     color: #fff;
 }
+
+.button-approve-table{
+    background: transparent;
+    border: 1.4px solid #499239D0;
+    color: #499239D0;
+}
+
+.button-approve-table:enabled:hover{
+    background: #499239D0;
+    color: #fff;
+}
+
+.button-approve-table:enabled:focus{
+    background: #499239D0;
+    color: #fff;
+}
 .button-reject-table{
     background: transparent;
     border: 1.4px solid #b72d2b;
@@ -704,6 +720,38 @@ div.save-profile-button button{
 
 .button-reject-table:enabled:focus{
     background: #b72d2b;
+    color: #fff;
+}
+
+.button-review-table{
+    background: transparent;
+    border: 1.4px solid #fc7313;
+    color: #fc7313;
+}
+
+.button-review-table:enabled:hover{
+    background: #fc7313;
+    color: #fff;
+}
+
+.button-review-table:enabled:focus{
+    background: #fc7313;
+    color: #fff;
+}
+
+.button-assignSre-table{
+    background: transparent;
+    border: 1.4px solid #694382;
+    color: #694382;
+}
+
+.button-assignSre-table:enabled:hover{
+    background: #694382;
+    color: #fff;
+}
+
+.button-assignSre-table:enabled:focus{
+    background: #694382;
     color: #fff;
 }
 

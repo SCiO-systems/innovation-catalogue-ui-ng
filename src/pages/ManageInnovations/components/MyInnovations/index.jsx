@@ -7,7 +7,7 @@ import {useNavigate} from "react-router-dom";
 import './styles.css'
 import {useDispatch, useSelector} from "react-redux";
 import {Actions} from "../../../../reducer/actions";
-import {DraftActions, ReadyActions,RejectedActions,AcceptedActions} from './components'
+import {DraftActions, ReadyActions,RejectedActions,AcceptedActions,RevisionActions} from './components'
 import UserService from '../../../../services/httpService/user'
 import InnovationService from '../../../../services/httpService/innovation'
 
@@ -22,40 +22,35 @@ const MyInnovations = () => {
     const innovations = useSelector((state) => state.innovations)
     const setInnovations = (payload) => dispatch({ type: Actions.SetInnovations, payload });
 
+    const setPreviewedInnovation = (payload) => dispatch({ type: Actions.SetPreviewedInnovation, payload });
+
     const setBenefitImpactValues = (payload) => dispatch({ type: Actions.SetBenefitImpactValues, payload });
-
     const setContextValues = (payload) => dispatch({ type: Actions.SetContextValues, payload });
-
     const setDescriptionValues = (payload) => dispatch({ type: Actions.SetDescriptionValues, payload });
-
     const setEvidenceValues = (payload) => dispatch({ type: Actions.SetEvidenceValues, payload });
-
     const setIntellectualPropertyValues = (payload) => dispatch({ type: Actions.SetIntellectualPropertyValues, payload });
-
     const setInterventionsValues = (payload) => dispatch({ type: Actions.SetInterventionsValues, payload });
-
     const setInvestmentValues = (payload) => dispatch({ type: Actions.SetInvestmentValues, payload });
-
     const setReadinessValues = (payload) => dispatch({ type: Actions.SetReadinessValues, payload });
-
     const setStakeholdersValues = (payload) => dispatch({ type: Actions.SetStakeholdersValues, payload });
 
-    const editingInnovation = useSelector((state) => state.editingInnovation)
     const setEditingInnovation = (payload) => dispatch({ type: Actions.SetEditingInnovation, payload });
 
-    const [deleteInnovationId, setDeleteInnovationId] = useState('')
+    const setViewing = (payload) => dispatch({ type: Actions.SetViewing, payload });
+
+    const [selectedInnovationId, setSelectedInnovationId] = useState('')
     const [resfreshTrigger, setRefreshTrigger] = useState(0)
     const [rejectedTimestamp ,setRejectedTimestamp] = useState('')
 
     const [deleteDialog, setDeleteDialog] = useState(false);
     const [rejectedDialog, setRejectedDialog] = useState(false)
-
-    const descriptorsUrl = '/descriptors/';
+    const [approveDialog, setApproveDialog] = useState(false)
 
     useEffect(
         () => {
             UserService.getAllUserInnovations(userData.user.userId)
                 .then(res => {
+                    console.log(res)
                     setInnovations(res.innovations)
                 })
         },[resfreshTrigger]
@@ -63,7 +58,7 @@ const MyInnovations = () => {
 
     const deleteInnovation = () => {
 
-        InnovationService.deleteInnovation(userData.user.userId,deleteInnovationId)
+        InnovationService.deleteInnovation(userData.user.userId,selectedInnovationId)
             .then(() => {
                 setRefreshTrigger(resfreshTrigger + 1)
             })
@@ -78,13 +73,13 @@ const MyInnovations = () => {
     );
 
     const deleteInnovationDialog = (id) => {
-        setDeleteInnovationId(id)
+        setSelectedInnovationId(id)
         setDeleteDialog(true);
     }
 
     const deleteRejectedInnovation = () => {
 
-        InnovationService.deleteRejectedInnovation(userData.user.userId,deleteInnovationId,rejectedTimestamp)
+        InnovationService.deleteRejectedInnovation(userData.user.userId,selectedInnovationId,rejectedTimestamp)
             .then((res) => {
                 setRefreshTrigger(resfreshTrigger + 1)
             })
@@ -100,13 +95,14 @@ const MyInnovations = () => {
 
     const deleteRejectedDialog = (data) => {
         setRejectedTimestamp(data.createdAt)
-        setDeleteInnovationId(data.innovId)
+        setSelectedInnovationId(data.innovId)
         setRejectedDialog(true);
     }
 
-    const editInnovation = (id) => {
+    const editInnovation = (id,status) => {
 
-        const innovation = innovations.find(item => item.innovId === id)
+        const innovation = innovations.find(item => ((item.innovId === id) && (item.status === status)))
+        console.log(innovation)
 
         window.localStorage.setItem('descriptionValues', JSON.stringify(innovation.formData.filter(item => item.id[0] === '1')))
         window.localStorage.setItem('benefitImpactValues',JSON.stringify(innovation.formData.filter(item => item.id[0] === '2')))
@@ -128,9 +124,30 @@ const MyInnovations = () => {
         setReadinessValues(innovation.formData.filter(item => item.id[0] === '8'))
         setStakeholdersValues(innovation.formData.filter(item => item.id[0] === '9'))
 
-        setEditingInnovation(id)
+        setEditingInnovation({id,status})
+        setViewing(false)
 
         navigate('/add-innovation')
+    }
+
+    const approveInnovation = () => {
+        InnovationService.approveInnovation(userData.user.userId,selectedInnovationId)
+            .then(() => {
+                setRefreshTrigger(resfreshTrigger + 1)
+            })
+        setApproveDialog(false)
+    }
+
+    const approveDialogFooter = (
+        <>
+            <Button label="No" icon="pi pi-times" className="p-button-text" onClick={() => setApproveDialog(false)} />
+            <Button label="Yes" icon="pi pi-check" className="p-button-text" onClick={approveInnovation} />
+        </>
+    );
+
+    const approveInnovationDialog = (id) => {
+        setSelectedInnovationId(id)
+        setApproveDialog(true)
     }
 
     const updateVersion = (data) => {
@@ -145,7 +162,7 @@ const MyInnovations = () => {
                             setInnovations(res.innovations)
                         })
                         .then(() => {
-                            editInnovation(data.innovId)
+                            editInnovation(data.innovId,data.status)
                         })
                 }
             })
@@ -165,15 +182,21 @@ const MyInnovations = () => {
             case "DRAFT": return <DraftActions data={data} editInnovation={editInnovation} deleteInnovationDialog={deleteInnovationDialog}/>
             case "READY": return <ReadyActions data={data} editInnovation={editInnovation} deleteInnovationDialog={deleteInnovationDialog} submitInnovation={submitInnovation}/>
             case "REJECTED": return <RejectedActions data={data} deleteRejectedDialog={deleteRejectedDialog}/>
-            case "ACCEPTED": return <AcceptedActions data={data} updateVersion={updateVersion}/>
+            case "PUBLISHED": return <AcceptedActions data={data} updateVersion={updateVersion}/>
+            case "REVISIONS_REQUESTED": return <RevisionActions data={data} editInnovation={editInnovation} approveInnovationDialog={approveInnovationDialog}/>
             default: return <></>
         }
+    }
+
+    const viewInnovation = (data) => {
+        setPreviewedInnovation(data)
+        navigate('/preview')
     }
 
     const titleBody = (data) => {
 
         return (
-            <span>{data.formData.find(item => item.id === "1.1").value}</span>
+            <p id='innovation-title' onClick={() => viewInnovation(data)} >{data.formData.find(item => item.id === "1.1")?.value}</p>
         )
     }
 
@@ -182,10 +205,12 @@ const MyInnovations = () => {
         switch (data.status) {
             case "DRAFT": return <p>Draft</p>
             case "READY": return <p>Ready</p>
-            case "SUBMITTED": return <p>Submitted</p>
+            case "REVIEWER_ASSIGNMENT": return <p>Reviewer Assignment</p>
             case "UNDER_REVIEW": return <p>Under Review</p>
             case "ACCEPTED": return <p>Accepted</p>
             case "REJECTED": return <p>Rejected</p>
+            case "REVISIONS_REQUESTED": return <p>Revisions Requested</p>
+            case "PUBLISHED": return <p>Published</p>
             default: return <p>{data.status}</p>
         }
     }
@@ -238,6 +263,11 @@ const MyInnovations = () => {
                 <div className="confirmation-content">
                     <i className="pi pi-exclamation-triangle p-mr-3" style={{ fontSize: '2rem'}} />
                     {<span>Are you sure you want to delete <b>Innovation</b>?</span>}
+                </div>
+            </Dialog>
+            <Dialog visible={approveDialog} style={{ width: '450px' }} header="Confirm" modal footer={approveDialogFooter} onHide={() => setApproveDialog(false)}>
+                <div className="confirmation-content">
+                    <span className='manage-users-dialog-info'>Are you sure you want to approve the <b>Innovation</b>?</span>
                 </div>
             </Dialog>
         </div>

@@ -25,6 +25,8 @@ const LoginMenu = (props) => {
 
     const setUserData = (payload) => dispatch({ type: Actions.SetUserData, payload });
 
+    const setViewing = (payload) => dispatch({ type: Actions.SetViewing, payload });
+
     const [role, setRole] = useState(null);
 
     let topbarMenuClassName = classNames('layout-profile-menu fadeInDown ', { 'layout-profile-menu-active': topbarUserMenuActive });
@@ -86,6 +88,28 @@ const LoginMenu = (props) => {
             removeClass(ink, 'p-ink-active');
         }
     }
+
+    const renderMyInnovations = () => {
+        if (userData.user) {
+            return (
+                <li role="menuitem">
+                    <a onClick={() => {
+                        setInnovationManagement('my innovations')
+                        navigate('/innovations/')
+                    }}>
+                        <button type="button" className="p-link p-ripple" >
+                            <i className="pi pi-list icon-menu-topbar"></i>
+                            <span>My Innovations</span>
+                            <Ripple />
+                        </button>
+                    </a>
+                </li>
+            )
+        } else {
+            return null
+        }
+
+    }
     
     const renderReviwerManagement = () => {
         
@@ -107,8 +131,6 @@ const LoginMenu = (props) => {
         } else {
             return null
         }
-        
-
     }
     
     const renderAdministratorManagement = () => {
@@ -145,8 +167,27 @@ const LoginMenu = (props) => {
         } else {
             return null
         }
-        
+    }
 
+    const renderScalingReadinessExpertManagement = () => {
+        if (userData.user?.permissions.find(item => item === "Scaling Readiness Expert")) {
+            return (
+                <li role="menuitem">
+                    <a onClick={() => {
+                        setInnovationManagement('my sr assignments')
+                        navigate('/innovations/')
+                    }}>
+                        <button type="button" className="p-link p-ripple" >
+                            <i className="pi pi-list icon-menu-topbar"></i>
+                            <span>My SR Assignments</span>
+                            <Ripple />
+                        </button>
+                    </a>
+                </li>
+            )
+        } else {
+            return null
+        }
     }
 
     return(
@@ -174,20 +215,14 @@ const LoginMenu = (props) => {
                         </button>
                     </a>
                 </li>
-                <li role="menuitem">
-                    <a onClick={() => navigate('/innovations/')}>
-                        <button type="button" className="p-link p-ripple" >
-                            <i className="pi pi-list icon-menu-topbar"></i>
-                            <span>My Innovations</span>
-                            <Ripple />
-                        </button>
-                    </a>
-                </li>
+                {renderMyInnovations()}
                 {renderReviwerManagement()}
+                {renderScalingReadinessExpertManagement()}
                 {renderAdministratorManagement()}
                 <li role="menuitem">
                     <a onClick={() => {
                         setEditingInnovation('')
+                        setViewing(false)
                         navigate('/add-innovation/')
                     }}>
                         <button type="button" className="p-link p-ripple" onClick={onItemClick}>

@@ -5,10 +5,13 @@ import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
 import ReactHtmlParser from "react-html-parser";
 import './styles.css'
+import {useSelector} from "react-redux";
 
 const Text = (props) => {
 
     const {configuration, presetValue, stepValues, stepSetValues, keyName} = props
+
+    const viewing = useSelector((state) => state.viewing)
 
     const [displayDialog, setDisplayDialog] = useState(false)
     const [value, setValue] = useState(presetValue)
@@ -112,7 +115,7 @@ const Text = (props) => {
             <div className="p-inputgroup">
                 <span className="p-float-label">
                     <InputText className={((valid != 'valid') && configuration.mandatory) ? "p-invalid p-d-block" : "p-valid p-d-block"}
-                               disabled={configuration.checkbox ? (configuration.disabled || !checked) : (configuration.disabled)}
+                               disabled={viewing || (configuration.checkbox ? (configuration.disabled || !checked) : (configuration.disabled))}
                                value={value} onChange={(e) => setValue(e.target.value)}
                                placeholder={configuration.placeholder}
                     />
