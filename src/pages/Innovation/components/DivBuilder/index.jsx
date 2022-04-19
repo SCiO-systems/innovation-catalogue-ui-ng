@@ -28,6 +28,9 @@ import cgiar8 from "../../../../assets/cgiar/ICONS CGIAR-08.png";
 import {Divider} from "primereact/divider";
 
 const DivBuilder = (props) => {
+
+    console.log(props)
+
     const [div, setDiv] = useState(null);
 
     useEffect(() => {

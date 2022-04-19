@@ -7,7 +7,9 @@ const initState = {
     accessToken: '',
     melUserData: {},
     userData: {},
+    viewing: false,
     innovationManagement: 'my innovations',
+    previewedInnovation: '',
     step: 0,
     results: {},
     accordionData: {},
@@ -56,10 +58,20 @@ const reducer = (currentState = initState, action) => {
                 ...currentState,
                 userData: action.payload
             }
+        case Actions.SetViewing:
+            return{
+                ...currentState,
+                viewing: action.payload
+            }
         case Actions.SetInnovationManagement:
             return{
                 ...currentState,
                 innovationManagement: action.payload
+            }
+        case Actions.SetPreviewedInnovation:
+            return{
+                ...currentState,
+                previewedInnovation: action.payload
             }
         case Actions.SetStep:
             return{

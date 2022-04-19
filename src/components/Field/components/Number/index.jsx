@@ -5,10 +5,13 @@ import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
 import './styles.css'
 import ReactHtmlParser from "react-html-parser";
+import {useSelector} from "react-redux";
 
 const Number = (props) => {
 
     const {configuration, presetValue, stepValues, stepSetValues, keyName} = props
+
+    const viewing = useSelector((state) => state.viewing)
 
     const [displayDialog, setDisplayDialog] = useState(false)
     const [value, setValue] = useState(presetValue)
@@ -105,7 +108,7 @@ const Number = (props) => {
                         min={configuration.minNumber}
                         max={configuration.maxNumber}
                         suffix={configuration.suffix}
-                        disabled={configuration.disabled}
+                        disabled={configuration.disabled || (viewing && (configuration.id[0] !== '8'))}
                     />
                     {/*<label htmlFor="username">{configuration.label}</label>*/}
                 </span>

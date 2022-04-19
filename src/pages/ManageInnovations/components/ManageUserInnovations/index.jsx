@@ -3,11 +3,11 @@ import {DataTable} from "primereact/datatable";
 import {Column} from "primereact/column";
 import {Dialog} from "primereact/dialog";
 import {Button} from "primereact/button";
-import { Dropdown } from 'primereact/dropdown';
+import { AutoComplete } from 'primereact/autocomplete';
 import AdministratorService from "../../../../services/httpService/admin";
 import InnovationService from "../../../../services/httpService/innovation";
 import {useSelector} from "react-redux";
-import {AssignAction,DeleteAction,RejectedActions} from './components'
+import {AssignAction,DeleteAction,RejectedActions,FinalAction} from './components'
 
 const ManageUserInnovations = () => {
 
@@ -17,11 +17,18 @@ const ManageUserInnovations = () => {
     const [deleteDialog, setDeleteDialog] = useState(false);
     const [assignDialog, setAssignDialog] = useState(false)
     const [rejectedDialog, setRejectedDialog] = useState(false)
+    const [assignSreDialog, setAssignSreDialog] = useState(false)
+    const [publishDialog, setPublishDialog] = useState(false)
+    const [rejectDialog, setRejectDialog] = useState(false)
     const [rejectedTimestamp ,setRejectedTimestamp] = useState('')
     const [selectedInnovationId, setSelectedInnovationId] = useState('')
     const [resfreshTrigger, setRefreshTrigger] = useState(0)
     const [reviewers, setReviewers] = useState([])
+    const [filteredReviewers, setFilteredReviewers] = useState([])
     const [reviewer, setReviewer] = useState('')
+    const [scalingReadinessExpert, setScalinReadinessExpert] = useState('')
+    const [scalingReadinessExperts, setScalinReadinessExperts] = useState([])
+    const [filteredScalingReadinessExperts, setFilteredScalinReadinessExperts] = useState([])
 
     useEffect(
         () => {
@@ -32,6 +39,72 @@ const ManageUserInnovations = () => {
                 })
         },[resfreshTrigger]
     )
+
+    const rejectInnovation = () => {
+        InnovationService.rejectInnovation(userData.user.userId,selectedInnovationId)
+            .then(() => {
+                setRefreshTrigger(resfreshTrigger + 1)
+            })
+        setRejectDialog(false)
+    }
+
+    const rejectDialogFooter = (
+        <>
+            <Button label="No" icon="pi pi-times" className="p-button-text" onClick={() => setRejectDialog(false)} />
+            <Button label="Yes" icon="pi pi-check" className="p-button-text" onClick={rejectInnovation} />
+        </>
+    );
+
+    const rejectInnovationDialog = (id) => {
+        setSelectedInnovationId(id)
+        setRejectDialog(true);
+    }
+
+    const publishInnovation = () => {
+        InnovationService.publishInnovation(userData.user.userId,selectedInnovationId)
+            .then(() => {
+                setRefreshTrigger(resfreshTrigger + 1)
+            })
+        setPublishDialog(false)
+    }
+
+    const publishDialogFooter = (
+        <>
+            <Button label="No" icon="pi pi-times" className="p-button-text" onClick={() => setPublishDialog(false)} />
+            <Button label="Yes" icon="pi pi-check" className="p-button-text" onClick={publishInnovation} />
+        </>
+    );
+
+    const publishInnovationDialog = (id) => {
+        setSelectedInnovationId(id)
+        setPublishDialog(true);
+    }
+
+    const assignSre = () => {
+        AdministratorService.assignSre(userData.user.userId,selectedInnovationId, scalingReadinessExpert.userId)
+            .then(() => {
+                setRefreshTrigger(resfreshTrigger + 1)
+            })
+        setAssignSreDialog(false)
+    }
+
+    const assignSreDialogFooter = (
+        <>
+            <Button label="No" icon="pi pi-times" className="p-button-text" onClick={() => setAssignSreDialog(false)} />
+            <Button label="Yes" icon="pi pi-check" className="p-button-text" onClick={assignSre} />
+        </>
+    );
+
+    const assignSreInnovationDialog = (id) => {
+        setScalinReadinessExpert('')
+        AdministratorService.getAllScalingReadinessExperts(userData.user.userId)
+            .then(res => {
+                console.log(res)
+                setScalinReadinessExperts(res.reviewers)
+            })
+        setSelectedInnovationId(id)
+        setAssignSreDialog(true);
+    }
 
     const deleteInnovation = () => {
         InnovationService.deleteInnovation(userData.user.userId,selectedInnovationId)
@@ -76,8 +149,11 @@ const ManageUserInnovations = () => {
     }
 
     const assignInnovation = () => {
-
-        AdministratorService.assignReviewer(userData.user.userId,selectedInnovationId, reviewer.userId)
+        const reviewer_ids = reviewer.map(item => {
+            return item.userId
+        })
+        console.log(reviewer_ids)
+        AdministratorService.assignReviewers(userData.user.userId,selectedInnovationId, reviewer_ids)
             .then(() => {
                 setRefreshTrigger(resfreshTrigger + 1)
             })
@@ -91,15 +167,10 @@ const ManageUserInnovations = () => {
         </>
     );
 
-    const reviewerSelection = (e) => {
-        setReviewer(e.value)
-    }
-
     const assignInnovationDialog = (id) => {
         setReviewer('')
         AdministratorService.getAllReviewers(userData.user.userId)
             .then(res => {
-                console.log(res)
                 setReviewers(res.reviewers)
             })
         setSelectedInnovationId(id)
@@ -114,19 +185,19 @@ const ManageUserInnovations = () => {
     }
 
     const reviewersTemplate = (data) => {
-
-        return data.reviewerIds.map(item => {
+        return data.reviewers.map(item => {
             return(
-                <p>{item}</p>
+                <p>{item.fullName}</p>
             )
         })
     }
 
     const actionsTemplate = (data) =>{
         switch (data.status) {
-            case "SUBMITTED": return <AssignAction data={data} deleteInnovationDialog={deleteInnovationDialog} assignInnovationDialog={assignInnovationDialog}/>
+            case "REVIEWER_ASSIGNMENT": return <AssignAction data={data} deleteInnovationDialog={deleteInnovationDialog} assignInnovationDialog={assignInnovationDialog}/>
             case "UNDER_REVIEW": return
-            case "ACCEPTED": return
+            case "PUBLISHED": return
+            case "TAKE_FINAL_DECISION": return <FinalAction data={data} assignSreInnovationDialog={assignSreInnovationDialog} publishInnovationDialog={publishInnovationDialog} rejectInnovationDialog={rejectInnovationDialog}/>
             case "REJECTED": return <RejectedActions data={data} deleteRejectedDialog={deleteRejectedDialog}/>
             default: return <DeleteAction data={data} deleteInnovationDialog={deleteInnovationDialog}/>
         }
@@ -136,10 +207,14 @@ const ManageUserInnovations = () => {
         switch (data.status) {
             case "DRAFT": return <p>Draft</p>
             case "READY": return <p>Ready</p>
-            case "SUBMITTED": return <p>Submitted</p>
+            case "REVIEWER_ASSIGNMENT": return <p>Reviewer Assignment</p>
             case "UNDER_REVIEW": return <p>Under Review</p>
+            case "TAKE_FINAL_DECISION": return <p>Take Final Decision</p>
             case "ACCEPTED": return <p>Accepted</p>
             case "REJECTED": return <p>Rejected</p>
+            case "UNDER_SR_ASSESSMENT": return <p>Under SR Assessment</p>
+            case "REVISIONS_REQUESTED": return <p>Revisions Requested</p>
+            case "PUBLISHED": return <p>Published</p>
             default: return <p>{data.status}</p>
         }
     }
@@ -163,6 +238,32 @@ const ManageUserInnovations = () => {
                 <p>{date.toLocaleTimeString()}</p>
             </div>
         )
+    }
+
+    const searchReviewer = (event) => {
+        let _filteredReviewers;
+        if (!event.query.trim().length) {
+            _filteredReviewers = [...reviewers];
+        }
+        else {
+            _filteredReviewers = reviewers.filter((reviewer) => {
+                return reviewer.fullName.toLowerCase().startsWith(event.query.toLowerCase());
+            });
+        }
+        setFilteredReviewers(_filteredReviewers);
+    }
+
+    const searchScalingReadinessExpert = (event) => {
+        let _filteredScalingReadinessExperts;
+        if (!event.query.trim().length) {
+            _filteredScalingReadinessExperts = [...scalingReadinessExperts];
+        }
+        else {
+            _filteredScalingReadinessExperts = scalingReadinessExperts.filter((sre) => {
+                return sre.fullName.toLowerCase().startsWith(event.query.toLowerCase());
+            });
+        }
+        setFilteredScalinReadinessExperts(_filteredScalingReadinessExperts);
     }
 
     return (
@@ -189,7 +290,23 @@ const ManageUserInnovations = () => {
             </Dialog>
             <Dialog visible={assignDialog} style={{ width: '450px' }} header="Confirm" modal footer={assignDialogFooter} onHide={() => setAssignDialog(false)}>
                 <span className='manage-users-dialog-info'>Choose a Reviewer to assign the Innovation</span>
-                <Dropdown value={reviewer} options={reviewers} onChange={e => reviewerSelection(e)} optionLabel="userId" placeholder="Select a Reviewer" style={{width:'100%'}}/>
+                <AutoComplete value={reviewer} suggestions={filteredReviewers} completeMethod={searchReviewer} multiple  field="fullName" onChange={(e) => setReviewer(e.value)} />
+            </Dialog>
+            <Dialog visible={assignSreDialog} style={{ width: '450px' }} header="Confirm" modal footer={assignSreDialogFooter} onHide={() => setAssignSreDialog(false)}>
+                <span className='manage-users-dialog-info'>Choose a Scaling Readiness Expert to assign the Innovation</span>
+                <AutoComplete value={scalingReadinessExpert} suggestions={filteredScalingReadinessExperts} completeMethod={searchScalingReadinessExpert}  field="fullName" onChange={(e) =>  setScalinReadinessExpert(e.value)} />
+            </Dialog>
+            <Dialog visible={publishDialog} style={{ width: '450px' }} header="Confirm" modal footer={publishDialogFooter} onHide={() => setPublishDialog(false)}>
+                <div className="confirmation-content">
+                    <i className="pi pi-exclamation-triangle p-mr-3" style={{ fontSize: '2rem'}} />
+                    {<span>Are you sure you want to publish the <b>Innovation</b>?</span>}
+                </div>
+            </Dialog>
+            <Dialog visible={rejectDialog} style={{ width: '450px' }} header="Confirm" modal footer={rejectDialogFooter} onHide={() => setRejectDialog(false)}>
+                <div className="confirmation-content">
+                    <i className="pi pi-exclamation-triangle p-mr-3" style={{ fontSize: '2rem'}} />
+                    {<span>Are you sure you want to reject the <b>Innovation</b>?</span>}
+                </div>
             </Dialog>
             <Dialog visible={rejectedDialog} style={{ width: '450px' }} header="Confirm" modal footer={deleteRejectedDialogFooter} onHide={() => setRejectedDialog(false)}>
                 <div className="confirmation-content">

@@ -8,6 +8,7 @@ import {Toast} from "primereact/toast";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import UserService from '../../services/httpService/user'
+import UploadService from '../../services/httpService/upload'
 import './styles.css'
 
 const ProfilePage = () => {
@@ -20,10 +21,7 @@ const ProfilePage = () => {
 
     const userData = useSelector((state) => state.userData)
 
-    console.log(melUserData)
-
     const [selectedRole, setSelectedRole] = useState(null);
-    const [selectedOrganization, setSelectedOrganization] = useState(null);
     const toast = useRef(null);
 
     const roles = [
@@ -34,16 +32,6 @@ const ProfilePage = () => {
         { name: 'Impact Assessment Officer', code: '5' ,keyword: 'impact_officer'},
         { name: 'Knowledge Sharing and Communication Officer', code: '6',keyword: 'km_officer' },
         { name: 'Project/Program Manager', code: '7',keyword: 'project_manager' }
-    ];
-
-    const organizations = [
-        { name: 'Wageningen University and Research Centre', code: '1' },
-        { name: 'Mikocheni Agricultural Research Institute', code: '2' },
-        { name: 'Institut National de Recherche Agricole du Benin', code: '3' },
-        { name: 'Georg-August-Universität Göttingen', code: '4' },
-        { name: 'International Rice Research Institute', code: '5' },
-        { name: 'National Agricultural Research Organisation (Uganda)', code: '6' },
-        { name: 'Mbeya Agricultural Research and Training Institute', code: '7' },
     ];
 
     useEffect(
@@ -63,12 +51,32 @@ const ProfilePage = () => {
         UserService.updateUserRole(melUserData.profile_id, e.value.name)
     }
 
-    const onOrganizationChange = (e) => {
-        setSelectedOrganization(e.value);
-    }
-
     const showSuccess = () => {
         toast.current.show({severity:'success', summary: 'Profile Saved Successfully ', life: 3000});
+    }
+
+    const uploadFiles = (event)=>{
+
+        event.files.map(item => {
+
+            var data = new FormData();
+            data.append("file", item);
+
+            UploadService.upload(data)
+                .then(res =>  {
+                    console.log(res)
+                    const reader = new FileReader();
+                    // reader.onload = (evt) => {
+                    //     console.log(JSON.parse(evt.target.result))
+                    // };
+                    console.log(reader.readAsDataURL(res));
+                })
+
+        })
+    }
+
+    const renderLogo = (e) => {
+
     }
 
     if (melUserData.first_name !== '') {
@@ -122,7 +130,7 @@ const ProfilePage = () => {
                                     <div>
                                         <label htmlFor="country">Country</label>
                                     </div>
-                                    <InputText id="country" className="input-profile"></InputText>
+                                    <InputText id="country" className="input-profile" placeholder={melUserData.country} disabled/>
                                 </div>
                                 <div>
                                     <label htmlFor="organization">Organization</label>
@@ -130,7 +138,18 @@ const ProfilePage = () => {
                                 <InputText id="website" className="input-profile" placeholder={melUserData.organization} disabled/>
                                 {/*<Dropdown className="input-profile" value={selectedOrganization} options={organizations} onChange={onOrganizationChange} optionLabel="name" placeholder="Select Organization"></Dropdown>*/}
                                 <div className="margin-bottom-40 margin-top-55">
-                                    <FileUpload className="upload-organization-logo" mode="basic" name="demo[]" url="./upload" accept="image/*" maxFileSize={1000000} auto chooseLabel="Upload Organization Logo" />
+                                    <FileUpload
+                                        className="upload-organization-logo"
+                                        mode="basic"
+                                        customUpload
+                                        url={`${process.env.REACT_APP_RELAY_URL}/rtb-refactored/api/upload`}
+                                        accept="image/*"
+                                        maxFileSize={1000000}
+                                        auto
+                                        chooseLabel="Upload Organization Logo"
+                                        uploadHandler={(event) => uploadFiles(event)}
+                                    />
+                                    {renderLogo()}
                                 </div>
                             </div>
                         </div>

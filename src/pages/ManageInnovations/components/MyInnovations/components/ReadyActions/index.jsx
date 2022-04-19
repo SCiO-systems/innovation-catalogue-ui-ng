@@ -10,7 +10,7 @@ const ReadyActions = (props) => {
         <div>
             <Tooltip target=".button-edit"  position="left"/>
             <span className="button-edit" data-pr-tooltip="Edit">
-                <Button id={data.innovId} icon="fad fa-pencil fa-lg" className="button-edit-table margin-right" onClick={(e) => editInnovation(e.target.id)}/>
+                <Button icon="fad fa-pencil fa-lg" className="button-edit-table margin-right" onClick={() => editInnovation(data.innovId,data.status)}/>
             </span>
             <Tooltip target=".button-submit"  position="right"/>
             <span className="button-submit" data-pr-tooltip="Submit">

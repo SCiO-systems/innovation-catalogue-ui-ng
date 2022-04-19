@@ -1,5 +1,5 @@
 import axios from 'axios'
-// import axiosRetry from 'axios-retry';
+import axiosRetry from 'axios-retry';
 
 export const RELAY = process.env.REACT_APP_RELAY_URL
 
@@ -13,13 +13,13 @@ export const http = axios.create({
     },
 });
 
-// axiosRetry(http, {
-//     retries: 3, // number of retries
-//     retryDelay: (retryCount) => {
-//         console.log(`retry attempt: ${retryCount}`);
-//         return retryCount * 1000; // time interval between retries
-//     },
-// });
+axiosRetry(http, {
+    retries: 3, // number of retries
+    retryDelay: (retryCount) => {
+        console.log(`retry attempt: ${retryCount}`);
+        return retryCount * 10000; // time interval between retries
+    },
+});
 
 // http.interceptors.request.use(
 //     (config) =>{
@@ -30,11 +30,13 @@ export const http = axios.create({
 //     }
 // );
 //
-// http.interceptors.response.use(
-//     response => {
-//
-//     },
-//     error => {
-//
-//     }
-// );
+http.interceptors.response.use(
+    response => {
+        console.log(response)
+        return response;
+    },
+    error => {
+        console.log(error)
+        return Promise.reject(error);
+    }
+);

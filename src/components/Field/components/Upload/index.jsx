@@ -11,6 +11,8 @@ const Upload = (props) => {
 
     const {configuration, presetValue, stepValues, stepSetValues, keyName} = props
 
+    const viewing = useSelector((state) => state.viewing)
+
     const csrfToken = useSelector((state) => state.csrfToken)
 
     const fileUploadRef = useRef(null);
@@ -74,7 +76,7 @@ const Upload = (props) => {
             <Tooltip target=".status"  position="top"/>
             <div className="p-inputgroup">
                 <span className="p-float-label">
-                    <FileUpload ref={fileUploadRef} customUpload  uploadHandler={(event)=>uploadFiles(event)} className="image-innovation" mode="basic" name="demo[]" url="http://localhost:5000/api/upload" accept="image/*" maxFileSize={1000000} auto chooseLabel="Upload Image" />
+                    <FileUpload ref={fileUploadRef} customUpload disabled={viewing} uploadHandler={(event)=>uploadFiles(event)} className="image-innovation" mode="basic" name="demo[]" url="http://localhost:5000/api/upload" accept="image/*" maxFileSize={1000000} auto chooseLabel="Upload Image" />
                 </span>
                 <span className="p-inputgroup-addon" id='question' onClick={() => setDisplayDialog(true)}><i className="fad fa-question"/></span>
             </div>

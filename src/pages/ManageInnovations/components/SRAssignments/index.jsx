@@ -5,14 +5,14 @@ import {Dialog} from "primereact/dialog";
 import {Tooltip} from "primereact/tooltip";
 import {Button} from "primereact/button";
 import { InputTextarea } from 'primereact/inputtextarea';
-import ReviewerService from "../../../../services/httpService/reviewer";
-import InnovationService from '../../../../services/httpService/innovation'
+import ScalingReadinessExpertService from "../../../../services/httpService/scalingReadinessExpert";
 import {useDispatch, useSelector} from "react-redux";
 import {Actions} from "../../../../reducer/actions";
 import {useNavigate} from "react-router-dom";
+import InnovationService from "../../../../services/httpService/innovation";
 
 
-const AssignedInnovations = () => {
+const SRAssignments = () => {
 
     const navigate = useNavigate();
 
@@ -31,28 +31,44 @@ const AssignedInnovations = () => {
     const setStakeholdersValues = (payload) => dispatch({ type: Actions.SetStakeholdersValues, payload });
     const setEditingInnovation = (payload) => dispatch({ type: Actions.SetEditingInnovation, payload });
 
-    const setViewing = (payload) => dispatch({ type: Actions.SetViewing, payload });
-
     const innovations = useSelector((state) => state.innovations)
     const setInnovations = (payload) => dispatch({ type: Actions.SetInnovations, payload });
 
+    const setViewing = (payload) => dispatch({ type: Actions.SetViewing, payload });
+
     const [resfreshTrigger, setRefreshTrigger] = useState(0)
     const [selectedInnovationId, setSelectedInnovationId] = useState('')
-    const [comments, setComments] = useState('')
-
-    const [requestRevisionDialog, setRequestRevisionDialog] = useState(false)
-    const [approveDialog, setApproveDialog] = useState(false)
-
+    const [publishDialog, setPublishDialog] = useState(false)
 
     useEffect(
         () => {
-            ReviewerService.getAssignedInnovations(userData.user.userId)
+            ScalingReadinessExpertService.getAssignedInnovations(userData.user.userId)
                 .then(res => {
                     console.log(res)
                     setInnovations(res.innovations)
                 })
         },[resfreshTrigger]
     )
+
+    const publishInnovation = () => {
+        InnovationService.publishInnovation(userData.user.userId,selectedInnovationId)
+            .then(() => {
+                setRefreshTrigger(resfreshTrigger + 1)
+            })
+        setPublishDialog(false)
+    }
+
+    const publishDialogFooter = (
+        <>
+            <Button label="No" icon="pi pi-times" className="p-button-text" onClick={() => setPublishDialog(false)} />
+            <Button label="Yes" icon="pi pi-check" className="p-button-text" onClick={publishInnovation} />
+        </>
+    );
+
+    const publishInnovationDialog = (id) => {
+        setSelectedInnovationId(id)
+        setPublishDialog(true);
+    }
 
     const editInnovation = (id) => {
 
@@ -79,63 +95,11 @@ const AssignedInnovations = () => {
         setStakeholdersValues(innovation.formData.filter(item => item.id[0] === '9'))
 
         setEditingInnovation({id,status: innovation.status})
-        setViewing(false)
+        setViewing(true)
 
         navigate('/add-innovation')
     }
 
-    const requestRevisionInnovation = () => {
-        InnovationService.requestRevision(userData.user.userId,selectedInnovationId,comments)
-            .then(() => {
-                setRefreshTrigger(resfreshTrigger + 1)
-            })
-        setRequestRevisionDialog(false)
-    }
-
-    const addComments = () => {
-        InnovationService.addComment(userData.user.userId,selectedInnovationId,comments)
-            .then(() => {
-                setRefreshTrigger(resfreshTrigger + 1)
-            })
-        setRequestRevisionDialog(false)
-    }
-
-    const revisionDialogFooter = (
-        <>
-            <Button label="Save Comments"  className="p-button-text" onClick={addComments} />
-            <Button label="Request Revision"  className="p-button-text" onClick={requestRevisionInnovation} />
-        </>
-    );
-
-    const revisionDialog = (data) => {
-        if (!data.comments) {
-            setComments('')
-        } else {
-            setComments(data.comments)
-        }
-        setSelectedInnovationId(data.innovId)
-        setRequestRevisionDialog(true)
-    }
-
-    const approveInnovation = () => {
-        InnovationService.approveInnovation(userData.user.userId,selectedInnovationId)
-            .then(() => {
-                setRefreshTrigger(resfreshTrigger + 1)
-            })
-        setApproveDialog(false)
-    }
-
-    const approveDialogFooter = (
-        <>
-            <Button label="No" icon="pi pi-times" className="p-button-text" onClick={() => setApproveDialog(false)} />
-            <Button label="Yes" icon="pi pi-check" className="p-button-text" onClick={approveInnovation} />
-        </>
-    );
-
-    const approveInnovationDialog = (data) => {
-        setSelectedInnovationId(data.innovId)
-        setApproveDialog(true)
-    }
 
     const titleBody = (data) => {
 
@@ -148,17 +112,13 @@ const AssignedInnovations = () => {
 
         return(
             <div>
-                <Tooltip target=".button-review"  position="right"/>
-                <span className="button-review" data-pr-tooltip="Request Revision">
-                    <Button icon="fa-solid fa-plus fa-lg" className="button-review-table margin-right" onClick={() =>  revisionDialog(data)}/>
-                </span>
                 <Tooltip target=".button-edit"  position="right"/>
                 <span className="button-edit" data-pr-tooltip="Edit">
                     <Button icon="fad fa-pencil fa-lg" className="button-edit-table margin-right" onClick={(e) => editInnovation(data.innovId)}/>
                 </span>
-                <Tooltip target=".button-approve"  position="right"/>
-                <span className="button-approve" data-pr-tooltip="Approve">
-                    <Button icon="fa-solid fa-check fa-lg" className="button-approve-table margin-right" onClick={() =>  approveInnovationDialog(data)}/>
+                <Tooltip target=".button-publish"  position="right"/>
+                <span className="button-publish" data-pr-tooltip="Publish">
+                    <Button icon="fa-solid fa-check fa-lg" className="button-publish-table margin-right" onClick={() =>  publishInnovationDialog(data.innovId)}/>
                 </span>
             </div>
         )
@@ -174,32 +134,35 @@ const AssignedInnovations = () => {
         )
     }
 
+    const statusTemplate = (data) => {
+
+        switch (data.status) {
+            case "UNDER_SR_ASSESSMENT": return <p>SR Assessment Pending</p>
+            default: return <p>{data.status}</p>
+        }
+    }
+
     return (
         <div className='my-innovations-table'>
             <div className="peach-background-container">
-                <h3>My Review Assignments</h3>
+                <h3>My SR Assignments</h3>
             </div>
             <div className="card table-margin">
                 <DataTable value={innovations} paginator rows={10} rowsPerPageOptions={[10,20]}>
                     <Column field='title' body={(data) => (titleBody(data))}  sortable header="Title"/>
-                    <Column field="comments" sortable header="Comments"/>
-                    <Column field="updatedΑt" body={updatedAtTemplate} sortable header="Last Updated"/>
+                    <Column field="status" body={statusTemplate} sortable header="Status"/>
+                    <Column field="updatedΑt" body={updatedAtTemplate} sortable header="Date Assigned"/>
                     <Column field="actions" header="Actions" body={actionsTemplate} style={{width: "250px"}}/>
                 </DataTable>
             </div>
-            <Dialog visible={requestRevisionDialog} style={{ width: '450px' }} header="Confirm" modal footer={revisionDialogFooter} onHide={() => setRequestRevisionDialog(false)}>
+            <Dialog visible={publishDialog} style={{ width: '450px' }} header="Confirm" modal footer={publishDialogFooter} onHide={() => setPublishDialog(false)}>
                 <div className="confirmation-content">
-                    <span className='manage-users-dialog-info'>Write your comments and request a revision of the Innovation or save your comments as draft</span>
-                    <InputTextarea value={comments} onChange={(e) => setComments(e.target.value)} style={{width:'100%', maxWidth: '100%'}}/>
-                </div>
-            </Dialog>
-            <Dialog visible={approveDialog} style={{ width: '450px' }} header="Confirm" modal footer={approveDialogFooter} onHide={() => setApproveDialog(false)}>
-                <div className="confirmation-content">
-                    <span className='manage-users-dialog-info'>Are you sure you want to approve the <b>Innovation</b>?</span>
+                    <i className="pi pi-exclamation-triangle p-mr-3" style={{ fontSize: '2rem'}} />
+                    {<span>Are you sure you want to publish the <b>Innovation</b>?</span>}
                 </div>
             </Dialog>
         </div>
     )
 }
 
-export default AssignedInnovations
+export default SRAssignments

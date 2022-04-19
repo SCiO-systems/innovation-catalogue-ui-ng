@@ -1,9 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import {PickList} from "primereact/picklist";
+import {useSelector} from "react-redux";
 
 const Picklist = (props) => {
 
     const {sourceData,item,presetValue, stepValues, stepSetValues, keyName,configuration} = props
+
+    const viewing = useSelector((state) => state.viewing)
 
     const [source, setSource] = useState(sourceData)
     const [target, setTarget] = useState([]);
@@ -68,7 +71,7 @@ const Picklist = (props) => {
 
     return(
         <PickList source={source} target={target} itemTemplate={itemTemplate}
-                  onChange={onChange} sourceHeader="Available" sourceStyle={{ height: '350px' }} targetStyle={{ height: '350px' }} targetHeader="Selected"/>
+                  onChange={onChange} sourceHeader="Available" sourceStyle={{ height: '350px' }} targetStyle={{ height: '350px' }} targetHeader="Selected" disabled={viewing}/>
     )
 }
 

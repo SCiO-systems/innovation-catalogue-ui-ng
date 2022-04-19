@@ -20,20 +20,37 @@ const ManageUsers = () => {
     const [selectedUser, setSelectedUser] = useState('')
     const [resfreshTrigger, setRefreshTrigger] = useState(0)
     const [permissions, setPermissions] = useState([])
+    const [totalRecords, setTotalRecords] = useState(0);
+    const [loading, setLoading] = useState(false);
+    const [lazyParams, setLazyParams] = useState({
+        first: 0,
+        rows: 10,
+    });
 
-    useEffect(
-        () => {
-            AdministratorService.getAllUsers(userData.user.userId)
-                .then(res => {
-                    setUsers(res.users)
-                })
-        },[resfreshTrigger]
-    )
+    useEffect(() => {
+        loadLazyData();
+    },[lazyParams,resfreshTrigger])
+
+    const loadLazyData = () => {
+        setLoading(true);
+
+        AdministratorService.getUsersWithPagination(userData.user.userId,lazyParams.first, lazyParams.first + lazyParams.rows -1)
+            .then(res => {
+                    setTotalRecords(res.total_users);
+                    setUsers(res.users);
+                    setLoading(false);
+                }
+            );
+    }
+
+    const onPage = (event) => {
+        setLazyParams(event);
+    }
 
     const editPermissions = () => {
 
         AdministratorService.updateUserPermissions(userData.user.userId,permissions,selectedUser)
-            .then(() => {
+            .then((res) => {
                 setRefreshTrigger(resfreshTrigger + 1)
                 setPermissionsDialog(false);
             })
@@ -48,7 +65,7 @@ const ManageUsers = () => {
 
     const editPermissionsDialog = (data) => {
         setPermissions(data.permissions)
-        setSelectedUser(data.userId)
+        setSelectedUser(data.user_id)
         setPermissionsDialog(true);
     }
 
@@ -103,8 +120,18 @@ const ManageUsers = () => {
                 <h3>Manage Users</h3>
             </div>
             <div className="card table-margin">
-                <DataTable value={users} paginator rows={10} rowsPerPageOptions={[10,20]}>
-                    <Column field="userId"  sortable header="Name"/>
+                <DataTable
+                    value={users}
+                    paginator
+                    rows={10}
+                    lazy
+                    first={lazyParams.first}
+                    onPage={onPage}
+                    loading={loading}
+                    rowsPerPageOptions={[10,20]}
+                    totalRecords={totalRecords}
+                >
+                    <Column field="name"  sortable header="Name"/>
                     <Column field="permissions" body={permissionsTemplate} sortable header="Privileges"/>
                     <Column field="actions" header="Actions" body={actionsTemplate} style={{width: "250px"}}/>
                 </DataTable>

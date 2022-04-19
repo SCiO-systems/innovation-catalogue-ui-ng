@@ -21,7 +21,7 @@ const configurationArray = [
                 id: "3.2",
                 type: 'calendar',
                 mandatory: false,
-                label: 'State Date of Work',
+                label: 'Start Date of Work',
                 fieldInformation: 'Enter the date your team started working on this innovation.',
                 valid: false,
             },

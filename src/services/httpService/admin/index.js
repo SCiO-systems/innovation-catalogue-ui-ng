@@ -32,14 +32,40 @@ class AdministratorService {
         return result.data
     }
 
-    assignReviewer = async ( id,innovationId,reviewer_id) => {
-        const result = await http.post(`/api/admin/assignReviewer`, {
+    assignReviewers = async ( id,innovationId,reviewer_ids) => {
+        const result = await http.post(`/api/admin/assignReviewers`, {
             user_id: id,
             innovation_id: innovationId,
-            reviewer_id: reviewer_id
+            reviewer_ids: reviewer_ids
         })
         return result.data
     }
+
+    getAllScalingReadinessExperts = async ( id) => {
+        const result = await http.post(`/api/admin/getAllScalingReadinessExperts`, {
+            user_id: id,
+        })
+        return result.data
+    }
+
+    assignSre = async ( id,innovationId,sre_id) => {
+        const result = await http.post(`/api/admin/assignScalingReadinessExpert`, {
+            user_id: id,
+            innovation_id: innovationId,
+            sre_id: sre_id
+        })
+        return result.data
+    }
+
+    getUsersWithPagination = async ( id,offset,limit) => {
+        const result = await http.post(`/api/admin/users/dataPaginated`, {
+            user_id: id,
+            offset: offset,
+            limit: limit
+        })
+        return result.data
+    }
+
 }
 
 export default new AdministratorService();

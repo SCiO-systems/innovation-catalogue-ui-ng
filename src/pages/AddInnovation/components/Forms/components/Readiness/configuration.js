@@ -5,7 +5,7 @@ const configurationArray = [
             {
                 id: "8.1",
                 type: 'list',
-                mandatory: true,
+                mandatory: false,
                 minWords: 1,
                 maxWords: 1,
                 label: 'Technology Development Stage',
@@ -53,6 +53,22 @@ const configurationArray = [
                 valid: false,
                 resultsKeyword: 'clarisa_innovation_readiness_levels'
                 // options: ["Idea","Hypothesis (proven)","Basic Model (unproven)","Basic Model (proven)","Application Model (unproven)","Application Model (proven)","Application (unproven)","Application (proven)","Innovation (unproven)", "Innovation (proven)"]
+            },
+            {
+                id: "8.5",
+                type: 'number',
+                mandatory: false,
+                label: 'Scaling Readiness Level',
+                fieldInformation: '',
+                valid: false,
+            },
+            {
+                id: "8.6",
+                type: 'number',
+                mandatory: false,
+                label: 'Scaling Readiness Score',
+                fieldInformation: '',
+                valid: false,
             },
         ]
     },

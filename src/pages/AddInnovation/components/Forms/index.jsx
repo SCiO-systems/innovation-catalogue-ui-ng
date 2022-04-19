@@ -34,9 +34,9 @@ const Forms = () => {
         case 6:
             return <Investment/>
         case 7:
-            return <Readiness/>
-        case 8:
             return <Stakeholders/>
+        case 8:
+            return <Readiness/>
         default:
             return <Description/>
     }
