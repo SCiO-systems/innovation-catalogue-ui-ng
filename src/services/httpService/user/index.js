@@ -9,10 +9,12 @@ class UserService {
         return result.data
     }
 
-    updateUserRole = async (id,role) => {
-        const result = await http.post(`/api/user/update/role`, {
+    editUser = async (id,role,website,organization_logo) => {
+        const result = await http.post(`/api/user/edit`, {
             user_id: id,
-            role: role
+            role: role,
+            website,
+            organization_logo
         })
         return result.data
     }

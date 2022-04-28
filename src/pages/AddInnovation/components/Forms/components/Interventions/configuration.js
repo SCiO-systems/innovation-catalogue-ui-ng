@@ -22,7 +22,7 @@ const configurationArray = [
             },
             {
                 id: "6.3",
-                type: 'inputs',
+                type: 'autocomplete users',
                 mandatory: false,
                 label: 'Intervention Team Members',
                 fieldInformation: '<span> List the core members and their affiliations that participate in the intervention and related to the specific innovation you are documenting. Describe in the intervention description if related to the one the innovation was introduced, piloted, validated and/or scaled in the next context.<br/><br/> (300 words) </span>',

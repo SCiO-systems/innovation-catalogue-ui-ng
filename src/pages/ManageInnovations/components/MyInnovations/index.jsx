@@ -211,6 +211,8 @@ const MyInnovations = () => {
             case "REJECTED": return <p>Rejected</p>
             case "REVISIONS_REQUESTED": return <p>Revisions Requested</p>
             case "PUBLISHED": return <p>Published</p>
+            case "UNDER_SR_ASSESSMENT": return <p>Under SR Assessment</p>
+            case "TAKE_FINAL_DECISION": return <p>Take Final Decision</p>
             default: return <p>{data.status}</p>
         }
     }

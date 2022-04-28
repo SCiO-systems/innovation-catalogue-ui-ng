@@ -28,11 +28,14 @@ const configurationArray = [
             },
             {
                 id: "9.3",
-                type: 'text area',
+                type: 'list',
                 mandatory: false,
+                minWords: 1,
+                maxWords: 10,
                 label: 'Sponsors of the Innovation',
                 fieldInformation: 'Please list organizations separated by commas that provide funds, products, or services for the innovation.',
                 valid: false,
+                resultsKeyword: 'clarisa_beneficiaries'
             },
             {
                 id: "9.4",
@@ -44,7 +47,8 @@ const configurationArray = [
                 fieldInformation: '<span> List the key innovation partners, indicating the specific country scope, especially if the innovation is collaborating or being supported across countries <br/><br/>' +
                     'An innovation partners is a counterpart platform, organization, or individual that work toward mutual interests in delivering a new signification change or process.</span>',
                 valid: false,
-                options: ["Wageningen University and Research Centre","Mikocheni Agricultural Research Institute","Institut National de Recherche Agricole du Benin"],
+                resultsKeyword: 'clarisa_organization',
+                // options: ["Wageningen University and Research Centre","Mikocheni Agricultural Research Institute","Institut National de Recherche Agricole du Benin"],
                 filter: true
             },
             {
@@ -57,7 +61,8 @@ const configurationArray = [
                 fieldInformation: '<span>List the key scaling partners, indicating the specific country scope, especially if the innovation is collaborating or being supported across countries<br/><br/>' +
                     'A scaling partner is an organizations or entities that the implementer (e.g., CGIAR) collaborates with to advance the uptake and use of innovations at scale.</span>',
                 valid: false,
-                options: ["Georg-August-Universität Göttingen","International Rice Research Institute","National Agricultural Research Organisation (Uganda)"],
+                resultsKeyword: 'clarisa_organization',
+                // options: ["Georg-August-Universität Göttingen","International Rice Research Institute","National Agricultural Research Organisation (Uganda)"],
                 filter: true
             },
             {
@@ -70,7 +75,8 @@ const configurationArray = [
                 fieldInformation: '<span> List the key demand partners, indicating the specific country scope, especially if the innovation is intervening in different countries<br/><br/>' +
                     'A demand partner is an organizations or entities that have (expressed) an explicit or implicit demand for an innovation, change or who aspire to a specific goal or impact to which the implementer (e.g., CGIAR) can contribute.</span>',
                 valid: false,
-                options: ["Mbeya Agricultural Research and Training Institute","Institut Senegalais de Recherche Agricole","Institut d’Economie Rurale (Mali)"],
+                resultsKeyword: 'clarisa_organization',
+                // options: ["Mbeya Agricultural Research and Training Institute","Institut Senegalais de Recherche Agricole","Institut d’Economie Rurale (Mali)"],
                 filter: true
             },
         ]

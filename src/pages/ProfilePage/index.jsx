@@ -13,10 +13,6 @@ import './styles.css'
 
 const ProfilePage = () => {
 
-    const dispatch = useDispatch();
-
-    const navigate = useNavigate();
-
     const melUserData = useSelector((state) => state.melUserData)
 
     const userData = useSelector((state) => state.userData)
@@ -48,7 +44,8 @@ const ProfilePage = () => {
     const onRoleChange = (e) => {
         localStorage.setItem("selectedRole", e.value.keyword)
         setSelectedRole(e.value);
-        UserService.updateUserRole(melUserData.profile_id, e.value.name)
+        console.log(userData.user.userId, e.value.name, userData.user.website, userData.user.organizationLogo)
+        UserService.editUser(userData.user.userId, e.value.name, userData.user.website, userData.user.organizationLogo)
     }
 
     const showSuccess = () => {
@@ -64,19 +61,16 @@ const ProfilePage = () => {
 
             UploadService.upload(data)
                 .then(res =>  {
-                    console.log(res)
-                    const reader = new FileReader();
-                    // reader.onload = (evt) => {
-                    //     console.log(JSON.parse(evt.target.result))
-                    // };
-                    console.log(reader.readAsDataURL(res));
+                    console.log(res.filename)
+                    UserService.editUser(userData.user.userId, userData.user.role, userData.user.website, res.filename)
                 })
-
         })
     }
 
     const renderLogo = (e) => {
-
+        return (
+            <img src={`${process.env.REACT_APP_RELAY_URL}/static/${userData.user?.organizationLogo}`} alt={'logo'} />
+        )
     }
 
     if (melUserData.first_name !== '') {

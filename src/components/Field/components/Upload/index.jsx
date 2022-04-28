@@ -6,6 +6,7 @@ import { Button } from 'primereact/button';
 import './styles.css'
 import {useSelector} from "react-redux";
 import ReactHtmlParser from "react-html-parser";
+import UploadService from "../../../../services/httpService/upload";
 
 const Upload = (props) => {
 
@@ -59,15 +60,11 @@ const Upload = (props) => {
             var formdata = new FormData();
             formdata.append("file", item);
 
-            fetch('http://localhost:5000/api/upload', {
-                method: 'POST',
-                headers: {
-                    // Accept: "application/json",
-                    // "Content-Type": "application/json",
-                    "xsrf-token": csrfToken,
-                },
-                body:formdata
-            })
+            UploadService.upload(formdata)
+                .then(res =>  {
+                    console.log(res.filename)
+                    setValue(res.filename)
+                })
         })
     }
 
@@ -76,10 +73,11 @@ const Upload = (props) => {
             <Tooltip target=".status"  position="top"/>
             <div className="p-inputgroup">
                 <span className="p-float-label">
-                    <FileUpload ref={fileUploadRef} customUpload disabled={viewing} uploadHandler={(event)=>uploadFiles(event)} className="image-innovation" mode="basic" name="demo[]" url="http://localhost:5000/api/upload" accept="image/*" maxFileSize={1000000} auto chooseLabel="Upload Image" />
+                    <FileUpload ref={fileUploadRef} customUpload disabled={viewing} uploadHandler={(event) => uploadFiles(event)} className="image-innovation" mode="basic" name="demo[]" url="http://localhost:5000/api/upload" accept="image/*" maxFileSize={1000000} auto chooseLabel="Upload Image" />
                 </span>
                 <span className="p-inputgroup-addon" id='question' onClick={() => setDisplayDialog(true)}><i className="fad fa-question"/></span>
             </div>
+            <img src={`${process.env.REACT_APP_RELAY_URL}/static/${value}`} alt={'logo'} />
             <Dialog header={configuration.label} visible={displayDialog} style={{ width: '50vw' }} footer={renderQuesitonFooter('displayBasic')} onHide={() => setDisplayDialog(false)} >
                 {ReactHtmlParser(configuration.fieldInformation)}
             </Dialog>
