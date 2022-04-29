@@ -198,6 +198,7 @@ const MyInnovations = () => {
     }
 
     const viewInnovation = (data) => {
+        window.localStorage.setItem('previewedInnovation', JSON.stringify(data))
         setPreviewedInnovation(data)
         navigate('/preview')
     }

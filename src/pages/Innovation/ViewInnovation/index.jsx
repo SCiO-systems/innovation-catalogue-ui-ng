@@ -14,12 +14,16 @@ import ReactHtmlParser from "react-html-parser";
 import html2pdf from "html2pdf.js/src";
 import {ProgressBar} from "primereact/progressbar";
 import {Dialog} from "primereact/dialog";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import UserService from '../../../services/httpService/user'
+import {Actions} from "../../../reducer/actions";
 
 const DetailedInnovation = () => {
 
+    const dispatch = useDispatch();
+
     const previewedInnovation = useSelector((state) => state.previewedInnovation)
+    const setPreviewedInnovation = (payload) => dispatch({ type: Actions.SetPreviewedInnovation, payload });
 
     const [downloadPDF,setDownloadPDF] = useState(false)
     const [galleriaIndex, setGalleriaIndex] = useState(0)
@@ -29,15 +33,27 @@ const DetailedInnovation = () => {
     let innovationUrl = "/innovation/";
 
     useEffect(
+        () => {
+            if (!previewedInnovation) {
+                const temp = window.localStorage.getItem('previewedInnovation')
+                if (temp) {
+                    setPreviewedInnovation(JSON.parse(temp))
+                }
+            }
+        },[]
+    )
+
+    useEffect(
         () =>{
-            console.log(previewedInnovation)
-            setFormData(previewedInnovation.formData)
-            UserService.getUserData(previewedInnovation.userIds[0])
-                .then(res => {
-                    console.log(res)
-                    setSubmitter(res.user)
-                })
-        }, []
+            if (previewedInnovation) {
+                setFormData(previewedInnovation.formData)
+                UserService.getUserData(previewedInnovation.userIds[0])
+                    .then(res => {
+                        console.log(res)
+                        setSubmitter(res.user)
+                    })
+            }
+        }, [previewedInnovation]
     )
 
     const renderListItem = (data) => {
@@ -48,10 +64,10 @@ const DetailedInnovation = () => {
                     <div className="product-list-detail">
                         <div className="margin-bottom-20" style={{display: "flex"}}>
                             <div className="margin-right">
-                                <p> <i className="fad fa-user fa-lg" style={{color: "#aa671d"}}></i> {data.submitter.submitter_first_name} {data.submitter.submitter_last_name}</p>
+                                <p> <i className="fad fa-user fa-lg" style={{color: "#aa671d"}}></i> {data.submitter?.submitter_first_name} {data.submitter?.submitter_last_name}</p>
                             </div>
                             <div className="margin-right">
-                                <p> <i className="fad fa-envelope fa-lg" style={{color: "#aa671d"}}></i> {data.submitter.submitter_email}</p>
+                                <p> <i className="fad fa-envelope fa-lg" style={{color: "#aa671d"}}></i> {data.submitter?.submitter_email}</p>
                             </div>
                             <div className="margin-right">
                                 <p><i className="fad fa-calendar-edit fa-lg" style={{color: "#aa671d"}}></i> {data.last_updated}</p>
@@ -164,15 +180,17 @@ const DetailedInnovation = () => {
                                 <TabPanel header="Evidence">
                                     <div>
                                         <p className="display-inline-block margin-top-20 mini-headings-innovation">Reference Materials:</p>
-                                        <DivBuilder type="reference-materials" data={renderField('4.1')}></DivBuilder>
+                                        {/*<DivBuilder type="reference-materials" data={renderField('4.1')}></DivBuilder>*/}
                                     </div>
                                     <div>
                                         <p className="display-inline-block margin-top-20 mini-headings-innovation">Technology Appraisal:</p>
-                                        <div>{renderField('4.3')}</div>
+                                        <div>{renderField('4.2')}</div>
                                     </div>
                                     <div>
                                         <p className="display-inline-block margin-top-20 mini-headings-innovation">Technology Appraisal Image:</p>
-                                        <div><img src={renderField('4.4')} width={400}/></div>
+                                        <div>
+                                            <img src={`${process.env.REACT_APP_RELAY_URL}/static/${renderField('4.3')[0]?.name}`} alt={'logo'} className="img-width" width={400}/>
+                                        </div>
                                     </div>
                                     <div>
                                         <p className="display-inline-block margin-top-20 mini-headings-innovation">Documentation available upon request to potential investors:</p>
@@ -206,7 +224,7 @@ const DetailedInnovation = () => {
                                 </TabPanel>
                                 <TabPanel header="Interventions">
                                     <div>
-                                        <DivBuilder type="intervention-name" data={renderField('6.1')}></DivBuilder>
+                                        {/*<DivBuilder type="intervention-name" data={renderField('6.1')}></DivBuilder>*/}
                                     </div>
                                     <div>
                                         <p className="display-inline-block  mini-headings-innovation">Total budget of Intervention(s):</p>
@@ -233,7 +251,7 @@ const DetailedInnovation = () => {
                                     </div>
                                     <div>
                                         <p className="display-inline-block margin-top-20 mini-headings-innovation">Intervention Team Members: </p>
-                                        <DivBuilder type="team-members" data={renderField('6.3')}></DivBuilder>
+                                        {/*<DivBuilder type="team-members" data={renderField('6.3')}></DivBuilder>*/}
                                     </div>
                                 </TabPanel>
                                 <TabPanel header="Investment">
@@ -263,11 +281,12 @@ const DetailedInnovation = () => {
                                     </div>
                                     <div>
                                         <p className="display-inline-block margin-top-20 mini-headings-innovation">Innovation Readiness levels of the components:  </p>
-                                        <DivBuilder type="beneficiaries-innovation" data={renderField('8.3')}></DivBuilder>
+                                        {renderField('8.3')}
                                     </div>
                                     <div>
                                         <p className="display-inline-block margin-top-20 mini-headings-innovation">Innovation Use levels of the components:  </p>
-                                        <DivBuilder type="beneficiaries-innovation" data={renderField('8.4')}></DivBuilder>
+                                        {/*<DivBuilder type="beneficiaries-innovation" data={renderField('8.4')}></DivBuilder>*/}
+                                        {renderField('8.4')}
                                     </div>
                                     <div>
                                         <p className="display-inline-block margin-top-20 mini-headings-innovation">Scaling Readiness Level:  </p>
@@ -312,7 +331,18 @@ const DetailedInnovation = () => {
                         <Card className="margin-bottom-40 ">
                             <h2 className="innovation-heading">Image of the Innovation</h2>
                             <center>
-                                <img src={renderField('1.7')} className="img-width"/>
+                                {/*<img src={`${process.env.REACT_APP_RELAY_URL}/static/${renderField('1.7')[0].name}`} alt={'logo'} className="img-width"/>*/}
+                                {(() => {
+                                        // console.log(renderField('1.7'))
+                                    if (renderField('1.7')instanceof Array) {
+                                        return renderField('1.7').map(item => {
+                                            return <img src={`${process.env.REACT_APP_RELAY_URL}/static/${item.name}`}
+                                                        alt={'logo'} className="img-width"/>
+                                        })
+                                    } else return null
+                                    }
+                                )()}
+                                {/*<img src={`${process.env.REACT_APP_RELAY_URL}/static/${item.name}`} alt={'logo'} />*/}
                             </center>
 
                         </Card>
