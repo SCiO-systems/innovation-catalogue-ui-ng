@@ -6,6 +6,8 @@ const configurationArray = [
                 id: "4.1",
                 type: 'upload',
                 mandatory: false,
+                files: true,
+                url: true,
                 label: 'Reference Materials',
                 fieldInformation: '<span> Provide URLs of any reference material(s) that describe the Innovation, its stage and/or current use. Reference materials should give a comprehensive overview of the Innovation and its impact potential when used at scale. Please provide a list of links to supporting material for the innovation, such as papers, reports, blogs, testimonies, media articles, images, infographics, videos, presentations, webinars, training materials, and so on.  <br/><br/>' +
                     'Evidence should be presented to validate the specific claims made about the innovation and where it sits from stage 1 to stage 4, as follows. <br/><br/>' +
@@ -17,15 +19,6 @@ const configurationArray = [
             },
             {
                 id: "4.2",
-                type: 'text',
-                mandatory: false,
-                label: '',
-                fieldInformation: '',
-                valid: false,
-                placeholder: "Paste file URL"
-            },
-            {
-                id: "4.3",
                 type: 'text area',
                 mandatory: false,
                 label: 'Technology Appraisal',
@@ -34,16 +27,17 @@ const configurationArray = [
                 valid: false,
             },
             {
-                id: "4.4",
+                id: "4.3",
                 type: 'upload',
                 mandatory: false,
+                max: 1,
                 label: 'Technology Appraisal Image',
                 fieldInformation: '<span> Please upload an image that supports the technological appraisal (status in terms of strengths, weaknesses in its use and functioning) of the innovation.<br/> <br/>' +
                     'Acceptable formats: GIF, PNG, and  JPG. All dimensions. Limited to 3 images.</span>',
                 valid: false,
             },
             {
-                id: "4.5",
+                id: "4.4",
                 type: 'text',
                 mandatory: false,
                 label: 'Documentation available upon request to potential investors',

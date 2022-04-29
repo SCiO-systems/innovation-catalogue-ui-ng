@@ -42,7 +42,7 @@ const AssignedInnovations = () => {
 
     const [requestRevisionDialog, setRequestRevisionDialog] = useState(false)
     const [approveDialog, setApproveDialog] = useState(false)
-
+    const [viewCommentsDialog, setViewCommentsDialog] = useState(false)
 
     useEffect(
         () => {
@@ -117,6 +117,12 @@ const AssignedInnovations = () => {
         setRequestRevisionDialog(true)
     }
 
+    const viewCommentsFooter = (
+        <>
+            <Button label="OK"  className="p-button-text" onClick={() => setViewCommentsDialog(false)} />
+        </>
+    );
+
     const approveInnovation = () => {
         InnovationService.approveInnovation(userData.user.userId,selectedInnovationId)
             .then(() => {
@@ -174,6 +180,15 @@ const AssignedInnovations = () => {
         )
     }
 
+    const commentsBody = (data) => {
+        return (
+            <p id='innovation-title' onClick={() => {
+                setComments(data.comments || '')
+                setViewCommentsDialog(true)
+            }} >View Comments</p>
+        )
+    }
+
     return (
         <div className='my-innovations-table'>
             <div className="peach-background-container">
@@ -182,7 +197,7 @@ const AssignedInnovations = () => {
             <div className="card table-margin">
                 <DataTable value={innovations} paginator rows={10} rowsPerPageOptions={[10,20]}>
                     <Column field='title' body={(data) => (titleBody(data))}  sortable header="Title"/>
-                    <Column field="comments" sortable header="Comments"/>
+                    <Column field="comments" body={(data) => (commentsBody(data))}  header="Comments"/>
                     <Column field="updatedΑt" body={updatedAtTemplate} sortable header="Last Updated"/>
                     <Column field="actions" header="Actions" body={actionsTemplate} style={{width: "250px"}}/>
                 </DataTable>
@@ -190,7 +205,12 @@ const AssignedInnovations = () => {
             <Dialog visible={requestRevisionDialog} style={{ width: '450px' }} header="Confirm" modal footer={revisionDialogFooter} onHide={() => setRequestRevisionDialog(false)}>
                 <div className="confirmation-content">
                     <span className='manage-users-dialog-info'>Write your comments and request a revision of the Innovation or save your comments as draft</span>
-                    <InputTextarea value={comments} onChange={(e) => setComments(e.target.value)} style={{width:'100%', maxWidth: '100%'}}/>
+                    <InputTextarea autoResize value={comments} onChange={(e) => setComments(e.target.value)} style={{width:'100%', maxWidth: '100%'}}/>
+                </div>
+            </Dialog>
+            <Dialog visible={viewCommentsDialog} style={{ width: '450px' }} header="Comments" modal footer={viewCommentsFooter} onHide={() => setViewCommentsDialog(false)}>
+                <div className="confirmation-content">
+                    <InputTextarea disabled value={comments} autoResize style={{width:'100%', maxWidth: '100%'}}/>
                 </div>
             </Dialog>
             <Dialog visible={approveDialog} style={{ width: '450px' }} header="Confirm" modal footer={approveDialogFooter} onHide={() => setApproveDialog(false)}>

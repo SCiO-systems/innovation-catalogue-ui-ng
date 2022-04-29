@@ -30,21 +30,15 @@ const configurationArray = [
                 id: "5.4",
                 type: 'upload',
                 mandatory: false,
+                max: 1,
+                files: true,
+                url: true,
                 label: 'Patent Know-How Information',
                 fieldInformation: '<span>Please provide the patent know-how explanation on that provides, in general, a new way of doing something, or offers a new technical solution to a problem.<br/><br/>' +
                     'To note, the patent owner has the exclusive right to prevent or stop others from commercially exploiting the patented invention. In other words, patent protection means that the invention cannot be commercially made, used, distributed, imported or sold by others without the patent owner\'s consent. <br/><br/>' +
                     'Find out more: <a href="https://www.wipo.int/patents/en/">https://www.wipo.int/patents/en/</a><br/><br/>' +
                     '(400 words) </span>',
                 valid: false,
-            },
-            {
-                id: "5.5",
-                type: 'text',
-                mandatory: false,
-                label: '',
-                fieldInformation: '',
-                valid: false,
-                placeholder: 'Paste file URL'
             },
         ]
     },

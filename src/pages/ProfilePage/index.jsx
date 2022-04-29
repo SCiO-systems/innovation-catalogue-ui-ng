@@ -17,7 +17,10 @@ const ProfilePage = () => {
 
     const userData = useSelector((state) => state.userData)
 
-    const [selectedRole, setSelectedRole] = useState(null);
+    const [selectedRole, setSelectedRole] = useState('');
+    const [website, setWebsite] = useState('')
+    const [organizationLogo, setOrganizationLogo] = useState('')
+
     const toast = useRef(null);
 
     const roles = [
@@ -38,17 +41,18 @@ const ProfilePage = () => {
             } else {
                 setSelectedRole(roles.find(item => item.name === userData.user?.role))
             }
+            setWebsite(userData.user?.website)
+            setOrganizationLogo(userData.user?.organizationLogo)
         },[userData]
     )
 
     const onRoleChange = (e) => {
-        localStorage.setItem("selectedRole", e.value.keyword)
         setSelectedRole(e.value);
-        console.log(userData.user.userId, e.value.name, userData.user.website, userData.user.organizationLogo)
-        UserService.editUser(userData.user.userId, e.value.name, userData.user.website, userData.user.organizationLogo)
     }
 
-    const showSuccess = () => {
+    const saveChanges = () => {
+        localStorage.setItem("selectedRole", selectedRole.keyword)
+        UserService.editUser(userData.user.userId, selectedRole, website, organizationLogo)
         toast.current.show({severity:'success', summary: 'Profile Saved Successfully ', life: 3000});
     }
 
@@ -61,16 +65,9 @@ const ProfilePage = () => {
 
             UploadService.upload(data)
                 .then(res =>  {
-                    console.log(res.filename)
-                    UserService.editUser(userData.user.userId, userData.user.role, userData.user.website, res.filename)
+                    setOrganizationLogo(res.filename)
                 })
         })
-    }
-
-    const renderLogo = (e) => {
-        return (
-            <img src={`${process.env.REACT_APP_RELAY_URL}/static/${userData.user?.organizationLogo}`} alt={'logo'} />
-        )
     }
 
     if (melUserData.first_name !== '') {
@@ -80,10 +77,10 @@ const ProfilePage = () => {
                 <div className="peach-background-container">
                     <h3>My profile</h3>
                 </div>
-                <div className="p-grid p-justify-center margin-top-80 margin-bottom-80">
-                    <Card className="padding-50">
+                <div className="p-grid p-justify-center margin-top-20">
+                    <Card className='padding-50'>
                         <div className="p-grid p-justify-center vertical-container">
-                            <div className="-p-col-6 p-col-align-start margin-right">
+                            <div className="-p-col-6 p-col-align-start margin-right" style={{maxWidth: '50%'}}>
                                 <div className="margin-bottom-40 margin-top-20">
                                     <div>
                                         <label htmlFor="firstName">First Name</label>
@@ -108,17 +105,20 @@ const ProfilePage = () => {
                                     </div>
                                     <Dropdown className="input-profile"  value={selectedRole} options={roles} onChange={onRoleChange} optionLabel="name" placeholder="Choose your role"></Dropdown>
                                 </div>
-                                {/*<div className="margin-bottom-40 margin-top-55">*/}
-                                {/*    <FileUpload className="upload-profile-image" mode="basic" name="demo[]" url="./upload" accept="image/*" maxFileSize={1000000} auto chooseLabel="Upload Your Profile Image" />*/}
-                                {/*</div>*/}
+                                <div className="margin-bottom-40">
+                                    <div style={{marginBottom: '10px'}}>
+                                        <label htmlFor="website">Profile Image</label>
+                                    </div>
+                                    <img className='profile-image' src={`https://mel.cgiar.org/graph/getcimage/width/500/height/500/image/-user-${melUserData.photo}`} alt='profile' />
+                                </div>
                             </div>
-                            <div className="-p-col-6 p-col-align-start margin-left-40">
+                            <div className="-p-col-6 p-col-align-start" style={{maxWidth: '50%'}}>
 
                                 <div className="margin-bottom-40 margin-top-20">
                                     <div>
                                         <label htmlFor="website">Website</label>
                                     </div>
-                                    <InputText id="website" className="input-profile"></InputText>
+                                    <InputText value={website} onChange={(e) => setWebsite(e.target.value)} id="website" className="input-profile"></InputText>
                                 </div>
                                 <div className="margin-bottom-40">
                                     <div>
@@ -130,7 +130,6 @@ const ProfilePage = () => {
                                     <label htmlFor="organization">Organization</label>
                                 </div>
                                 <InputText id="website" className="input-profile" placeholder={melUserData.organization} disabled/>
-                                {/*<Dropdown className="input-profile" value={selectedOrganization} options={organizations} onChange={onOrganizationChange} optionLabel="name" placeholder="Select Organization"></Dropdown>*/}
                                 <div className="margin-bottom-40 margin-top-55">
                                     <FileUpload
                                         className="upload-organization-logo"
@@ -143,19 +142,22 @@ const ProfilePage = () => {
                                         chooseLabel="Upload Organization Logo"
                                         uploadHandler={(event) => uploadFiles(event)}
                                     />
-                                    {renderLogo()}
+                                </div>
+                                <div className="margin-bottom-40">
+                                    <div style={{marginBottom: '10px'}}>
+                                        <label htmlFor="country">Organization Logo</label>
+                                    </div>
+                                    <img className='organization-logo' src={`${process.env.REACT_APP_RELAY_URL}/static/${organizationLogo}`} alt={'logo'} />
                                 </div>
                             </div>
                         </div>
                         <div className="margin-bottom-40 margin-top-55">
-                            <div style={{marginBottom: '10px'}}>
-                                <label htmlFor="website">Profile Image</label>
-                            </div>
-                            <img src={`https://mel.cgiar.org/graph/getcimage/width/500/height/500/image/-user-${melUserData.photo}`} alt='profile' style={{width:'50%'}} />
+
+
                         </div>
                         <div className="p-grid p-justify-center margin-top-20">
                             <div className="save-profile-button">
-                                <Button icon="fad fa-check" label="Save" onClick={showSuccess}></Button>
+                                <Button icon="fad fa-check" label="Save" onClick={saveChanges}></Button>
                             </div>
                         </div>
                     </Card>

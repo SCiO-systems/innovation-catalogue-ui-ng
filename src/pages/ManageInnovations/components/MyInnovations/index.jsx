@@ -10,6 +10,7 @@ import {Actions} from "../../../../reducer/actions";
 import {DraftActions, ReadyActions,RejectedActions,AcceptedActions,RevisionActions} from './components'
 import UserService from '../../../../services/httpService/user'
 import InnovationService from '../../../../services/httpService/innovation'
+import {InputTextarea} from "primereact/inputtextarea";
 
 const MyInnovations = () => {
 
@@ -41,10 +42,12 @@ const MyInnovations = () => {
     const [selectedInnovationId, setSelectedInnovationId] = useState('')
     const [resfreshTrigger, setRefreshTrigger] = useState(0)
     const [rejectedTimestamp ,setRejectedTimestamp] = useState('')
+    const [comments, setComments] = useState('')
 
     const [deleteDialog, setDeleteDialog] = useState(false);
     const [rejectedDialog, setRejectedDialog] = useState(false)
     const [approveDialog, setApproveDialog] = useState(false)
+    const [viewCommentsDialog, setViewCommentsDialog] = useState(false)
 
     useEffect(
         () => {
@@ -150,6 +153,12 @@ const MyInnovations = () => {
         setApproveDialog(true)
     }
 
+    const viewCommentsFooter = (
+        <>
+            <Button label="OK"  className="p-button-text" onClick={() => setViewCommentsDialog(false)} />
+        </>
+    );
+
     const updateVersion = (data) => {
 
         InnovationService.updateVersionInnovation(userData.user.userId,data.innovId,"DRAFT",data.formData,data.version)
@@ -238,6 +247,15 @@ const MyInnovations = () => {
         )
     }
 
+    const commentsBody = (data) => {
+        return (
+            <p id='innovation-title' onClick={() => {
+                setComments(data.comments || '')
+                setViewCommentsDialog(true)
+            }} >View Comments</p>
+        )
+    }
+
     return (
         <div className='my-innovations-table'>
             <div className="peach-background-container">
@@ -249,7 +267,7 @@ const MyInnovations = () => {
                     {/*<Column field="editing-rights"  sortable header="Editing Rights"/>*/}
                     <Column field="status" body={statusTemplate} sortable header="Status"/>
                     <Column field="version" sortable header="Version"/>
-                    <Column field="comments"  sortable header="Reviewer's Comments"/>
+                    <Column field="comments" body={(data) => (commentsBody(data))}  header="Reviewer's Comments"/>
                     <Column field="createdΑt" body={createdAtTemplate} sortable header="Date Created"/>
                     <Column field="updatedΑt" body={updatedAtTemplate} sortable header="Last Updated"/>
                     <Column field="actions" header="Actions" body={actionsTemplate} style={{width: "250px"}}/>
@@ -270,6 +288,11 @@ const MyInnovations = () => {
             <Dialog visible={approveDialog} style={{ width: '450px' }} header="Confirm" modal footer={approveDialogFooter} onHide={() => setApproveDialog(false)}>
                 <div className="confirmation-content">
                     <span className='manage-users-dialog-info'>Are you sure you want to approve the <b>Innovation</b>?</span>
+                </div>
+            </Dialog>
+            <Dialog visible={viewCommentsDialog} style={{ width: '450px' }} header="Comments" modal footer={viewCommentsFooter} onHide={() => setViewCommentsDialog(false)}>
+                <div className="confirmation-content">
+                    <InputTextarea disabled value={comments} autoResize style={{width:'100%', maxWidth: '100%'}}/>
                 </div>
             </Dialog>
         </div>
