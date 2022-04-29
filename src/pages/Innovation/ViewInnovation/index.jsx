@@ -17,6 +17,8 @@ import {Dialog} from "primereact/dialog";
 import {useDispatch, useSelector} from "react-redux";
 import UserService from '../../../services/httpService/user'
 import {Actions} from "../../../reducer/actions";
+import {MaterialTitle} from "../../../components/Field/components/Upload/components";
+import axios from "axios";
 
 const DetailedInnovation = () => {
 
@@ -110,10 +112,83 @@ const DetailedInnovation = () => {
 
     const renderField = (id) => {
         const temp = formData.find(item => item.id === id)
+        if (id === '4.1') console.log(temp)
         if (temp) {
             return temp.value
         } else {
             return ''
+        }
+    }
+
+    const downloadFile = (item) => {
+        axios.get(`${process.env.REACT_APP_RELAY_URL}/static/${item.name}`, {
+            responseType: 'blob'
+        })
+            .then((blob) => {
+                const url = window.URL.createObjectURL(
+                    new Blob([blob.data]),
+                );
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute(
+                    'download',
+                    item.name,
+                );
+                document.body.appendChild(link);
+                link.click();
+                link.parentNode.removeChild(link);
+            });
+    }
+
+    const renderAssests = (id) => {
+        const temp = formData.find(item => item.id === id)
+        if (temp) {
+            return temp.value.map(item => {
+                if (item.type === 'image') {
+                    return (
+                        <div className='uploaded-image'>
+                            <img src={`${process.env.REACT_APP_RELAY_URL}/static/${item.name}`} alt={'logo'} />
+                        </div>
+                    )
+                } else if (item.type === 'url') {
+                    return (
+                        <div className='uploaded-file'>
+                            <a href={item.name} target="_blank">
+                                <p>{item.title || item.name}</p>
+                            </a>
+                        </div>
+                    )
+                } else {
+                    return (
+                        <div className='uploaded-file'>
+                            <i className="fa-solid fa-file-arrow-down" onClick={() => downloadFile(item)}/>
+                            {/*<p>{item.name.split('(')[0]}</p>*/}
+                            <p>{item.title || item.name.split('(')[0]}</p>
+                        </div>
+                    )
+                }
+            })
+        } else {
+            return ''
+        }
+    }
+
+    const renderComplex = (id) => {
+        const temp = formData.find(item => item.id === id)
+        if (temp) {
+            if (id === '6.1') {
+                return temp.value.map(item => {
+                    return (
+                        <p>{item.value[0] + ' - ' + item.value[1]}</p>
+                    )
+                })
+            } else {
+                return temp.value.map(item => {
+                    return (
+                        <p>{item.value[0].name}</p>
+                    )
+                })
+            }
         }
     }
 
@@ -181,6 +256,7 @@ const DetailedInnovation = () => {
                                     <div>
                                         <p className="display-inline-block margin-top-20 mini-headings-innovation">Reference Materials:</p>
                                         {/*<DivBuilder type="reference-materials" data={renderField('4.1')}></DivBuilder>*/}
+                                        {renderAssests('4.1')}
                                     </div>
                                     <div>
                                         <p className="display-inline-block margin-top-20 mini-headings-innovation">Technology Appraisal:</p>
@@ -194,6 +270,7 @@ const DetailedInnovation = () => {
                                     </div>
                                     <div>
                                         <p className="display-inline-block margin-top-20 mini-headings-innovation">Documentation available upon request to potential investors:</p>
+                                        <p>{renderField('4.4')}</p>
                                         {
                                             formData.documentation_to_pottential_investors?.map(
                                                 (item)=>{
@@ -225,6 +302,7 @@ const DetailedInnovation = () => {
                                 <TabPanel header="Interventions">
                                     <div>
                                         {/*<DivBuilder type="intervention-name" data={renderField('6.1')}></DivBuilder>*/}
+                                        {renderComplex('6.1')}
                                     </div>
                                     <div>
                                         <p className="display-inline-block  mini-headings-innovation">Total budget of Intervention(s):</p>
@@ -251,6 +329,7 @@ const DetailedInnovation = () => {
                                     </div>
                                     <div>
                                         <p className="display-inline-block margin-top-20 mini-headings-innovation">Intervention Team Members: </p>
+                                        {renderComplex('6.3')}
                                         {/*<DivBuilder type="team-members" data={renderField('6.3')}></DivBuilder>*/}
                                     </div>
                                 </TabPanel>

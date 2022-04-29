@@ -62,7 +62,7 @@
     background: #d68227;
 }
 
-.field .uploaded-file {
+.uploaded-file {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -70,18 +70,18 @@
     position: relative;
     gap: 24px;
 }
-.field .uploaded-file i {
+ .uploaded-file i {
     font-size: 24px;
     color: #b97122;
     cursor: pointer;
 }
-.field .uploaded-file p {
+.uploaded-file p {
     margin: 0;
 }
-.field .uploaded-file a {
+.uploaded-file a {
     overflow: scroll;
 }
-.field .uploaded-file .p-button {
+.uploaded-file .p-button {
     position: absolute;
     right: -40px;
     top: auto;
@@ -90,7 +90,7 @@
     background: #b72d2b;
 }
 
-.field .uploaded-file .p-button:hover {
+.uploaded-file .p-button:hover {
     background: white;
     border: 1px solid #b72d2b;
     border-radius: 4px;
