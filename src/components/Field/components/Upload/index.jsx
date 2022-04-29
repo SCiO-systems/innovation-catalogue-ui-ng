@@ -3,6 +3,7 @@ import {Tooltip} from "primereact/tooltip";
 import { FileUpload } from 'primereact/fileupload';
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
+import {MaterialTitle} from './components'
 import './styles.css'
 import {useSelector} from "react-redux";
 import ReactHtmlParser from "react-html-parser";
@@ -34,7 +35,6 @@ const Upload = (props) => {
 
     useEffect(
         () => {
-            console.log(value)
             if (stepValues.length === 0) return
             const _values = stepValues
             const index = _values.indexOf(_values.find(item => item.id === configuration.id))
@@ -71,11 +71,13 @@ const Upload = (props) => {
                     if (res.mimetype.split('/')[0] === 'image') {
                         item = {
                             type: 'image',
+                            title: '',
                             name: res.filename
                         }
                     } else {
                         item = {
                             type: 'file',
+                            title: '',
                             name: res.filename
                         }
                     }
@@ -105,32 +107,41 @@ const Upload = (props) => {
             });
     }
 
-    const renderImages = () => {
+    const renderAssests = () => {
         if (value instanceof Array) {
             return value.map(item => {
                 if (item.type === 'image') {
                     return (
-                        <div className='uploaded-image'>
-                            <img src={`${process.env.REACT_APP_RELAY_URL}/static/${item.name}`} alt={'logo'} />
-                            <Button icon='fa-solid fa-x' onClick={() => setValue(value.filter(image => image.name !== item.name))} disabled={viewing}/>
-                        </div>
+                        <>
+                            {configuration.id === '4.1' ? <MaterialTitle item={item} value={value} setValue={setValue}/> : <></>}
+                            <div className='uploaded-image'>
+                                <img src={`${process.env.REACT_APP_RELAY_URL}/static/${item.name}`} alt={'logo'} />
+                                <Button icon='fa-solid fa-x' onClick={() => setValue(value.filter(image => image.name !== item.name))} disabled={viewing}/>
+                            </div>
+                        </>
                     )
                 } else if (item.type === 'url') {
                     return (
-                        <div className='uploaded-file'>
-                            <a href={item.name} target="_blank">
-                                <p>{item.name}</p>
-                            </a>
-                            <Button icon='fa-solid fa-x' onClick={() => setValue(value.filter(image => image.name !== item.name))} disabled={viewing}/>
-                        </div>
+                        <>
+                            {configuration.id === '4.1' ? <MaterialTitle item={item} value={value} setValue={setValue}/> : <></>}
+                            <div className='uploaded-file'>
+                                <a href={item.name} target="_blank">
+                                    <p>{item.name}</p>
+                                </a>
+                                <Button icon='fa-solid fa-x' onClick={() => setValue(value.filter(image => image.name !== item.name))} disabled={viewing}/>
+                            </div>
+                        </>
                     )
                 } else {
                     return (
-                        <div className='uploaded-file'>
-                            <i className="fa-solid fa-file-arrow-down" onClick={() => downloadFile(item)}/>
-                            <p>{item.name.split('(')[0]}</p>
-                            <Button icon='fa-solid fa-x' onClick={() => setValue(value.filter(image => image.name !== item.name))} disabled={viewing}/>
-                        </div>
+                        <>
+                            {configuration.id === '4.1' ? <MaterialTitle item={item} value={value} setValue={setValue}/> : <></>}
+                            <div className='uploaded-file'>
+                                <i className="fa-solid fa-file-arrow-down" onClick={() => downloadFile(item)}/>
+                                <p>{item.name.split('(')[0]}</p>
+                                <Button icon='fa-solid fa-x' onClick={() => setValue(value.filter(image => image.name !== item.name))} disabled={viewing}/>
+                            </div>
+                        </>
                     )
                 }
 
@@ -165,11 +176,11 @@ const Upload = (props) => {
                 configuration.url ?
                     <div className='input-url p-inputgroup'>
                         <InputText value={fileUrl} onChange={(e) => setFileUrl(e.target.value)} placeholder='Paste file Url'/>
-                        <Button label='Submit Url' onClick={() => setValue([...value, {type: 'url', name: fileUrl}])} disabled={viewing || configuration.max === value.length || !fileUrl}/>
+                        <Button label='Submit Url' onClick={() => setValue([...value, {type: 'url', title: '', name: fileUrl}])} disabled={viewing || configuration.max === value.length || !fileUrl}/>
                     </div> :
                     <></>
             }
-            {renderImages()}
+            {renderAssests()}
             <Dialog header={configuration.label} visible={displayDialog} style={{ width: '50vw' }} footer={renderQuesitonFooter('displayBasic')} onHide={() => setDisplayDialog(false)} >
                 {ReactHtmlParser(configuration.fieldInformation)}
             </Dialog>

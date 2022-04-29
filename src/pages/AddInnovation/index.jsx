@@ -98,7 +98,6 @@ const AddInnovation = () => {
         })
             .then(async res => {
                 const result = await res.text()
-                console.log(result)
                 setResults((JSON).parse(result))
             })
             .catch(err => console.log(err))
