@@ -18,3 +18,81 @@
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
+
+.field .uploaded-image {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.field .uploaded-image img {
+    max-width: 100%;
+}
+.field .uploaded-image .p-button {
+    position: absolute;
+    right: -40px;
+    top: auto;
+    height: 30px;
+    width: 30px;
+    background: #b72d2b;
+}
+
+.field .uploaded-image .p-button:hover {
+    position: absolute;
+    right: -40px;
+    top: auto;
+    height: 30px;
+    width: 30px;
+    background: white;
+    border: 1px solid #b72d2b;
+    border-radius: 4px;
+    color: #b72d2b;
+}
+
+.field .input-url {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.field .input-url .p-button {
+    background: #d68227;
+}
+
+.field .uploaded-file {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    gap: 24px;
+}
+.field .uploaded-file i {
+    font-size: 24px;
+    color: #b97122;
+    cursor: pointer;
+}
+.field .uploaded-file p {
+    margin: 0;
+}
+.field .uploaded-file a {
+    overflow: scroll;
+}
+.field .uploaded-file .p-button {
+    position: absolute;
+    right: -40px;
+    top: auto;
+    height: 30px;
+    width: 30px;
+    background: #b72d2b;
+}
+
+.field .uploaded-file .p-button:hover {
+    background: white;
+    border: 1px solid #b72d2b;
+    border-radius: 4px;
+    color: #b72d2b;
+}

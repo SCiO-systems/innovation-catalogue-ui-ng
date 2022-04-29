@@ -55,6 +55,18 @@ const configurationArray = [
                 // options: ["Idea","Hypothesis (proven)","Basic Model (unproven)","Basic Model (proven)","Application Model (unproven)","Application Model (proven)","Application (unproven)","Application (proven)","Innovation (unproven)", "Innovation (proven)"]
             },
             {
+                id: "8.4",
+                type: 'list',
+                mandatory: true,
+                minWords: 1,
+                maxWords: 10,
+                label: 'Innovation Use levels of the components',
+                fieldInformation: '',
+                valid: false,
+                resultsKeyword: 'clarisa_innovation_use_levels',
+                filter: true
+            },
+            {
                 id: "8.5",
                 type: 'number',
                 mandatory: false,

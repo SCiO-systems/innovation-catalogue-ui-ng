@@ -69,6 +69,7 @@ const configurationArray = [
                 id: "1.7",
                 type: 'upload',
                 mandatory: false,
+                max: 2,
                 label: 'Image of the Innovation',
                 fieldInformation: '<span> Attach images that presents a general overview of the innovation deployment. <br/> <br/>' +
                     '(2 images maximum. Acceptable formats GIF,PNG, and JPG. One banner/cover image 1440 x 480Px and Thumbnail photo – 290 x 163 Px.) </span>',
@@ -78,6 +79,7 @@ const configurationArray = [
                 id: "1.8",
                 type: 'upload',
                 mandatory: false,
+                max: 2,
                 label: 'Images of the Innovation Components',
                 fieldInformation: '<span> Attach images that presents collaboration, ideation, implementation, or value creation of the innovation components.<br/> <br/>' +
                     '(2 images maximum. Acceptable formats GIF,PNG, and JPG. Thumbnail photos – 290 x 163 Px.) </span>',

@@ -29,8 +29,6 @@ import {Divider} from "primereact/divider";
 
 const DivBuilder = (props) => {
 
-    console.log(props)
-
     const [div, setDiv] = useState(null);
 
     useEffect(() => {
@@ -160,6 +158,7 @@ const DivBuilder = (props) => {
                             </div>)
                     }
                     if (props.type === "sdg-target") {
+                        console.log(element)
                         if(element.code === "1.1" || element.code === "1.2" || element.code === "1.3" || element.code === "1.4" || element.code === "1.5" || element.code === "1.a" || element.code === "1.b") {
                             list.push(
                                 <div className="margin-bottom-20">
