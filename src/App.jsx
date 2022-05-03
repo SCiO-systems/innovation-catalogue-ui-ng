@@ -29,6 +29,7 @@ import MelService from './services/httpService/melLogin'
 import UserService from './services/httpService/user'
 import {http} from "./services/httpService";
 import "@fortawesome/fontawesome-pro/css/all.css"
+import ClarisaService from "./services/httpService/clarisa";
 
 PrimeReact.ripple = true;
 
@@ -48,6 +49,8 @@ const App = () => {
     const setMelUserData = (payload) => dispatch({ type: Actions.SetMelUserData, payload });
 
     const setLoggedIn = (payload) => dispatch({ type: Actions.SetLoggedIn, payload });
+
+    const setResults = (payload) => dispatch({ type: Actions.SetResults, payload });
 
     const [menuActive, setMenuActive] = useState(false);
 
@@ -104,6 +107,11 @@ const App = () => {
                             if (res.user) {
                                 setLoggedIn('logged in')
                                 setUserData(res)
+                                ClarisaService.getClarisaResults()
+                                    .then(res => {
+                                        console.log(res)
+                                        setResults(res)
+                                    })
                             }
                         })
                 }

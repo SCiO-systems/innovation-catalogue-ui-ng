@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Card} from "primereact/card";
 import InnovationService from "../../../services/InnovationService";
-import {MapChart, DivBuilder} from '../components'
+import {PreviewMapChart, DivBuilder} from '../components'
 import { Button } from 'primereact/button';
 import {TabPanel, TabView} from "primereact/tabview";
 import {Link, useLocation} from "react-router-dom";
@@ -17,12 +17,13 @@ import {Dialog} from "primereact/dialog";
 import {useDispatch, useSelector} from "react-redux";
 import UserService from '../../../services/httpService/user'
 import {Actions} from "../../../reducer/actions";
-import {MaterialTitle} from "../../../components/Field/components/Upload/components";
 import axios from "axios";
 
 const DetailedInnovation = () => {
 
     const dispatch = useDispatch();
+
+    const results = useSelector((state) => state.results)
 
     const previewedInnovation = useSelector((state) => state.previewedInnovation)
     const setPreviewedInnovation = (payload) => dispatch({ type: Actions.SetPreviewedInnovation, payload });
@@ -51,7 +52,6 @@ const DetailedInnovation = () => {
                 setFormData(previewedInnovation.formData)
                 UserService.getUserData(previewedInnovation.userIds[0])
                     .then(res => {
-                        console.log(res)
                         setSubmitter(res.user)
                     })
             }
@@ -112,7 +112,6 @@ const DetailedInnovation = () => {
 
     const renderField = (id) => {
         const temp = formData.find(item => item.id === id)
-        if (id === '4.1') console.log(temp)
         if (temp) {
             return temp.value
         } else {
@@ -216,10 +215,27 @@ const DetailedInnovation = () => {
                     return {value: it.value, CGIAR_impact_area: item.title}
                 })
                 allData = [...allData,...temp2]
-                console.log(temp2)
             })
         }
         return allData
+    }
+
+    const countryData = (id) => {
+        const temp = formData.find(item => item.id === id)
+        let x
+        console.log(results)
+        if (temp) {
+            if (results.length) {
+                const countries = results.find(item => item.header === 'clarisa_countries')
+                if (countries) {
+                    x = countries.value.filter(item => item.value === temp.value.find(country => country === item.value))
+                }
+                return x
+            } else return []
+        } else {
+            return []
+        }
+
     }
 
     const renderPage = () => {
@@ -542,19 +558,19 @@ const DetailedInnovation = () => {
                         </Card>
                         <Card className="margin-bottom-40">
                             <h2 className="innovation-heading">Locations of Applied Evidence</h2>
-                            <MapChart mapData={renderField('3.4')} mapId="map1-innovation"></MapChart>
+                            <PreviewMapChart mapData={countryData('3.4')} mapId="map1-innovation"/>
                         </Card>
                         <Card className="margin-bottom-40">
                             <h2 className="innovation-heading">Locations of Implementation</h2>
-                            <MapChart mapData={renderField('3.1')} mapId="map2-innovation"></MapChart>
+                            <PreviewMapChart mapData={countryData('3.1')} mapId="map2-innovation"></PreviewMapChart>
                         </Card>
                         <Card className="margin-bottom-40">
                             <h2 className="innovation-heading">Locations of Experimental Evidence</h2>
-                            <MapChart mapData={renderField('3.5')} mapId="map3-innovation"></MapChart>
+                            <PreviewMapChart mapData={countryData('3.5')} mapId="map3-innovation"></PreviewMapChart>
                         </Card>
                         <Card className="margin-bottom-40">
                             <h2 className="innovation-heading">Locations of Impact/Profit Evidence</h2>
-                            <MapChart mapData={renderField('3.6')} mapId="map4-innovation"></MapChart>
+                            <PreviewMapChart mapData={countryData('3.6')} mapId="map4-innovation"></PreviewMapChart>
                         </Card>
                     </div>
                 </div>

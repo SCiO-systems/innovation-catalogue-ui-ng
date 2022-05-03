@@ -4,13 +4,14 @@ import * as am4maps from "@amcharts/amcharts4/maps";
 import am4geodata_worldHigh from "@amcharts/amcharts4-geodata/worldHigh";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
-const MapChart = (props) => {
+am4core.useTheme(am4themes_animated);
 
-    console.log(props.mapData)
+const PreviewMapChart = (props) => {
+
+    const {mapData} = props
 
     useEffect(() => {
 
-        am4core.useTheme(am4themes_animated);
         let chart = am4core.create(props.mapId, am4maps.MapChart);
         chart.geodata = am4geodata_worldHigh;
         chart.projection = new am4maps.projections.Miller();
@@ -20,7 +21,12 @@ const MapChart = (props) => {
 
         polygonSeries.useGeodata = true;
 
-        polygonSeries.data = props.mapData;
+        chart.events.on("ready", function(ev) {
+            mapData.map(item => {
+                let country = polygonSeries.getPolygonById(item.id);
+                country.isActive = true;
+            })
+        });
 
         let polygonTemplate = polygonSeries.mapPolygons.template;
         polygonTemplate.tooltipText = "";
@@ -31,35 +37,6 @@ const MapChart = (props) => {
         as.properties.fill = am4core.color("#5583C4");
 
         let north, south, west, east;
-
-        chart.events.on("ready", function(ev) {
-            if(props.mapData){
-                props.mapData?.forEach(
-                    (item)=>{
-                        // console.log(item)
-                        if(!item.madeFromGeoData){
-                            let country = polygonSeries.getPolygonById(item.id)
-                            if (north == undefined || (country.north > north)) {
-                                north = country.north;
-                            }
-                            if (south == undefined || (country.south < south)) {
-                                south = country.south;
-                            }
-                            if (west == undefined || (country.west < west)) {
-                                west = country.west;
-                            }
-                            if (east == undefined || (country.east > east)) {
-                                east = country.east;
-                            }
-                            country.isActive = true;
-
-                        }
-                    }
-                )
-
-            }
-
-        });
 
         chart.zoomToRectangle(north, east, south, west, 1, true);
 
@@ -99,7 +76,7 @@ const MapChart = (props) => {
 
 
 
-    }, [props.mapData]);
+    }, [mapData]);
 
     return (
         <>
@@ -109,4 +86,4 @@ const MapChart = (props) => {
 
 }
 
-export default MapChart
+export default PreviewMapChart
