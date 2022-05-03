@@ -6,12 +6,20 @@ import {Button} from "primereact/button";
 import { AutoComplete } from 'primereact/autocomplete';
 import AdministratorService from "../../../../services/httpService/admin";
 import InnovationService from "../../../../services/httpService/innovation";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AssignAction,DeleteAction,RejectedActions,FinalAction} from './components'
+import {useNavigate} from "react-router-dom";
+import {Actions} from "../../../../reducer/actions";
 
 const ManageUserInnovations = () => {
 
+    const navigate = useNavigate();
+
+    const dispatch = useDispatch();
+
     const userData = useSelector((state) => state.userData)
+
+    const setPreviewedInnovation = (payload) => dispatch({ type: Actions.SetPreviewedInnovation, payload });
 
     const [innovations, setInnovations] = useState()
     const [deleteDialog, setDeleteDialog] = useState(false);
@@ -177,10 +185,16 @@ const ManageUserInnovations = () => {
         setAssignDialog(true)
     }
 
+    const viewInnovation = (data) => {
+        window.localStorage.setItem('previewedInnovation', JSON.stringify(data))
+        setPreviewedInnovation(data)
+        navigate('/preview')
+    }
+
     const titleBody = (data) => {
 
         return (
-            <span>{data.formData.find(item => item.id === "1.1")?.value}</span>
+            <p id='innovation-title' onClick={() => viewInnovation(data)} >{data.formData.find(item => item.id === "1.1")?.value}</p>
         )
     }
 

@@ -7,6 +7,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {Actions} from "../../reducer/actions";
 import InnovationService from '../../services/httpService/innovation'
+import ClarisaService from '../../services/httpService/clarisa'
 
 const AddInnovation = () => {
 
@@ -20,7 +21,7 @@ const AddInnovation = () => {
     const setStep = (payload) => dispatch({ type: Actions.SetStep, payload });
 
     const results = useSelector((state) => state.results)
-    const setResults = (payload) => dispatch({ type: Actions.SetResults, payload });
+    // const setResults = (payload) => dispatch({ type: Actions.SetResults, payload });
 
     const userData = useSelector((state) => state.userData)
 
@@ -84,25 +85,27 @@ const AddInnovation = () => {
         window.localStorage.removeItem('stakeholdersValues')
     }
 
-    useEffect(() => {
-
-        fetch(`${process.env.REACT_APP_RELAY_URL}/rtb-refactored/api/clarisaResults`, {
-            method: 'POST',
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                "xsrf-token": csrfToken,
-            },
-            credentials: "include",
-            mode: 'cors'
-        })
-            .then(async res => {
-                const result = await res.text()
-                setResults((JSON).parse(result))
-            })
-            .catch(err => console.log(err))
-
-    },[csrfToken]);
+    // useEffect(() => {
+    //
+    //     // fetch(`${process.env.REACT_APP_RELAY_URL}/rtb-refactored/api/clarisaResults`, {
+    //     //     method: 'POST',
+    //     //     headers: {
+    //     //         Accept: "application/json",
+    //     //         "Content-Type": "application/json",
+    //     //         "xsrf-token": csrfToken,
+    //     //     },
+    //     //     credentials: "include",
+    //     //     mode: 'cors'
+    //     // })
+    //     //     .then(async res => {
+    //     //         const result = await res.text()
+    //     //         setResults((JSON).parse(result))
+    //     //     })
+    //     //     .catch(err => console.log(err))
+    //     ClarisaService.getClarisaResults()
+    //         .then(res => setResults(res))
+    //
+    // },[csrfToken]);
 
     useEffect(
         () => {

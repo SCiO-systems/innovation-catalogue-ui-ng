@@ -36,6 +36,8 @@ const SRAssignments = () => {
 
     const setViewing = (payload) => dispatch({ type: Actions.SetViewing, payload });
 
+    const setPreviewedInnovation = (payload) => dispatch({ type: Actions.SetPreviewedInnovation, payload });
+
     const [resfreshTrigger, setRefreshTrigger] = useState(0)
     const [selectedInnovationId, setSelectedInnovationId] = useState('')
     const [publishDialog, setPublishDialog] = useState(false)
@@ -101,10 +103,16 @@ const SRAssignments = () => {
     }
 
 
+    const viewInnovation = (data) => {
+        window.localStorage.setItem('previewedInnovation', JSON.stringify(data))
+        setPreviewedInnovation(data)
+        navigate('/preview')
+    }
+
     const titleBody = (data) => {
 
         return (
-            <span>{data.formData.find(item => item.id === "1.1")?.value}</span>
+            <p id='innovation-title' onClick={() => viewInnovation(data)} >{data.formData.find(item => item.id === "1.1")?.value}</p>
         )
     }
 

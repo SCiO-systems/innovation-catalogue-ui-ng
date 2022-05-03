@@ -33,6 +33,8 @@ const AssignedInnovations = () => {
 
     const setViewing = (payload) => dispatch({ type: Actions.SetViewing, payload });
 
+    const setPreviewedInnovation = (payload) => dispatch({ type: Actions.SetPreviewedInnovation, payload });
+
     const innovations = useSelector((state) => state.innovations)
     const setInnovations = (payload) => dispatch({ type: Actions.SetInnovations, payload });
 
@@ -143,10 +145,16 @@ const AssignedInnovations = () => {
         setApproveDialog(true)
     }
 
+    const viewInnovation = (data) => {
+        window.localStorage.setItem('previewedInnovation', JSON.stringify(data))
+        setPreviewedInnovation(data)
+        navigate('/preview')
+    }
+
     const titleBody = (data) => {
 
         return (
-            <span>{data.formData.find(item => item.id === "1.1")?.value}</span>
+            <p id='innovation-title' onClick={() => viewInnovation(data)} >{data.formData.find(item => item.id === "1.1")?.value}</p>
         )
     }
 
