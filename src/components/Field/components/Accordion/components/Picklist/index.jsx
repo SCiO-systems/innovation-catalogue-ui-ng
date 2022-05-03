@@ -4,7 +4,7 @@ import {useSelector} from "react-redux";
 
 const Picklist = (props) => {
 
-    const {sourceData,item,presetValue, stepValues, stepSetValues, keyName,configuration} = props
+    const {sourceData,item,presetValue, stepValues, stepSetValues, keyName,configuration,index} = props
 
     const viewing = useSelector((state) => state.viewing)
 
@@ -15,7 +15,8 @@ const Picklist = (props) => {
 
     useEffect(
         () => {
-            const temp = presetValue.find(it => it.id === sourceData[0].value[0])
+            console.log(index)
+            const temp = presetValue.find(it => it.id === index)
             if (temp) {
                 setTarget(temp.value)
                 setSource(temp.source)
@@ -27,12 +28,13 @@ const Picklist = (props) => {
     useEffect(
         () => {
             let _value = presetValue
-            const index = _value.findIndex(tab => tab.id === sourceData[0].value[0])
-            if (index !== -1) _value.splice(index,1)
+            const indexTemp = _value.findIndex(tab => tab.id === index)
+            if (indexTemp !== -1) _value.splice(indexTemp,1)
             _value.push({
-                id: sourceData[0].value[0],
+                id: index,
                 source: source,
-                value: target
+                value: target,
+                title: item.title
             })
             setValue([..._value])
         },[target]

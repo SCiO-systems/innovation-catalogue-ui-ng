@@ -192,6 +192,36 @@ const DetailedInnovation = () => {
         }
     }
 
+    const renderSdg = (id) => {
+        const temp = formData.find(item => item.id === id)
+        let allData = []
+        if (temp) {
+            temp.value.map(item => {
+                allData = [...allData,...item.value]
+            })
+            allData = allData.map(item => {
+                const temp2 = {code: `${item.value[0]+item.value[1]+item.value[2]}`,value: item.value.split('-')[1]}
+                return temp2
+            })
+        }
+        return allData
+    }
+
+    const renderImpact = (id) => {
+        const temp = formData.find(item => item.id === id)
+        let allData = []
+        if (temp) {
+            temp.value.map(item => {
+                const temp2 = item.value.map(it => {
+                    return {value: it.value, CGIAR_impact_area: item.title}
+                })
+                allData = [...allData,...temp2]
+                console.log(temp2)
+            })
+        }
+        return allData
+    }
+
     const renderPage = () => {
 
         let step;
@@ -219,11 +249,11 @@ const DetailedInnovation = () => {
                                     </div>
                                     <div>
                                         <p className="display-inline-block mini-headings-innovation">SDG Target Addressed:</p>
-                                        <DivBuilder type="sdg-target" data={renderField('2.6')}></DivBuilder>
+                                        <DivBuilder type="sdg-target" data={renderSdg('2.6')}></DivBuilder>
                                     </div>
                                     <div>
                                         <p className="display-inline-block mini-headings-innovation">CGIAR Impact Target:</p>
-                                        <DivBuilder type="impact-target" data={renderField('2.7')}></DivBuilder>
+                                        <DivBuilder type="impact-target" data={renderImpact('2.7')}></DivBuilder>
                                     </div>
                                     <div>
                                         <p className="display-inline-block mini-headings-innovation">Initiative/Project outcome addressed:</p>
@@ -364,8 +394,7 @@ const DetailedInnovation = () => {
                                     </div>
                                     <div>
                                         <p className="display-inline-block margin-top-20 mini-headings-innovation">Innovation Use levels of the components:  </p>
-                                        {/*<DivBuilder type="beneficiaries-innovation" data={renderField('8.4')}></DivBuilder>*/}
-                                        {renderField('8.4')}
+                                        <DivBuilder type="beneficiaries-innovation" data={renderField('8.4')}></DivBuilder>
                                     </div>
                                     <div>
                                         <p className="display-inline-block margin-top-20 mini-headings-innovation">Scaling Readiness Level:  </p>
@@ -410,9 +439,7 @@ const DetailedInnovation = () => {
                         <Card className="margin-bottom-40 ">
                             <h2 className="innovation-heading">Image of the Innovation</h2>
                             <center>
-                                {/*<img src={`${process.env.REACT_APP_RELAY_URL}/static/${renderField('1.7')[0].name}`} alt={'logo'} className="img-width"/>*/}
                                 {(() => {
-                                        // console.log(renderField('1.7'))
                                     if (renderField('1.7')instanceof Array) {
                                         return renderField('1.7').map(item => {
                                             return <img src={`${process.env.REACT_APP_RELAY_URL}/static/${item.name}`}
@@ -421,7 +448,6 @@ const DetailedInnovation = () => {
                                     } else return null
                                     }
                                 )()}
-                                {/*<img src={`${process.env.REACT_APP_RELAY_URL}/static/${item.name}`} alt={'logo'} />*/}
                             </center>
 
                         </Card>
@@ -429,17 +455,19 @@ const DetailedInnovation = () => {
                             <h2 className="innovation-heading">Image of the Innovation Components</h2>
                             <Galleria
                                 activeIndex={galleriaIndex}
-                                value={renderField('1.8')}
+                                value={(renderField('1.8')instanceof Array) ? renderField('1.8').map(item => {
+                                    return `${process.env.REACT_APP_RELAY_URL}/static/${item.name}`
+                                }) : []}
                                 numVisible={5} circular
                                 showIndicators
                                 onItemChange={(e)=>onItemChange(e)}
                                 showItemNavigators showThumbnails={false} item={itemTemplate2}/>
                         </Card>
-                        <Card>
-                            <h2 className="innovation-heading">Related Innovation(s)</h2>
-                            <DataView style={{padding: "10px"}} value={renderField('1.13')} layout="list"
-                                      itemTemplate={itemTemplate}/>
-                        </Card>
+                        {/*<Card>*/}
+                        {/*    <h2 className="innovation-heading">Related Innovation(s)</h2>*/}
+                        {/*    <DataView style={{padding: "10px"}} value={renderField('1.13')} layout="list"*/}
+                        {/*              itemTemplate={itemTemplate}/>*/}
+                        {/*</Card>*/}
                     </div>
 
                     <div className="p-col-fixed sidebar-container">

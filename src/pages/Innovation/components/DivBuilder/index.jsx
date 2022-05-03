@@ -158,7 +158,6 @@ const DivBuilder = (props) => {
                             </div>)
                     }
                     if (props.type === "sdg-target") {
-                        console.log(element)
                         if(element.code === "1.1" || element.code === "1.2" || element.code === "1.3" || element.code === "1.4" || element.code === "1.5" || element.code === "1.a" || element.code === "1.b") {
                             list.push(
                                 <div className="margin-bottom-20">
@@ -298,6 +297,7 @@ const DivBuilder = (props) => {
                     }
 
                     if (props.type === "impact-target") {
+                        console.log(element)
                         if(element.CGIAR_impact_area === "Nutrition, health and food security"){
                             list.push(
                                 <div className="margin-bottom-20">
