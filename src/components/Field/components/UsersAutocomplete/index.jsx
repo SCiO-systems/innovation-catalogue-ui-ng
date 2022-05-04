@@ -95,9 +95,9 @@ const AutocompleteUsers = (props) => {
         }
 
         const handleInput1 = (input,item) => {
-            const _value = value.filter(it => it.id !== item.id)
-            _value.push({id:item.id,value:[input,item.value[0]]})
-            setValue(_value)
+            const index = value.indexOf(value.find(it => it.id === item.id))
+            value[index] = {id:item.id,value:[input,item.value[0]]}
+            setValue([...value])
         }
 
         if (value !== '') {
@@ -122,7 +122,7 @@ const AutocompleteUsers = (props) => {
                                 className="fad fa-question"/></span>
                         </div>
                         <Button id={item.id} label="Remove" icon="fad fa-minus fa-lg"
-                                className="p-mr-2 margin-left-5 add-button" onClick={(e) => removeInput(e)}/>
+                                className="p-mr-2 margin-left-5 add-button" onClick={(e) => removeInput(e)} disabled={viewing}/>
                     </>
                 )
             })
@@ -133,7 +133,7 @@ const AutocompleteUsers = (props) => {
         <div className="field">
             <Tooltip target=".status"  position="top"/>
             {renderFields()}
-            <Button label="Add" icon="fad fa-plus fa-lg" className="p-mr-2 margin-left-5 add-button" onClick={addInputs}/>
+            <Button label="Add" icon="fad fa-plus fa-lg" className="p-mr-2 margin-left-5 add-button" onClick={addInputs} disabled={viewing}/>
             <Dialog header={configuration.label} visible={displayDialog} style={{ width: '50vw' }} footer={renderQuesitonFooter('displayBasic')} onHide={() => setDisplayDialog(false)} >
                 {ReactHtmlParser(configuration.fieldInformation)}
             </Dialog>

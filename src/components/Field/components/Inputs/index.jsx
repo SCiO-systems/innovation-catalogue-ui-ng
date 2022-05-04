@@ -119,7 +119,7 @@ const Inputs = (props) => {
                                 className="fad fa-question"/></span>
                         </div>
                         <Button id={item.id} label="Remove" icon="fad fa-minus fa-lg"
-                                className="p-mr-2 margin-left-5 add-button" onClick={(e) => removeInput(e)}/>
+                                className="p-mr-2 margin-left-5 add-button" onClick={(e) => removeInput(e)} disabled={viewing}/>
                     </>
                 )
             })
@@ -130,7 +130,7 @@ const Inputs = (props) => {
         <div className="field">
             <Tooltip target=".status"  position="top"/>
             {renderFields()}
-            <Button label="Add" icon="fad fa-plus fa-lg" className="p-mr-2 margin-left-5 add-button" onClick={addInputs}/>
+            <Button label="Add" icon="fad fa-plus fa-lg" className="p-mr-2 margin-left-5 add-button" onClick={addInputs} disabled={viewing}/>
             <Dialog header={configuration.label} visible={displayDialog} style={{ width: '50vw' }} footer={renderQuesitonFooter('displayBasic')} onHide={() => setDisplayDialog(false)} >
                 {ReactHtmlParser(configuration.fieldInformation)}
             </Dialog>

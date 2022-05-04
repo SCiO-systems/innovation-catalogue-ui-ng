@@ -14,7 +14,7 @@ const AccordionTabs = (props) => {
 
     let {presetValue} = props
 
-    const accordionData = useSelector((state) => state.accordionData)
+    const viewing = useSelector((state) => state.viewing)
 
     const results = useSelector((state) => state.results)
 
