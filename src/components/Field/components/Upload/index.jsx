@@ -67,7 +67,6 @@ const Upload = (props) => {
             UploadService.upload(formdata)
                 .then(res =>  {
                     let item
-                    console.log(res.mimetype)
                     if (res.mimetype.split('/')[0] === 'image') {
                         item = {
                             type: 'image',

@@ -50,7 +50,6 @@ const AssignedInnovations = () => {
         () => {
             ReviewerService.getAssignedInnovations(userData.user.userId)
                 .then(res => {
-                    console.log(res)
                     setInnovations(res.innovations)
                 })
         },[resfreshTrigger]

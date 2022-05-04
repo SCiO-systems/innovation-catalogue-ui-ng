@@ -46,7 +46,6 @@ const SRAssignments = () => {
         () => {
             ScalingReadinessExpertService.getAssignedInnovations(userData.user.userId)
                 .then(res => {
-                    console.log(res)
                     setInnovations(res.innovations)
                 })
         },[resfreshTrigger]

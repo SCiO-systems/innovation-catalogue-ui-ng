@@ -6,8 +6,6 @@ import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
 const MapChart = (props) => {
 
-    console.log(props.mapData)
-
     useEffect(() => {
 
         am4core.useTheme(am4themes_animated);
@@ -36,7 +34,6 @@ const MapChart = (props) => {
             if(props.mapData){
                 props.mapData?.forEach(
                     (item)=>{
-                        // console.log(item)
                         if(!item.madeFromGeoData){
                             let country = polygonSeries.getPolygonById(item.id)
                             if (north == undefined || (country.north > north)) {

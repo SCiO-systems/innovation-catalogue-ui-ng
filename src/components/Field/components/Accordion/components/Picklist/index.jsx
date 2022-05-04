@@ -15,7 +15,6 @@ const Picklist = (props) => {
 
     useEffect(
         () => {
-            console.log(index)
             const temp = presetValue.find(it => it.id === index)
             if (temp) {
                 setTarget(temp.value)

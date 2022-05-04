@@ -49,11 +49,6 @@ const StepsForms = (props) => {
     const stepsService = new ResultsService();
 
     const addDoubleInputs = (e) => {
-        // console.log(disableBtn)
-        //
-        // if(inputs.length >= 1){
-        //     e.target.style.display = "none";
-        // }
 
         let _doubleInputs = doubleInputs;
         _doubleInputs.push(<div  className="margin-top-20">

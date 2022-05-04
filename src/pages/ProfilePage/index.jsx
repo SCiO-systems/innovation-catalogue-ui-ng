@@ -61,11 +61,9 @@ const ProfilePage = () => {
 
     const saveChanges = () => {
         localStorage.setItem("selectedRole", selectedRole.keyword)
-        UserService.editUser(userData.user.userId, selectedRole, website, organizationLogo)
+        UserService.editUser(userData.user.userId, selectedRole.name, website, organizationLogo)
             .then(res => {
-                console.log(res)
                 setUserData(res)
-                // setOrganizationLogo(res.new_user_data?.organizationLogo)
             })
         toast.current.show({severity:'success', summary: 'Profile Saved Successfully ', life: 3000});
     }
