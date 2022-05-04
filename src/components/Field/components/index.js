@@ -8,5 +8,6 @@ import AccordionTabs from './Accordion'
 import Upload from './Upload'
 import Inputs from './Inputs'
 import AutocompleteUsers from './UsersAutocomplete'
+import OrganizationsAutocomplete from './OrganizationsAutocomplete'
 
-export {Text, TextArea,List, Number, CalendarInput, Keywords,AccordionTabs,Upload,Inputs,AutocompleteUsers}
+export {Text, TextArea,List, Number, CalendarInput, Keywords,AccordionTabs,Upload,Inputs,AutocompleteUsers,OrganizationsAutocomplete}

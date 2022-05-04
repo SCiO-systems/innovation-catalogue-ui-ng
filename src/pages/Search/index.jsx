@@ -64,8 +64,8 @@ const Search = () => {
         if((parameters.length === 3)&&(parameters[2])!==""){
             resultService.getSearchResults(JSON.parse(parameters[2]),lazyParams).then(data =>{
                 if(data){
-                    setResults(data.data);
-                    setTotal(data.data.total);
+                    setResults(data?.data);
+                    setTotal(data?.data?.total);
                     setSearch(true);
                 }else{
                     setResults({
@@ -79,8 +79,8 @@ const Search = () => {
         }else{
             resultService.getSearchResults(queryJson,lazyParams).then(data =>{
                 if(data){
-                    setResults(data.data);
-                    setTotal(data.data.total);
+                    setResults(data?.data);
+                    setTotal(data?.data?.total);
                     setSearch(true);
                 }else{
                     setResults({
@@ -106,8 +106,8 @@ const Search = () => {
 
         resultService.getSearchResults(queryJson,lazyParams).then(data =>{
             if(data){
-                setResults(data.data);
-                setTotal(data.data.total);
+                setResults(data?.data);
+                setTotal(data?.data?.total);
                 setSearch(true);
             }else{
                 setResults({
@@ -209,19 +209,19 @@ const Search = () => {
                     <div className="product-list-detail">
                         <div className="margin-bottom-20 display-list" >
                             <div className="margin-right">
-                                <p><i className="fad fa-user fa-lg" style={{color: "#d68227"}}></i> {data.submitter.submitter_first_name} {data.submitter.submitter_last_name}</p>
+                                <p><i className="fad fa-user fa-lg" style={{color: "#d68227"}}></i> {data?.submitter?.submitter_first_name} {data?.submitter?.submitter_last_name}</p>
                             </div>
                             <div className="margin-right">
-                                <p><i className="fad fa-envelope fa-lg" style={{color: "#d68227"}}></i> {data.submitter.submitter_email}</p>
+                                <p><i className="fad fa-envelope fa-lg" style={{color: "#d68227"}}></i> {data?.submitter?.submitter_email}</p>
                             </div>
                             <div className="margin-right">
-                                <p><i className="fad fa-calendar-edit fa-lg" style={{color: "#d68227"}}></i> {data.last_updated}</p>
+                                <p><i className="fad fa-calendar-edit fa-lg" style={{color: "#d68227"}}></i> {data?.last_updated}</p>
                             </div>
                         </div>
-                        <p className="text-align-justify">{data.summary}</p>
+                        <p className="text-align-justify">{data?.summary}</p>
                     </div>
                     <div className="product-list-action p-grid p-justify-end margin-top-5">
-                        <Link to={innovationUrl + data.innovation_id}>
+                        <Link to={innovationUrl + data?.innovation_id}>
                             <Button label="View" className="button-view-results"></Button>
                         </Link>
                     </div>

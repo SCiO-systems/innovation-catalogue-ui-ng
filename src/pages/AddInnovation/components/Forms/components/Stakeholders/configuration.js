@@ -39,44 +39,34 @@ const configurationArray = [
             },
             {
                 id: "9.4",
-                type: 'list',
+                type: 'autocomplete organizations',
                 mandatory: true,
-                minWords: 1,
-                maxWords: 10,
                 label: 'Key Innovation Partners',
+                multiple: true,
                 fieldInformation: '<span> List the key innovation partners, indicating the specific country scope, especially if the innovation is collaborating or being supported across countries <br/><br/>' +
                     'An innovation partners is a counterpart platform, organization, or individual that work toward mutual interests in delivering a new signification change or process.</span>',
                 valid: false,
-                resultsKeyword: 'clarisa_organization',
-                // options: ["Wageningen University and Research Centre","Mikocheni Agricultural Research Institute","Institut National de Recherche Agricole du Benin"],
                 filter: true
             },
             {
                 id: "9.5",
-                type: 'list',
+                type: 'autocomplete organizations',
                 mandatory: false,
-                minWords: 1,
-                maxWords: 10,
                 label: 'Key Scaling Partners',
+                multiple: true,
                 fieldInformation: '<span>List the key scaling partners, indicating the specific country scope, especially if the innovation is collaborating or being supported across countries<br/><br/>' +
                     'A scaling partner is an organizations or entities that the implementer (e.g., CGIAR) collaborates with to advance the uptake and use of innovations at scale.</span>',
-                valid: false,
-                resultsKeyword: 'clarisa_organization',
-                // options: ["Georg-August-Universität Göttingen","International Rice Research Institute","National Agricultural Research Organisation (Uganda)"],
                 filter: true
             },
             {
                 id: "9.6",
-                type: 'list',
+                type: 'autocomplete organizations',
                 mandatory: true,
-                minWords: 1,
-                maxWords: 10,
                 label: 'Key Demand Partners',
+                multiple: true,
                 fieldInformation: '<span> List the key demand partners, indicating the specific country scope, especially if the innovation is intervening in different countries<br/><br/>' +
                     'A demand partner is an organizations or entities that have (expressed) an explicit or implicit demand for an innovation, change or who aspire to a specific goal or impact to which the implementer (e.g., CGIAR) can contribute.</span>',
                 valid: false,
-                resultsKeyword: 'clarisa_organization',
-                // options: ["Mbeya Agricultural Research and Training Institute","Institut Senegalais de Recherche Agricole","Institut d’Economie Rurale (Mali)"],
                 filter: true
             },
         ]

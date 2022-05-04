@@ -1,17 +1,13 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Card} from "primereact/card";
-import InnovationService from "../../../services/InnovationService";
 import {PreviewMapChart, DivBuilder} from '../components'
 import { Button } from 'primereact/button';
 import {TabPanel, TabView} from "primereact/tabview";
 import {Link, useLocation} from "react-router-dom";
-import {Tooltip} from "primereact/tooltip";
-import {DataView} from "primereact/dataview";
 import {Divider} from "primereact/divider";
 import {Galleria} from "primereact/galleria";
 import {Panel} from "primereact/panel";
 import ReactHtmlParser from "react-html-parser";
-import html2pdf from "html2pdf.js/src";
 import {ProgressBar} from "primereact/progressbar";
 import {Dialog} from "primereact/dialog";
 import {useDispatch, useSelector} from "react-redux";
@@ -50,8 +46,9 @@ const DetailedInnovation = () => {
         () =>{
             if (previewedInnovation) {
                 setFormData(previewedInnovation.formData)
-                UserService.getUserData(previewedInnovation.userIds[0])
+                UserService.getUserDataById(previewedInnovation.userIds[0])
                     .then(res => {
+                        console.log(res.user)
                         setSubmitter(res.user)
                     })
             }
@@ -223,7 +220,6 @@ const DetailedInnovation = () => {
     const countryData = (id) => {
         const temp = formData.find(item => item.id === id)
         let x
-        console.log(results)
         if (temp) {
             if (results.length) {
                 const countries = results.find(item => item.header === 'clarisa_countries')
@@ -504,7 +500,7 @@ const DetailedInnovation = () => {
                                         </strong>
                                     </div>
                                     <div className="margin-top-20 company-submitter-innovation">
-                                        <div className="display-inline"><i className="margin-right-7" /><img src={submitter.organizational_logo} width={70}/> </div>
+                                        <div className="display-inline"><i className="margin-right-7" /><img src={`${process.env.REACT_APP_RELAY_URL}/static/${submitter.organizationLogo}`} width={70}/> </div>
                                         <div className="company-name-submitter-innovation margin-left-20 display-inline ">
                                             <strong><span style={{color:"#56323d"}}>{submitter.organization}</span></strong>
                                         </div>

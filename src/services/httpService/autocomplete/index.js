@@ -8,6 +8,13 @@ class AutocompleteService {
         })
         return result.data
     }
+
+    autocompleteOrganizations = async (autocomplete) => {
+        const result = await http.post(`/api/autocompleteOrganization`, {
+            autocomplete: autocomplete,
+        })
+        return result.data
+    }
 }
 
 export default new AutocompleteService();

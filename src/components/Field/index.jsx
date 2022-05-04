@@ -1,5 +1,5 @@
 import React from 'react'
-import {Text, TextArea,List,Number,CalendarInput, Keywords, AccordionTabs,Upload,Inputs,AutocompleteUsers} from './components'
+import {Text, TextArea,List,Number,CalendarInput, Keywords, AccordionTabs,Upload,Inputs,AutocompleteUsers,OrganizationsAutocomplete} from './components'
 import './styles.css'
 
 const Field = (props) => {
@@ -27,6 +27,8 @@ const Field = (props) => {
             return <Inputs configuration={configuration} presetValue={presetValue} stepValues={stepValues} stepSetValues={stepSetValues} keyName={keyName}/>
         case 'autocomplete users':
             return <AutocompleteUsers configuration={configuration} presetValue={presetValue} stepValues={stepValues} stepSetValues={stepSetValues} keyName={keyName}/>
+        case 'autocomplete organizations':
+            return <OrganizationsAutocomplete configuration={configuration} presetValue={presetValue} stepValues={stepValues} stepSetValues={stepSetValues} keyName={keyName}/>
         default:
             return <Text configuration={configuration} presetValue={presetValue} stepValues={stepValues} stepSetValues={stepSetValues} keyName={keyName}/>
     }

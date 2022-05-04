@@ -85,28 +85,6 @@ const AddInnovation = () => {
         window.localStorage.removeItem('stakeholdersValues')
     }
 
-    // useEffect(() => {
-    //
-    //     // fetch(`${process.env.REACT_APP_RELAY_URL}/rtb-refactored/api/clarisaResults`, {
-    //     //     method: 'POST',
-    //     //     headers: {
-    //     //         Accept: "application/json",
-    //     //         "Content-Type": "application/json",
-    //     //         "xsrf-token": csrfToken,
-    //     //     },
-    //     //     credentials: "include",
-    //     //     mode: 'cors'
-    //     // })
-    //     //     .then(async res => {
-    //     //         const result = await res.text()
-    //     //         setResults((JSON).parse(result))
-    //     //     })
-    //     //     .catch(err => console.log(err))
-    //     ClarisaService.getClarisaResults()
-    //         .then(res => setResults(res))
-    //
-    // },[csrfToken]);
-
     useEffect(
         () => {
             setStep(0)
@@ -179,6 +157,7 @@ const AddInnovation = () => {
         const allFields = [...benefitImpactValues, ...contextValues, ...descriptionValues, ...evidenceValues, ...intellectualPropertyValues, ...interventionsValues, ...investmentValues, ...readinessValues, ...stakeholdersValues]
         const mandatoryFields = allFields.filter(item => item.mandatory === true)
         const invalidFields = mandatoryFields.filter(item => item.valid === false)
+        console.log(invalidFields)
         if ((descriptionValues.length === 0) || (benefitImpactValues.length === 0) || (contextValues.length === 0) || (stakeholdersValues.length === 0)) {
             status = "DRAFT"
         } else {

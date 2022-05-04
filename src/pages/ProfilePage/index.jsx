@@ -10,12 +10,17 @@ import {useNavigate} from "react-router-dom";
 import UserService from '../../services/httpService/user'
 import UploadService from '../../services/httpService/upload'
 import './styles.css'
+import {Actions} from "../../reducer/actions";
 
 const ProfilePage = () => {
+
+    const dispatch = useDispatch();
 
     const melUserData = useSelector((state) => state.melUserData)
 
     const userData = useSelector((state) => state.userData)
+
+    const setUserData = (payload) => dispatch({ type: Actions.SetUserData, payload });
 
     const [selectedRole, setSelectedRole] = useState('');
     const [website, setWebsite] = useState('')
@@ -39,7 +44,11 @@ const ProfilePage = () => {
             if (temp) {
                 setSelectedRole(roles.find(item => item.keyword === temp ))
             } else {
-                setSelectedRole(roles.find(item => item.name === userData.user?.role))
+                if (userData.user?.role !== '') {
+                    setSelectedRole(roles.find(item => item.name === userData.user?.role))
+                } else {
+                    setSelectedRole({keyword: ''})
+                }
             }
             setWebsite(userData.user?.website)
             setOrganizationLogo(userData.user?.organizationLogo)
@@ -53,6 +62,11 @@ const ProfilePage = () => {
     const saveChanges = () => {
         localStorage.setItem("selectedRole", selectedRole.keyword)
         UserService.editUser(userData.user.userId, selectedRole, website, organizationLogo)
+            .then(res => {
+                console.log(res)
+                setUserData(res)
+                // setOrganizationLogo(res.new_user_data?.organizationLogo)
+            })
         toast.current.show({severity:'success', summary: 'Profile Saved Successfully ', life: 3000});
     }
 
@@ -66,6 +80,7 @@ const ProfilePage = () => {
             UploadService.upload(data)
                 .then(res =>  {
                     setOrganizationLogo(res.filename)
+                    event.options.clear()
                 })
         })
     }

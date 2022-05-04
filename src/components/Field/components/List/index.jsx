@@ -36,9 +36,6 @@ const List = (props) => {
                 if (configuration.resultsKeyword) {
                     const temp = results.find(item => item.header === configuration.resultsKeyword)
                     setOptions(temp?.value)
-                    // setOptions(results.data.summaries[configuration.resultsKeyword].map(item => {
-                    //     return {"value": item.value}
-                    // }))
                 } else {
                     setOptions(configuration.options.map(item => {
                         return {"value": item}

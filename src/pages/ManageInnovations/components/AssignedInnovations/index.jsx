@@ -191,7 +191,7 @@ const AssignedInnovations = () => {
     const commentsBody = (data) => {
         return (
             <p id='innovation-title' onClick={() => {
-                setComments(data.comments || '')
+                setComments(data.comments || comments || '')
                 setViewCommentsDialog(true)
             }} >View Comments</p>
         )
