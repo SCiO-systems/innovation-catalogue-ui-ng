@@ -19,8 +19,8 @@ const Home = () => {
     const navigate = useNavigate();
 
     const setCurrentPage = (payload) => dispatch({ type: Actions.SetCurrentPage, payload });
-
-    const csrfToken = useSelector((state) => state.csrfToken)
+    const setEditingInnovation = (payload) => dispatch({ type: Actions.SetEditingInnovation, payload });
+    const setViewing = (payload) => dispatch({ type: Actions.SetViewing, payload });
 
     const jsonTemplate = {keywords: [], filters:[]};
     const [queryJson, setQueryJson] = useState(jsonTemplate);
@@ -107,7 +107,11 @@ const Home = () => {
                         </a>
                     </div>
                     <div className="col-4 responsive-buttons-layout">
-                        <a onClick={() => navigate("/comingsoon")}>
+                        <a onClick={() => {
+                            setEditingInnovation('')
+                            setViewing(false)
+                            navigate('/add-innovation/')
+                        }}>
                             <img style={{height:"300px"} } src={addImage}></img>
                         </a>
                     </div>
