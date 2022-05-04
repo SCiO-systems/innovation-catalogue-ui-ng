@@ -297,7 +297,6 @@ const DivBuilder = (props) => {
                     }
 
                     if (props.type === "impact-target") {
-                        console.log(element)
                         if(element.CGIAR_impact_area === "Nutrition, health and food security"){
                             list.push(
                                 <div className="margin-bottom-20">

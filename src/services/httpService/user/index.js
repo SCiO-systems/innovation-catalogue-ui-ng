@@ -9,6 +9,13 @@ class UserService {
         return result.data
     }
 
+    getUserDataById = async (id) => {
+        const result = await http.post(`/api/user/getUserDataById`, {
+            user_id: id,
+        })
+        return result.data
+    }
+
     editUser = async (id,role,website,organization_logo) => {
         const result = await http.post(`/api/user/edit`, {
             user_id: id,

@@ -57,12 +57,12 @@ const configurationArray = [
             {
                 id: "8.4",
                 type: 'list',
-                mandatory: true,
+                mandatory: false,
                 minWords: 1,
                 maxWords: 10,
                 label: 'Innovation Use levels of the components',
                 fieldInformation: '',
-                valid: false,
+                valid: true,
                 resultsKeyword: 'clarisa_innovation_use_levels',
                 filter: true
             },

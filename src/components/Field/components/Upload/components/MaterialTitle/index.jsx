@@ -5,7 +5,7 @@ const MaterialTitle = (props) => {
 
     const {item,value,setValue} = props
 
-    const [title, setTitle] = useState('')
+    const [title, setTitle] = useState(item.title)
 
     useEffect(
         () => {
@@ -17,13 +17,10 @@ const MaterialTitle = (props) => {
 
     useEffect(
         () => {
-            const newItem = {
-                type: item.type,
-                title: title,
-                name: item.name
-            }
-            const _value = value.filter(asset => asset.name !== item.name)
-            setValue([..._value,newItem])
+            const index = value.indexOf(value.find(asset => asset.name === item.name))
+            value[index].title = title
+            setValue([...value])
+
         },[title]
     )
 

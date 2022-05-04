@@ -54,10 +54,10 @@ const Home = () => {
         setCurrentPage('/')
         const resultService = new ResultsService();
         resultService.getSearchResults(queryJson,lazyParams).then(data =>{
-            setInnovations(data.data.total);
-            setCountries(data.data.summaries.Countries.length);
-            setSDG(countUnique(data.data.summaries.sdg));
-            setOrganization(data.data.summaries.organization.length);
+            setInnovations(data?.data?.total);
+            setCountries(data?.data?.summaries?.Countries?.length);
+            setSDG(countUnique(data?.data?.summaries?.sdg));
+            setOrganization(data?.data?.summaries?.organization?.length);
         } );
     }, []);
 
