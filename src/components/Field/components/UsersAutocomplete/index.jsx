@@ -74,7 +74,6 @@ const AutocompleteUsers = (props) => {
         else {
             AutocompleteService.autocompleteUsers(event.query.toLowerCase())
                 .then(res => {
-                    console.log(res)
                     setFilteredKeywords(res.autocomplete_suggestions)
                 })
         }

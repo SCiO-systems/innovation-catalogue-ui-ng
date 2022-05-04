@@ -48,7 +48,6 @@ const DetailedInnovation = () => {
                 setFormData(previewedInnovation.formData)
                 UserService.getUserDataById(previewedInnovation.userIds[0])
                     .then(res => {
-                        console.log(res.user)
                         setSubmitter(res.user)
                     })
             }

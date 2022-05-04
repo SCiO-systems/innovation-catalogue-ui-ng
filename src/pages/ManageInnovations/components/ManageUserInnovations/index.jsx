@@ -42,7 +42,7 @@ const ManageUserInnovations = () => {
         () => {
             AdministratorService.getAllInnovations(userData.user.userId)
                 .then(res => {
-                    console.log(res)
+
                     setInnovations(res.innovations)
                 })
         },[resfreshTrigger]
@@ -107,7 +107,6 @@ const ManageUserInnovations = () => {
         setScalinReadinessExpert('')
         AdministratorService.getAllScalingReadinessExperts(userData.user.userId)
             .then(res => {
-                console.log(res)
                 setScalinReadinessExperts(res.reviewers)
             })
         setSelectedInnovationId(id)
@@ -160,7 +159,6 @@ const ManageUserInnovations = () => {
         const reviewer_ids = reviewer.map(item => {
             return item.userId
         })
-        console.log(reviewer_ids)
         AdministratorService.assignReviewers(userData.user.userId,selectedInnovationId, reviewer_ids)
             .then(() => {
                 setRefreshTrigger(resfreshTrigger + 1)

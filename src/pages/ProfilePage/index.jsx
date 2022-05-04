@@ -63,7 +63,6 @@ const ProfilePage = () => {
         localStorage.setItem("selectedRole", selectedRole.keyword)
         UserService.editUser(userData.user.userId, selectedRole, website, organizationLogo)
             .then(res => {
-                console.log(res)
                 setUserData(res)
                 // setOrganizationLogo(res.new_user_data?.organizationLogo)
             })

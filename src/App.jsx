@@ -86,7 +86,6 @@ const App = () => {
                                 setMelUserData({})
                                 setAccessToken('')
                             } else {
-                                console.log(res)
                                 setMelUserData(res)
                                 localStorage.setItem("melUserData",JSON.stringify(res));
                             }
@@ -103,13 +102,11 @@ const App = () => {
                 if (csrfToken !== '') {
                     UserService.getUserData(melUserData.profile_id)
                         .then(res => {
-                            console.log(res)
                             if (res.user) {
                                 setLoggedIn('logged in')
                                 setUserData(res)
                                 ClarisaService.getClarisaResults()
                                     .then(res => {
-                                        console.log(res)
                                         setResults(res)
                                     })
                             }

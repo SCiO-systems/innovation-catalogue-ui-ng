@@ -20,12 +20,6 @@ const AccordionTabs = (props) => {
 
     const [displayDialog, setDisplayDialog] = useState(false)
 
-    useEffect(
-        () => {
-           console.log(results)
-        },[results]
-    )
-
     const renderQuesitonFooter = () => {
         return (
             <div>

@@ -53,7 +53,7 @@ const MyInnovations = () => {
         () => {
             UserService.getAllUserInnovations(userData.user.userId)
                 .then(res => {
-                    console.log(res)
+
                     setInnovations(res.innovations)
                 })
         },[resfreshTrigger]
@@ -105,7 +105,6 @@ const MyInnovations = () => {
     const editInnovation = (id,status) => {
 
         const innovation = innovations.find(item => ((item.innovId === id) && (item.status === status)))
-        console.log(innovation)
 
         window.localStorage.setItem('descriptionValues', JSON.stringify(innovation.formData.filter(item => item.id[0] === '1')))
         window.localStorage.setItem('benefitImpactValues',JSON.stringify(innovation.formData.filter(item => item.id[0] === '2')))

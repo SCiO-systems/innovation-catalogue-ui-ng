@@ -157,7 +157,7 @@ const AddInnovation = () => {
         const allFields = [...benefitImpactValues, ...contextValues, ...descriptionValues, ...evidenceValues, ...intellectualPropertyValues, ...interventionsValues, ...investmentValues, ...readinessValues, ...stakeholdersValues]
         const mandatoryFields = allFields.filter(item => item.mandatory === true)
         const invalidFields = mandatoryFields.filter(item => item.valid === false)
-        console.log(invalidFields)
+
         if ((descriptionValues.length === 0) || (benefitImpactValues.length === 0) || (contextValues.length === 0) || (stakeholdersValues.length === 0)) {
             status = "DRAFT"
         } else {
@@ -167,11 +167,9 @@ const AddInnovation = () => {
                 status = 'DRAFT'
             }
         }
-        console.log(innovation.status)
         if (innovation.status === 'UNDER_REVIEW' || innovation.status === 'UNDER_SR_ASSESSMENT' || innovation.status === "REVISIONS_REQUESTED") {
             status = innovation.status
         }
-        console.log(status)
         InnovationService.editInnovation(allFields,innovation.innovId ,status, userData.user.userId)
             .then(() => {
                 resetInnovation()
