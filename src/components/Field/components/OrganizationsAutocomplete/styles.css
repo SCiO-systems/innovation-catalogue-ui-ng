@@ -1,0 +1,9 @@
+#organizations.field .p-inputgroup {
+    height: unset;
+    border-top-right-radius: 0;
+}
+#organizations.field .p-autocomplete-multiple-container {
+    gap: 10px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
