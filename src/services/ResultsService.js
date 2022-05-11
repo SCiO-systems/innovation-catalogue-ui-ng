@@ -16,7 +16,7 @@ export default class ResultsService {
                         if (item !== "") {
                             let config = {
                                 method: 'post',
-                                url: 'https://innovation.mel.cgiar.org:5001/innovation/documenttitle',
+                                url: process.env.REACT_APP_DOCUMENTTITLE,
                                 headers: {
                                     'Content-Type': 'application/json'
                                 },
@@ -60,7 +60,7 @@ export default class ResultsService {
 
         let config = {
             method: 'post',
-            url: 'https://innovation.mel.cgiar.org:5001/innovation/document',
+            url: process.env.REACT_APP_DOCUMENT,
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -554,7 +554,7 @@ export default class ResultsService {
 
         let config = {
             method: 'post',
-            url: 'https://innovation.mel.cgiar.org:5001/innovation/search',
+            url: process.env.REACT_APP_SEARCH,
             headers: {
                 'Content-Type': 'application/json'
             },

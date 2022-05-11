@@ -34,14 +34,6 @@ const Interventions = () => {
         }, []
     )
 
-    // const presetValues = (headerIndex, contentIndex) => {
-    //     if (interventionsValues.length === 0) {
-    //         return ''
-    //     } else {
-    //         return interventionsValues.find(item => item.id === configurationArray[headerIndex].content[contentIndex].id).value
-    //     }
-    // }
-
     const presetValues = (headerIndex, contentIndex) => {
         if (interventionsValues.length === 0) {
             return ''
@@ -49,7 +41,7 @@ const Interventions = () => {
             const temp = interventionsValues.find(item => item.id === contentIndex).value
             if (temp) {
                 return temp
-            }else {
+            } else {
                 return ''
             }
         }

@@ -142,7 +142,7 @@ const DetailedInnovation = () => {
                 if (item.type === 'image') {
                     return (
                         <div className='uploaded-image'>
-                            <img src={`${process.env.REACT_APP_RELAY_URL}/static/${item.name}`} alt={'logo'} />
+                            <img src={`${process.env.REACT_APP_RELAY_URL}/static/${item.name}`} alt={'logo'} className="img-width"/>
                         </div>
                     )
                 } else if (item.type === 'url') {
@@ -172,16 +172,29 @@ const DetailedInnovation = () => {
         const temp = formData.find(item => item.id === id)
         if (temp) {
             if (id === '6.1') {
-                return temp.value.map(item => {
-                    return (
-                        <p>{item.value[0] + ' - ' + item.value[1]}</p>
-                    )
+                return temp.value?.map(item => {
+                    if (item.value.length !== 0) {
+                        return (
+                            <p>{item.value[0] + ' - ' + item.value[1]}</p>
+                        )
+                    } else {
+                        return (
+                            <p></p>
+                        )
+                    }
+
                 })
             } else {
-                return temp.value.map(item => {
-                    return (
-                        <p>{item.value[0].name}</p>
-                    )
+                return temp.value?.map(item => {
+                    if (item.value.length !== 0) {
+                        return (
+                            <p>{item.value[0].name || ''}</p>
+                        )
+                    } else {
+                        return (
+                            <p></p>
+                        )
+                    }
                 })
             }
         }

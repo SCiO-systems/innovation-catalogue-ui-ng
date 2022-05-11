@@ -62,7 +62,7 @@ const AutocompleteUsers = (props) => {
         const id = createId()
         let input = {
                 id: id,
-                value: '',
+                value: [],
             }
         setValue([...value,input])
     }
@@ -102,12 +102,13 @@ const AutocompleteUsers = (props) => {
 
         if (value !== '') {
             return value.map(item => {
+                const validValue = value.find(val => item.id === val.id)?.value
                 return (
                     <>
                         <div className="p-inputgroup">
                         <span className="p-float-label">
                             <AutoComplete
-                                value={value.find(val => item.id === val.id).value[0]}
+                                value={validValue? value.find(val => item.id === val.id)?.value[0] : ''}
                                 suggestions={filteredKeywords}
                                 completeMethod={searchKeyword}
                                 onChange={(e) => handleInput1(e.target.value, item)}
