@@ -27,7 +27,12 @@ pipeline {
 
                     script {
                         sh "cp /envs/reactjs/fontawesome_npmrc .npmrc"
-                        sh "cp /envs/reactjs/${project_name}/${stage_tag}.env .env"
+                        // sh "cp /envs/reactjs/${project_name}/${stage_tag}.env .env"// Old way to copy .env, use this below:
+                        echo 'Downloading from S3 bucket'
+                        withAWS(region: 'us-east-2', credentials:'jenkins-aws') {
+                            s3Download(file: '.env', bucket: 'scio-project-envs', path: "reactjs/${project_name}/${stage_tag}.env", force:true)
+                            s3Download(file: '.env', bucket: 'scio-project-envs', path: "reactjs/fontawesome_npmrc", force:true)
+                        }
 
                         docker.withRegistry('https://index.docker.io/v1/', 'DockerHub') {
                             docker.build("sciohub/${project_name}:${stage_tag}", ".").push()
