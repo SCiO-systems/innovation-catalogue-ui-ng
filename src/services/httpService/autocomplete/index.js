@@ -15,6 +15,12 @@ class AutocompleteService {
         })
         return result.data
     }
+
+    getAllPublishedInnovations = async () => {
+        const result = await http.post(`/api/allPublishedInnovations`)
+        return result.data
+    }
+
 }
 
 export default new AutocompleteService();
