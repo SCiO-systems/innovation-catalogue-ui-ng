@@ -15,13 +15,12 @@ const OrganizationsAutocomplete = (props) => {
     const viewing = useSelector((state) => state.viewing)
 
     const [displayDialog, setDisplayDialog] = useState(false)
-    const [value, setValue] = useState(presetValue)
     const [filteredKeywords, setFilteredKeywords] = useState([]);
     const [selectedKeyword, setSelectedKeyword] = useState(presetValue);
 
     useEffect(
         () => {
-            setValue(presetValue)
+            setSelectedKeyword(presetValue)
         }, [presetValue]
     )
 
@@ -34,7 +33,7 @@ const OrganizationsAutocomplete = (props) => {
             _values.splice(index, 1)
             _values.push({
                 id: configuration.id,
-                value: value,
+                value: selectedKeyword,
                 mandatory: configuration.mandatory,
                 valid: validValue,
             })

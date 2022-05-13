@@ -146,14 +146,12 @@ const configurationArray = [
             },
             {
                 id: "1.13",
-                type: 'list',
+                type: 'innovations autocomplete',
                 mandatory: false,
-                minWords: 1,
-                maxWords: 10,
+                multiple: true,
                 label: 'Related Innovations',
                 fieldInformation: 'Type the innovations that are closely related with your innovation ',
                 valid: false,
-                options: ["Innovation 1","Innovation 2","Innovation 3"]
             },
         ]
     },

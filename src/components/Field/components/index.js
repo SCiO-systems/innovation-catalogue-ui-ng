@@ -9,5 +9,6 @@ import Upload from './Upload'
 import Inputs from './Inputs'
 import AutocompleteUsers from './UsersAutocomplete'
 import OrganizationsAutocomplete from './OrganizationsAutocomplete'
+import InnovationsAutocomplete from './InnovationsAutocomplete'
 
-export {Text, TextArea,List, Number, CalendarInput, Keywords,AccordionTabs,Upload,Inputs,AutocompleteUsers,OrganizationsAutocomplete}
+export {Text, TextArea,List, Number, CalendarInput, Keywords,AccordionTabs,Upload,Inputs,AutocompleteUsers,OrganizationsAutocomplete,InnovationsAutocomplete}
