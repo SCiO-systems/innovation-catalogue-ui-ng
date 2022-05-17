@@ -138,7 +138,7 @@ const DetailedInnovation = () => {
     const renderAssests = (id) => {
         const temp = formData.find(item => item.id === id)
         if (temp) {
-            return temp.value.map(item => {
+            return temp.value?.map(item => {
                 if (item.type === 'image') {
                     return (
                         <div className='uploaded-image'>
@@ -173,7 +173,7 @@ const DetailedInnovation = () => {
         if (temp) {
             if (id === '6.1') {
                 return temp.value?.map(item => {
-                    if (item.value.length !== 0) {
+                    if (item.value?.length !== 0) {
                         return (
                             <p>{item.value[0] + ' - ' + item.value[1]}</p>
                         )
@@ -186,7 +186,7 @@ const DetailedInnovation = () => {
                 })
             } else {
                 return temp.value?.map(item => {
-                    if (item.value.length !== 0) {
+                    if (item.value?.length !== 0) {
                         return (
                             <p>{item.value[0].name || ''}</p>
                         )
@@ -204,11 +204,11 @@ const DetailedInnovation = () => {
         const temp = formData.find(item => item.id === id)
         let allData = []
         if (temp) {
-            temp.value.map(item => {
+            temp.value?.map(item => {
                 allData = [...allData,...item.value]
             })
             allData = allData.map(item => {
-                const temp2 = {code: `${item.value[0]+item.value[1]+item.value[2]}`,value: item.value.split('-')[1]}
+                const temp2 = {code: `${item.value[0]+item.value[1]+item.value[2]}`,value: item.value?.split('-')[1]}
                 return temp2
             })
         }
@@ -219,8 +219,8 @@ const DetailedInnovation = () => {
         const temp = formData.find(item => item.id === id)
         let allData = []
         if (temp) {
-            temp.value.map(item => {
-                const temp2 = item.value.map(it => {
+            temp.value?.map(item => {
+                const temp2 = item.value?.map(it => {
                     return {value: it.value, CGIAR_impact_area: item.title}
                 })
                 allData = [...allData,...temp2]
@@ -236,7 +236,7 @@ const DetailedInnovation = () => {
             if (results.length) {
                 const countries = results.find(item => item.header === 'clarisa_countries')
                 if (countries) {
-                    x = countries.value.filter(item => item.value === temp.value.find(country => country === item.value))
+                    x = countries.value?.filter(item => item.value === temp.value?.find(country => country === item.value))
                 }
                 return x
             } else return []
