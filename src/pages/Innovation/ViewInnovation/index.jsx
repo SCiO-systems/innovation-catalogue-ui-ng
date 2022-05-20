@@ -158,7 +158,7 @@ const DetailedInnovation = () => {
                         <div className='uploaded-file'>
                             <i className="fa-solid fa-file-arrow-down" onClick={() => downloadFile(item)}/>
                             {/*<p>{item.name.split('(')[0]}</p>*/}
-                            <p>{item.title || item.name.split('(')[0]}</p>
+                            <p>{item.title || item.name?.split('(')[0]}</p>
                         </div>
                     )
                 }
@@ -187,9 +187,11 @@ const DetailedInnovation = () => {
             } else {
                 return temp.value?.map(item => {
                     if (item.value?.length !== 0) {
-                        return (
-                            <p>{item.value[0].name || ''}</p>
-                        )
+                        if (item.value[0]) {
+                            return (
+                                <p>{item.value[0].name || ''}</p>
+                            )
+                        }
                     } else {
                         return (
                             <p></p>
@@ -208,8 +210,11 @@ const DetailedInnovation = () => {
                 allData = [...allData,...item.value]
             })
             allData = allData.map(item => {
-                const temp2 = {code: `${item.value[0]+item.value[1]+item.value[2]}`,value: item.value?.split('-')[1]}
-                return temp2
+                if (item.value[0] && item.value[1] && item.value[2]) {
+                    const temp2 = {code: `${item.value[0]+item.value[1]+item.value[2]}`,value: item.value?.split('-')[1]}
+                    return temp2
+                }
+                else return {}
             })
         }
         return allData

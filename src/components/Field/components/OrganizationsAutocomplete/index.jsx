@@ -57,6 +57,7 @@ const OrganizationsAutocomplete = (props) => {
         else {
             AutocompleteService.autocompleteOrganizations(event.query.toLowerCase())
                 .then(res => {
+                    console.log(res)
                     setFilteredKeywords(res.organizations)
                 })
         }

@@ -26,7 +26,7 @@ const LoginRedirected = () => {
                         localStorage.setItem("accessToken",res);
                     })
                     .catch(err => console.log(err))
-                setLoggedIn('logged in')
+                // setLoggedIn('logged in')
                 navigate('/')
             }
         }, [csrfToken]
