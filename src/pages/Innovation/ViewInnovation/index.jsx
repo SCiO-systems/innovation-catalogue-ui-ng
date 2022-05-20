@@ -173,7 +173,7 @@ const DetailedInnovation = () => {
         if (temp) {
             if (id === '6.1') {
                 return temp.value?.map(item => {
-                    if (item.value?.length !== 0) {
+                    if (item.value instanceof Array) {
                         return (
                             <p>{item.value[0] + ' - ' + item.value[1]}</p>
                         )
@@ -186,7 +186,7 @@ const DetailedInnovation = () => {
                 })
             } else {
                 return temp.value?.map(item => {
-                    if (item.value?.length !== 0) {
+                    if (item.value instanceof Array) {
                         if (item.value[0]) {
                             return (
                                 <p>{item.value[0].name || ''}</p>
