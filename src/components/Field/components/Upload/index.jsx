@@ -131,13 +131,23 @@ const Upload = (props) => {
                             </div>
                         </>
                     )
-                } else {
+                } else if (item.type === 'file') {
                     return (
                         <>
                             {configuration.id === '4.1' ? <MaterialTitle item={item} value={value} setValue={setValue}/> : <></>}
                             <div className='uploaded-file'>
                                 <i className="fa-solid fa-file-arrow-down" onClick={() => downloadFile(item)}/>
                                 <p>{item.name.split('(')[0]}</p>
+                                <Button icon='fa-solid fa-x' onClick={() => setValue(value.filter(image => image.name !== item.name))} disabled={viewing}/>
+                            </div>
+                        </>
+                    )
+                } else {
+                    return (
+                        <>
+                            {/*{configuration.id === '4.1' ? <MaterialTitle item={item} value={value} setValue={setValue}/> : <></>}*/}
+                            <div className='uploaded-file'>
+                                <p>{item.title}</p>
                                 <Button icon='fa-solid fa-x' onClick={() => setValue(value.filter(image => image.name !== item.name))} disabled={viewing}/>
                             </div>
                         </>

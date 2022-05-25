@@ -18,7 +18,8 @@ const Picklist = (props) => {
             const temp = presetValue.find(it => it.id === index)
             if (temp) {
                 setTarget(temp.value)
-                setSource(temp.source)
+                // setSource(temp.source)
+                setSource(sourceData.filter(source => !temp.value.find(item => item.id === source.id)))
             }
             setValue(presetValue)
         }, [presetValue]
@@ -31,7 +32,7 @@ const Picklist = (props) => {
             if (indexTemp !== -1) _value.splice(indexTemp,1)
             _value.push({
                 id: index,
-                source: source,
+                // source: source,
                 value: target,
                 title: item.title
             })
