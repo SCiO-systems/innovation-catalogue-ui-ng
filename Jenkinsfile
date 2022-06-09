@@ -40,14 +40,6 @@ pipeline {
             }
         }
 
-        // stage('Checking code on Sonarqube') {
-        //     steps {
-        //         withSonarQubeEnv('sonarqube') {
-        //             sh 'mvn sonar:sonar'
-        //         }
-        //     }
-        // }
-
         stage('Deploying stage') {
             steps {
                 echo "Deploying to ${stage_name} environment"
