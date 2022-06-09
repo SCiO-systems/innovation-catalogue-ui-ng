@@ -21,7 +21,7 @@ pipeline {
             }
         }
 
-        stage('Building & pushing docker image to DockerHub') {
+        stage('Building & pushing docker images to DockerHub') {
             steps {
                     echo 'Building project'
 
