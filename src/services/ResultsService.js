@@ -1,4 +1,5 @@
 import axios from "axios";
+import {http} from '../services/httpService/index'
 const lookup = require('country-code-lookup')
 
 export default class ResultsService {
@@ -14,19 +15,10 @@ export default class ResultsService {
         const related = related_innovations.map(
                     (item) => {
                         if (item !== "") {
-                            let config = {
-                                method: 'post',
-                                url: process.env.REACT_APP_DOCUMENTTITLE,
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                data: {
-                                    "id": item,
-                                    "alias": "rtb_innovations"
-                                }
-                            };
-
-                            return axios(config)
+                            return http.post('/api/rtb-retrieveByTitle',{
+                                "id": item,
+                                "alias": "rtb_innovations"
+                            })
                                 .then(function (response) {
                                     if (response.data.data) {
 
@@ -58,19 +50,10 @@ export default class ResultsService {
 
     async getInnovation(innovation_id){
 
-        let config = {
-            method: 'post',
-            url: process.env.REACT_APP_DOCUMENT,
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            data: {
-                "id": innovation_id,
-                "alias": "rtb_innovations"
-            }
-        };
-
-        return axios(config)
+        return http.post('/api/retrievedocument',{
+            "id": innovation_id,
+            "alias": "rtb_innovations"
+        })
             .then(function (response) {
 
                 const countriesWithIso2 = response.data.data.response.locations_of_implementation.map(
@@ -552,31 +535,23 @@ export default class ResultsService {
             sortDirection = "desc"
         }
 
-        let config = {
-            method: 'post',
-            url: process.env.REACT_APP_SEARCH,
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            data: {
-                "keyword": query.keywords.join(" "),
-                "operation":{
-                    "action": params.action,
-                    "details":{
-                        "from": params.first,
-                        "size": params.rows,
-                        "order":{
-                            "field":params.field,
-                            "sort":sortDirection
-                        },
-                        "filter":cleanFilters
-                    }
+        return http.post('/api/rtb-search', {
+            "keyword": query.keywords.join(" "),
+            "operation":{
+                "action": params.action,
+                "details":{
+                    "from": params.first,
+                    "size": params.rows,
+                    "order":{
+                        "field":params.field,
+                        "sort":sortDirection
+                    },
+                    "filter":cleanFilters
                 }
             }
-        };
-
-        return axios(config)
+        })
             .then(function (response) {
+                console.log(response)
                 if(response.data.data.total === 0){
                     return null;
                 }
