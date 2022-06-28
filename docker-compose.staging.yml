@@ -10,6 +10,11 @@ services:
       - nginx:/etc/nginx/
       - /var/log/nginx/reverse-access.log:/var/log/nginx/reverse-access.log
       - /var/log/nginx/reverse-error.log:/var/log/nginx/reverse-error.log
+    networks:
+      - default
       
 volumes:
   nginx:
+networks:
+  default:
+    name: app
