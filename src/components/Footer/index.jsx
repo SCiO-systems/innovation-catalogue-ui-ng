@@ -48,10 +48,21 @@ const Footer = () => {
                     <div style={{
                         textAlign:"justify",
                         textJustify:"inter-word",
-                        color:"white"}}
+                        color:"white",
+                        justifyContent: "space-evenly"
+                        }}
                          className="p-d-flex p-jc-between p-mb-2">
-                        <div>
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/1/16/CC-BY_icon.svg"></img>
+                        {/*<div>*/}
+                        {/*    <img src="https://upload.wikimedia.org/wikipedia/commons/1/16/CC-BY_icon.svg"></img>*/}
+                        {/*</div>*/}
+                        <div className="license">
+                            <a id="linkedin" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">
+                                <i className="fab fa-creative-commons"></i>
+                            </a>
+                            <span> </span>
+                            <a id="linkedin" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">
+                                <i className="fab fa-creative-commons-by"></i>
+                            </a>
                         </div>
                         <div>
                             <span style={{   fontSize: "10px"}}>
