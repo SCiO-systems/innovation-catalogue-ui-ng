@@ -35,7 +35,7 @@ const OrganizationsAutocomplete = (props) => {
                 id: configuration.id,
                 value: selectedKeyword,
                 mandatory: configuration.mandatory,
-                valid: validValue,
+                valid: true,
             })
             stepSetValues(_values)
             window.localStorage.setItem(keyName, JSON.stringify(_values))
