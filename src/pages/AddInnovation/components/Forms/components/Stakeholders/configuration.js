@@ -45,7 +45,7 @@ const configurationArray = [
                 multiple: true,
                 fieldInformation: '<span> List the key innovation partners, indicating the specific country scope, especially if the innovation is collaborating or being supported across countries <br/><br/>' +
                     'An innovation partners is a counterpart platform, organization, or individual that work toward mutual interests in delivering a new signification change or process.</span>',
-                valid: false,
+                valid: true,
                 filter: true
             },
             {
@@ -66,7 +66,7 @@ const configurationArray = [
                 multiple: true,
                 fieldInformation: '<span> List the key demand partners, indicating the specific country scope, especially if the innovation is intervening in different countries<br/><br/>' +
                     'A demand partner is an organizations or entities that have (expressed) an explicit or implicit demand for an innovation, change or who aspire to a specific goal or impact to which the implementer (e.g., CGIAR) can contribute.</span>',
-                valid: false,
+                valid: true,
                 filter: true
             },
         ]
