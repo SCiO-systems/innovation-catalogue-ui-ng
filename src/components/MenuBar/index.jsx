@@ -13,7 +13,7 @@ const MenuBar = (props) => {
 
     const menu = [
         {label: "Home", to: "/"},
-        {label: "About", to:"/comingsoon"},
+        {label: "About", to:"/about"},
         {label: "Search", to: "/search"},
         {label: "Analytics", to: "/analytics"},
         {label: "Contact us",to:"/comingsoon"}

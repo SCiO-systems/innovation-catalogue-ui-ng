@@ -15,6 +15,9 @@ import ManageInnovations from "./pages/ManageInnovations";
 import Login from './pages/Login/Login'
 import LoginRedirected from './pages/Login/LoginRedirected'
 import ViewInnovation from "./pages/Innovation/ViewInnovation";
+import About from './pages/About'
+import PrivacyPolicy from './pages/PrivacyPolicy'
+import TermsOfUse from "./pages/TermsOfUse";
 import {HashRouter as Router, Route, Routes} from "react-router-dom";
 import classNames from 'classnames';
 import 'primeicons/primeicons.css';
@@ -148,6 +151,9 @@ const App = () => {
                         <Route path={'/login'} element={<Login/>} />
                         <Route path={'/login/callback/'} element={<LoginRedirected/>} />
                         <Route path={'/preview'} element={<ViewInnovation/>} />
+                        <Route path={'/about'} element={<About/>} />
+                        <Route path={'/privacypolicy'} element={<PrivacyPolicy/>} />
+                        <Route path={'/terms'} element={<TermsOfUse/>} />
                     </Routes>
                     <Footer />
                 </div>

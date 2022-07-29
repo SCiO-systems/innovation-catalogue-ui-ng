@@ -77,11 +77,11 @@ const Footer = () => {
                          className="p-d-flex p-jc-between">
                         <div>
 
-                            <Link to="/comingsoon" >
+                            <Link to="/terms" >
                                 Terms of Use
                             </Link>
                             |
-                            <Link to="/comingsoon">
+                            <Link to="/privacypolicy">
                                 Privacy Policy
                             </Link>
 

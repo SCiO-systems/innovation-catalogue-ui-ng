@@ -248,12 +248,24 @@ const MyInnovations = () => {
     }
 
     const commentsBody = (data) => {
+        if (data.comments) {
+            return (
+                <p id='innovation-title' onClick={() => {
+                    setComments(data.comments)
+                    setViewCommentsDialog(true)
+                }} >View Comments</p>
+            )
+        }
         return (
-            <p id='innovation-title' onClick={() => {
-                setComments(data.comments || '')
-                setViewCommentsDialog(true)
+            <p id='innovation-title-disabled' onClick={() => {
+                setComments(data.comments)
             }} >View Comments</p>
         )
+
+    }
+
+    const sortByDate = (data) => {
+        console.log(data)
     }
 
     return (
@@ -268,7 +280,7 @@ const MyInnovations = () => {
                     <Column field="status" body={statusTemplate} sortable header="Status"/>
                     <Column field="version" sortable header="Version"/>
                     <Column field="comments" body={(data) => (commentsBody(data))}  header="Reviewer's Comments"/>
-                    <Column field="createdΑt" body={createdAtTemplate} sortable header="Date Created"/>
+                    <Column field="createdΑt" body={createdAtTemplate} sortable header="Date Created" />
                     <Column field="updatedΑt" body={updatedAtTemplate} sortable header="Last Updated"/>
                     <Column field="actions" header="Actions" body={actionsTemplate} style={{width: "250px"}}/>
                 </DataTable>

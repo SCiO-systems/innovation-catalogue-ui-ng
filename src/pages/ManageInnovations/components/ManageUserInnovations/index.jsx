@@ -10,6 +10,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AssignAction,DeleteAction,RejectedActions,FinalAction} from './components'
 import {useNavigate} from "react-router-dom";
 import {Actions} from "../../../../reducer/actions";
+import {InputTextarea} from "primereact/inputtextarea";
 
 const ManageUserInnovations = () => {
 
@@ -37,16 +38,23 @@ const ManageUserInnovations = () => {
     const [scalingReadinessExpert, setScalinReadinessExpert] = useState('')
     const [scalingReadinessExperts, setScalinReadinessExperts] = useState([])
     const [filteredScalingReadinessExperts, setFilteredScalinReadinessExperts] = useState([])
+    const [loading, setLoading] = useState(false);
+    const [comments, setComments] = useState('')
+    const [viewCommentsDialog, setViewCommentsDialog] = useState(false)
 
-    useEffect(
-        () => {
-            AdministratorService.getAllInnovations(userData.user.userId)
-                .then(res => {
+    useEffect(() => {
+        loadLazyData();
+    },[resfreshTrigger])
 
-                    setInnovations(res.innovations)
-                })
-        },[resfreshTrigger]
-    )
+    const loadLazyData = () => {
+        setLoading(true);
+
+        AdministratorService.getAllInnovations(userData.user.userId)
+            .then(res => {
+                setInnovations(res.innovations)
+                setLoading(false);
+            })
+    }
 
     const rejectInnovation = () => {
         InnovationService.rejectInnovation(userData.user.userId,selectedInnovationId)
@@ -184,6 +192,7 @@ const ManageUserInnovations = () => {
     }
 
     const viewInnovation = (data) => {
+        console.log(data)
         window.localStorage.setItem('previewedInnovation', JSON.stringify(data))
         setPreviewedInnovation(data)
         navigate('/preview')
@@ -211,7 +220,9 @@ const ManageUserInnovations = () => {
             case "PUBLISHED": return
             case "TAKE_FINAL_DECISION": return <FinalAction data={data} assignSreInnovationDialog={assignSreInnovationDialog} publishInnovationDialog={publishInnovationDialog} rejectInnovationDialog={rejectInnovationDialog}/>
             case "REJECTED": return <RejectedActions data={data} deleteRejectedDialog={deleteRejectedDialog}/>
-            default: return <DeleteAction data={data} deleteInnovationDialog={deleteInnovationDialog}/>
+            case "READY": return <DeleteAction data={data} deleteInnovationDialog={deleteInnovationDialog}/>
+            case "DRAFT": return <DeleteAction data={data} deleteInnovationDialog={deleteInnovationDialog}/>
+            default: return
         }
     }
 
@@ -278,16 +289,40 @@ const ManageUserInnovations = () => {
         setFilteredScalinReadinessExperts(_filteredScalingReadinessExperts);
     }
 
+    const viewCommentsFooter = (
+        <>
+            <Button label="OK"  className="p-button-text" onClick={() => setViewCommentsDialog(false)} />
+        </>
+    );
+
+    const commentsBody = (data) => {
+        if (data.comments) {
+            return (
+                <p id='innovation-title' onClick={() => {
+                    setComments(data.comments)
+                    setViewCommentsDialog(true)
+                }} >View Comments</p>
+            )
+        }
+        return (
+            <p id='innovation-title-disabled' onClick={() => {
+                setComments(data.comments)
+            }} >View Comments</p>
+        )
+
+    }
+
     return (
         <div className='my-innovations-table'>
             <div className="peach-background-container">
                 <h3>Manage/Assign Innovations</h3>
             </div>
             <div className="card table-margin">
-                <DataTable value={innovations} paginator rows={10} rowsPerPageOptions={[10,20]}>
+                <DataTable value={innovations} paginator rows={10} rowsPerPageOptions={[10,20]} loading={loading}>
                     <Column field='title' body={(data) => (titleBody(data))}  sortable header="Title"/>
                     <Column field="status" body={statusTemplate} sortable header="Status"/>
                     <Column field="version" sortable header="Version"/>
+                    <Column field="comments" body={(data) => (commentsBody(data))}  header="Reviewer's Comments"/>
                     <Column field="reviewers" body={reviewersTemplate} sortable header="Reviewer"/>
                     <Column field="createdΑt" body={createdAtTemplate} sortable header="Date Created"/>
                     <Column field="updatedΑt" body={updatedAtTemplate} sortable header="Last Updated"/>
@@ -324,6 +359,11 @@ const ManageUserInnovations = () => {
                 <div className="confirmation-content">
                     <i className="pi pi-exclamation-triangle p-mr-3" style={{ fontSize: '2rem'}} />
                     {<span>Are you sure you want to delete <b>Innovation</b>?</span>}
+                </div>
+            </Dialog>
+            <Dialog visible={viewCommentsDialog} style={{ width: '450px' }} header="Comments" modal footer={viewCommentsFooter} onHide={() => setViewCommentsDialog(false)}>
+                <div className="confirmation-content">
+                    <InputTextarea disabled value={comments} autoResize style={{width:'100%', maxWidth: '100%'}}/>
                 </div>
             </Dialog>
         </div>

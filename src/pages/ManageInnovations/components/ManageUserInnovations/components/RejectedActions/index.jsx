@@ -8,10 +8,10 @@ const RejectedActions = (props) => {
 
     return (
         <div>
-            <Tooltip target=".button-trash"  position="right"/>
-            <span className="button-trash" data-pr-tooltip="Delete">
-                <Button id={data.innovId} icon="fad fa-trash fa-lg" className="button-trash-table margin-right" onClick={() =>  deleteRejectedDialog(data)}/>
-            </span>
+            {/*<Tooltip target=".button-trash"  position="right"/>*/}
+            {/*<span className="button-trash" data-pr-tooltip="Delete">*/}
+            {/*    <Button id={data.innovId} icon="fad fa-trash fa-lg" className="button-trash-table margin-right" onClick={() =>  deleteRejectedDialog(data)}/>*/}
+            {/*</span>*/}
         </div>
     )
 }

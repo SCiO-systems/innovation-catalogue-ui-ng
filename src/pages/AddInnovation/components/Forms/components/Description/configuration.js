@@ -6,7 +6,7 @@ const configurationArray = [
                 id: "1.1",
                 type: 'text',
                 mandatory: true,
-                label: 'Title',
+                label: 'Title*',
                 fieldInformation: '<span> Provide a title that shortly and clearly focuses on the innovation new knowledge or main findings. Make sure the geographical locations (country scope and/or agroecological zone) are mentioned, and acronyms spelt out. <br/> <br/> (20 words) </span>',
                 valid: false,
             },
@@ -14,7 +14,7 @@ const configurationArray = [
                 id: "1.2",
                 type: 'text area',
                 mandatory: true,
-                label: 'Summary',
+                label: 'Summary*',
                 fieldInformation: '<span> Provide a concise description of the innovation. Context is required to explain the innovation nature and the addressed beneficiary/process need <br/> <br/> (60-70 words)</span>',
                 valid: false,
             },
@@ -24,7 +24,7 @@ const configurationArray = [
                 mandatory: true,
                 minWords: 1,
                 maxWords: 10,
-                label: 'Business Category',
+                label: 'Business Category*',
                 fieldInformation: '<span>Select the best high-level grouping business category. Definitions are:' + "<br/>"+ "<br/>" +
                     'a) <b>Design</b>: A design is a plan or specification for the construction of an object or system or for the implementation of an activity or process, or the result of that plan or specification in the form of a prototype, product or process' + "<br/>" + "<br/>"+
                     'b) <b>Device</b>: an object, machine, or piece of equipment that has been made for some special purpose' + "<br/>"+ "<br/>"+
@@ -42,7 +42,7 @@ const configurationArray = [
                 mandatory: true,
                 minWords: 1,
                 maxWords: 10,
-                label: 'Administrative Scale',
+                label: 'Administrative Scale*',
                 fieldInformation: 'Select the scope where the innovation is being deployed. ',
                 valid: false,
                 resultsKeyword: 'clarisa_administrative_scale'
@@ -53,7 +53,7 @@ const configurationArray = [
                 mandatory: true,
                 minCharacters: 1,
                 maxCharacters: 5000,
-                label: 'Keywords',
+                label: 'Keywords*',
                 fieldInformation: '<span> Provide words that are associated or describe the content, goal, and results of the innovation. It will allow to perform a well-defined search in the online portfolio. <br/> <br/>(5000 keywords) </span>',
                 valid: false,
             },
@@ -61,8 +61,8 @@ const configurationArray = [
                 id: "1.6",
                 type: 'text',
                 mandatory: true,
-                label: 'Innovation URL',
-                fieldInformation: 'Provide a link presenting related activities of the innovation and addressing open public view.',
+                label: 'Innovation URL*',
+                fieldInformation: 'Provide a link presenting related activities of the innovation and addressing open public view.*',
                 valid: false,
             },
             {
@@ -91,7 +91,7 @@ const configurationArray = [
                 mandatory: true,
                 minWords: 1,
                 maxWords: 10,
-                label: 'Technical Field',
+                label: 'Technical Field*',
                 fieldInformation: '<span> Select the best high-level grouping business category. Definitions are: <br/><br/>' +
                     '<b>Building & construction</b>: constructing, renovating, altering, demolishing, relocating, maintaining or repairing physical assets<br/><br/>' +
                     '<b>Energy</b>: exploration and production of supplying renewable and non-renewable energy <br/><br/>' +
@@ -121,7 +121,7 @@ const configurationArray = [
                 mandatory: true,
                 minWords: 1,
                 maxWords: 10,
-                label: 'Type of Innovation',
+                label: 'Type of Innovation*',
                 fieldInformation: '<span> Select type (s) as defined in the Oslo Manual <a href="https://www.oecd.org/science/oslo-manual-2018-9789264304604-en.htm">(https://www.oecd.org/science/oslo-manual-2018-9789264304604-en.htm)</a> to measure and collect the innovation focus. These are: <br/><br/>' +
                     '<b>Product</b>: A good or service that is new or significantly improved. This includes significant improvements in technical specifications, components and materials, software in the product, user friendliness or other functional characteristics.<br/><br/>' +
                     '<b>Technology</b>: A new or significantly improved production or delivery method. This includes significant changes in techniques, equipment and/or software.<br/><br/>' +
@@ -136,7 +136,7 @@ const configurationArray = [
                 mandatory: true,
                 minWords: 1,
                 maxWords: 10,
-                label: 'Governance Type',
+                label: 'Governance Type*',
                 fieldInformation: '<span>Select one of the governance types. Consider the following: <br/> <br/>' +
                     '<b>Private</b>: self-regulation, technology assessment, foresight, and science private advice only.<br/> <br/>' +
                     '<b>Public</b>:  regulation and soft law, public engagement, and science communication of the technical and design standards.<br/> <br/>' +

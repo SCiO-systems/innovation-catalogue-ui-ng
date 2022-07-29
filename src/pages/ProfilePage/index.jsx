@@ -5,12 +5,14 @@ import {FileUpload} from "primereact/fileupload";
 import {Dropdown} from "primereact/dropdown";
 import { Button } from 'primereact/button';
 import {Toast} from "primereact/toast";
+import { Chips } from 'primereact/chips';
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import UserService from '../../services/httpService/user'
 import UploadService from '../../services/httpService/upload'
 import './styles.css'
 import {Actions} from "../../reducer/actions";
+import noImage from '../../assets/noImage.jpg'
 
 const ProfilePage = () => {
 
@@ -52,6 +54,7 @@ const ProfilePage = () => {
             }
             setWebsite(userData.user?.website)
             setOrganizationLogo(userData.user?.organizationLogo)
+            console.log(userData)
         },[userData]
     )
 
@@ -114,6 +117,12 @@ const ProfilePage = () => {
                                 </div>
                                 <div className="margin-bottom-40">
                                     <div>
+                                        <label htmlFor="email">Privileges</label>
+                                    </div>
+                                    <Chips id="privileges" disabled value={userData.user?.permissions} className="input-profile"></Chips>
+                                </div>
+                                <div className="margin-bottom-40">
+                                    <div>
                                         <label htmlFor="organization">Role</label>
                                     </div>
                                     <Dropdown className="input-profile"  value={selectedRole} options={roles} onChange={onRoleChange} optionLabel="name" placeholder="Choose your role"></Dropdown>
@@ -144,13 +153,14 @@ const ProfilePage = () => {
                                 </div>
                                 <InputText id="website" className="input-profile" placeholder={melUserData.organization} disabled/>
                                 <div className="margin-bottom-40 margin-top-55">
+                                    <label htmlFor="organization">Upload Organization Logo - Up to 2MB</label>
                                     <FileUpload
                                         className="upload-organization-logo"
                                         mode="basic"
                                         customUpload
                                         url={`${process.env.REACT_APP_RELAY_URL}/rtb-refactored/api/upload`}
                                         accept="image/*"
-                                        maxFileSize={1000000}
+                                        maxFileSize={2000000}
                                         auto
                                         chooseLabel="Upload Organization Logo"
                                         uploadHandler={(event) => uploadFiles(event)}
@@ -160,7 +170,14 @@ const ProfilePage = () => {
                                     <div style={{marginBottom: '10px'}}>
                                         <label htmlFor="country">Organization Logo</label>
                                     </div>
-                                    <img className='organization-logo' src={`${process.env.REACT_APP_RELAY_URL}/static/${organizationLogo}`} alt={'logo'} />
+                                    {organizationLogo ?
+                                        <img className='organization-logo'
+                                          src={`${process.env.REACT_APP_RELAY_URL}/static/${organizationLogo}`}
+                                          alt={'logo'}/> :
+                                        <img className='organization-logo'
+                                            src={noImage}
+                                            alt={'logo'}/>
+                                    }
                                 </div>
                             </div>
                         </div>
