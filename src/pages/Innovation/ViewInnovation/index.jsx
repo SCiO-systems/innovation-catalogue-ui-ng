@@ -14,6 +14,7 @@ import {useDispatch, useSelector} from "react-redux";
 import UserService from '../../../services/httpService/user'
 import {Actions} from "../../../reducer/actions";
 import axios from "axios";
+import noImage from '../../../assets/noImage.jpg'
 
 const DetailedInnovation = () => {
 
@@ -45,9 +46,11 @@ const DetailedInnovation = () => {
     useEffect(
         () =>{
             if (previewedInnovation) {
+                console.log(previewedInnovation)
                 setFormData(previewedInnovation.formData)
                 UserService.getUserDataById(previewedInnovation.userIds[0])
                     .then(res => {
+                        console.log(res)
                         setSubmitter(res.user)
                     })
             }
@@ -109,6 +112,12 @@ const DetailedInnovation = () => {
     const renderField = (id) => {
         const temp = formData.find(item => item.id === id)
         if (temp) {
+            if (id === '9.4' || id === '9.5' || id === '9.6') {
+                if (temp.value instanceof Array) {
+                    return temp.value.map(item => item.value)
+                }
+                return ''
+            }
             return temp.value
         } else {
             return ''
@@ -172,32 +181,45 @@ const DetailedInnovation = () => {
         const temp = formData.find(item => item.id === id)
         if (temp) {
             if (id === '6.1') {
-                return temp.value?.map(item => {
-                    if (item.value instanceof Array) {
-                        return (
-                            <p>{item.value[0] + ' - ' + item.value[1]}</p>
-                        )
-                    } else {
-                        return (
-                            <p></p>
-                        )
-                    }
-
-                })
-            } else {
-                return temp.value?.map(item => {
-                    if (item.value instanceof Array) {
-                        if (item.value[0]) {
+                if (temp.value instanceof Array) {
+                    return temp.value?.map(item => {
+                        if (item.value instanceof Array) {
                             return (
-                                <p>{item.value[0].name || ''}</p>
+                                <p>{item.value[0] + ' - ' + item.value[1]}</p>
+                            )
+                        } else {
+                            return (
+                                <p></p>
                             )
                         }
-                    } else {
-                        return (
-                            <p></p>
-                        )
-                    }
-                })
+
+                    })
+                }else {
+                    return (
+                        <p></p>
+                    )
+                }
+
+            } else {
+                if (temp.value instanceof Array) {
+                    return temp.value?.map(item => {
+                        if (item.value instanceof Array) {
+                            if (item.value[0]) {
+                                return (
+                                    <p>{item.value[0].name || ''}</p>
+                                )
+                            }
+                        } else {
+                            return (
+                                <p></p>
+                            )
+                        }
+                    })
+                } else {
+                    return (
+                        <p></p>
+                    )
+                }
             }
         }
     }
@@ -206,16 +228,18 @@ const DetailedInnovation = () => {
         const temp = formData.find(item => item.id === id)
         let allData = []
         if (temp) {
-            temp.value?.map(item => {
-                allData = [...allData,...item.value]
-            })
-            allData = allData.map(item => {
-                if (item.value[0] && item.value[1] && item.value[2]) {
-                    const temp2 = {code: `${item.value[0]+item.value[1]+item.value[2]}`,value: item.value?.split('-')[1]}
-                    return temp2
-                }
-                else return {}
-            })
+            if (temp.value instanceof Array) {
+                temp.value?.map(item => {
+                    allData = [...allData,...item.value]
+                })
+                allData = allData.map(item => {
+                    if (item.value[0] && item.value[1] && item.value[2]) {
+                        const temp2 = {code: `${item.value[0]+item.value[1]+item.value[2]}`,value: item.value?.split('-')[1]}
+                        return temp2
+                    }
+                    else return {}
+                })
+            }
         }
         return allData
     }
@@ -224,23 +248,25 @@ const DetailedInnovation = () => {
         const temp = formData.find(item => item.id === id)
         let allData = []
         if (temp) {
-            temp.value?.map(item => {
-                const temp2 = item.value?.map(it => {
-                    return {value: it.value, CGIAR_impact_area: item.title}
+            if (temp.value instanceof Array) {
+                temp.value?.map(item => {
+                    const temp2 = item.value?.map(it => {
+                        return {value: it.value, CGIAR_impact_area: item.title}
+                    })
+                    allData = [...allData,...temp2]
                 })
-                allData = [...allData,...temp2]
-            })
+            }
         }
         return allData
     }
 
     const countryData = (id) => {
         const temp = formData.find(item => item.id === id)
-        let x
+        let x = []
         if (temp) {
             if (results.length) {
                 const countries = results.find(item => item.header === 'clarisa_countries')
-                if (countries) {
+                if (countries instanceof Array) {
                     x = countries.value?.filter(item => item.value === temp.value?.find(country => country === item.value))
                 }
                 return x
@@ -501,34 +527,45 @@ const DetailedInnovation = () => {
 
                     <div className="p-col-fixed sidebar-container">
                         <div className="margin-bottom-40">
-                            <div className="innovation-submitter-background">
-                                <div style={{paddingLeft:"25px",paddingTop:"15px"}}>
-                                    <h2 className="innovation-heading" style={{color:"white"}}>Innovation Submitter</h2>
+                            {submitter ? <div className="innovation-submitter-background">
+                                <div style={{paddingLeft: "25px", paddingTop: "15px"}}>
+                                    <h2 className="innovation-heading" style={{color: "white"}}>Innovation
+                                        Submitter</h2>
                                     <div className="margin-top-20">
-                                        <i className="fad fa-user fa-lg margin-right-7 white-icons-innovation" />
+                                        <i className="fad fa-user fa-lg margin-right-7 white-icons-innovation"/>
                                         <strong>
-                                            <a href={submitter.website} target="_blank" style={{color:"#56323d"}}>
+                                            <a href={submitter.website?.startsWith('https://') ? submitter.website : `https://${submitter.website}`}
+                                               target="_blank" rel="noreferrer" style={{color: "#56323d"}}>
                                                 {submitter.fullName}
                                             </a>
                                         </strong>
                                     </div>
-                                    <div className="margin-top-20"><i className="fad fa-envelope fa-lg margin-right-7 white-icons-innovation" />
-                                        <strong><span style={{color:"#56323d"}}>{submitter.email}</span>
+                                    <div className="margin-top-20"><i
+                                        className="fad fa-envelope fa-lg margin-right-7 white-icons-innovation"/>
+                                        <strong><span style={{color: "#56323d"}}>{submitter.email}</span>
                                         </strong>
                                     </div>
                                     <div className="margin-top-20 company-submitter-innovation">
-                                        <div className="display-inline"><i className="margin-right-7" /><img src={`${process.env.REACT_APP_RELAY_URL}/static/${submitter.organizationLogo}`} width={70}/> </div>
-                                        <div className="company-name-submitter-innovation margin-left-20 display-inline ">
-                                            <strong><span style={{color:"#56323d"}}>{submitter.organization}</span></strong>
+                                        <div className="display-inline"><i
+                                            className="margin-right-7"/>{submitter.organizationLogo ? <img
+                                            src={`${process.env.REACT_APP_RELAY_URL}/static/${submitter.organizationLogo}`}
+                                            width={70}/> : <img
+                                            src={noImage}
+                                            width={70}/>} </div>
+                                        <div
+                                            className="company-name-submitter-innovation margin-left-20 display-inline ">
+                                            <strong><span
+                                                style={{color: "#56323d"}}>{submitter.organization}</span></strong>
                                         </div>
                                     </div>
-                                    <div className="margin-top-20"><i className="fad fa-globe fa-lg margin-right-7 white-icons-innovation" />
+                                    <div className="margin-top-20"><i
+                                        className="fad fa-globe fa-lg margin-right-7 white-icons-innovation"/>
                                         <strong>
-                                            <span style={{color:"#56323d"}}>{submitter.country}</span></strong>
+                                            <span style={{color: "#56323d"}}>{submitter.country}</span></strong>
                                     </div>
 
                                 </div>
-                            </div>
+                            </div> : <></>}
 
                         </div>
                         <Card className="margin-bottom-40">

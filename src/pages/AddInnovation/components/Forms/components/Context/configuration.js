@@ -8,7 +8,7 @@ const configurationArray = [
                 mandatory: true,
                 minWords: 1,
                 maxWords: 10,
-                label: 'Locations of Implementation',
+                label: 'Locations of Implementation*',
                 fieldInformation: '<span> List the countries, where the innovation has been applied.<br/> <br/>' +
                     'For example: Peru, Colombia, etc.<br/> <br/>' +
                     // '(800 words)' +
@@ -63,7 +63,7 @@ const configurationArray = [
                 mandatory: true,
                 minWords: 1,
                 maxWords: 10,
-                label: 'Locations of Impact/Profit Evidence',
+                label: 'Locations of Impact/Profit Evidence*',
                 fieldInformation: 'Please insert countries where the innovation has proven impact and where supporting evidence can be provided.',
                 valid: false,
                 resultsKeyword: 'clarisa_countries',

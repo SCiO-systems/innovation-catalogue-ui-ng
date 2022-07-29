@@ -27,3 +27,13 @@
     color: white;
     background-color: #d68227;
 }
+
+.my-innovations-table p#innovation-title-disabled {
+    display: flex;
+    width: fit-content;
+    border-radius: 4px;
+    border: 1px solid #9b9b9b;
+    color: #c7c7c7;
+    padding: 10px;
+    transition: 0.3s background-color, color;
+}
