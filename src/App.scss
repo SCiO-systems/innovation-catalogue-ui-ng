@@ -269,6 +269,71 @@ body{
 .requires-login{
     font-size: 14px;
 }
+.about-page-bg-image{
+    background-image:  url("./assets/banner3.jpg");
+    background-color: #cccccc;
+    background-position: top center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    padding: 100px 450px 140px;
+    height: 577px;
+}
+
+.about-page-people-bg{
+    background: #faf4f4;
+    border-top: 4px solid #b72d2b;
+    margin-top: 80px;
+}
+
+.about-page-people{
+    padding: 40px 40px 0;
+}
+
+.about-page-avatar{
+    width: 250px;
+    border-radius: 50%;
+}
+
+.avatar-fullname{
+    font-size: 27px;
+    color: #ef7e29;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+
+.avatar-title{
+    font-size: 25px;
+    text-transform: capitalize;
+}
+
+.about-page-hr{
+    margin: 50px auto ;
+    width: 700px;
+    border-top: 2px solid #000;
+}
+
+.about-page-contact{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 50px;
+}
+
+.contact-info-b{
+    font-size: 23px;
+    font-weight: bolder;
+}
+.contact-info{
+    font-size: 23px;
+}
+
+.p-style{
+    color:#000;
+    text-align: justify;
+    padding-left: 50px;
+    padding-right: 50px;
+    font-size: 20px;
+}
 
 /*...analytics styles...*/
 
@@ -1193,6 +1258,25 @@ div.p-splitbutton.p-component.p-button-success.p-mr-2 .p-button.p-component.p-sp
 
 .layout-topbar-blue .layout-menubutton:hover .layout-menubutton-icon:before, .layout-topbar-blue .layout-menubutton:hover .layout-menubutton-icon:after{
     background-color: #f9b403;
+}
+
+.terms-of-use-header{
+    background: #fdece2;
+    text-align: center;
+    border-bottom: 4px solid #b72d2b;
+    padding: 60px 0;
+}
+
+.terms-of-use-heading{
+    color: rgb(177, 36, 37);
+}
+
+.heading-style{
+    color: #B12425;
+    text-align: left;
+    padding-left: 50px;
+    font-size: 25px;
+    font-weight: bold;
 }
 
 /*...footer styles...*/

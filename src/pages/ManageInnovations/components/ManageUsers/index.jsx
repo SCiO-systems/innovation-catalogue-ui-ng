@@ -5,6 +5,7 @@ import {Dialog} from "primereact/dialog";
 import { Chips } from 'primereact/chips';
 import { Chip } from 'primereact/chip';
 import { Ripple } from 'primereact/ripple';
+import {SelectedUserProfile} from './components'
 import AdministratorService from '../../../../services/httpService/admin'
 import {useSelector} from "react-redux";
 import './styles.css'
@@ -26,6 +27,8 @@ const ManageUsers = () => {
         first: 0,
         rows: 10,
     });
+    const [userProfileDialog, setUserProfileDialog] = useState(false)
+    const [user, setUser] = useState(null)
 
     useEffect(() => {
         loadLazyData();
@@ -39,6 +42,7 @@ const ManageUsers = () => {
                     setTotalRecords(res.total_users);
                     setUsers(res.users);
                     setLoading(false);
+                    console.log(res)
                 }
             );
     }
@@ -114,6 +118,22 @@ const ManageUsers = () => {
         )
     }
 
+    const userProfileFooter = (
+        <>
+            <Button label="Ok" icon="pi pi-times" className="p-button-text" onClick={() => setUserProfileDialog(false)} />
+        </>
+    );
+
+    const titleBody = (data) => {
+        console.log(data)
+        return (
+            <p id='innovation-title' onClick={() => {
+                setUserProfileDialog(true)
+                setUser(data)
+            }}>{data.fullName}</p>
+        )
+    }
+
     return (
         <div className='my-innovations-table'>
             <div className="peach-background-container">
@@ -131,14 +151,17 @@ const ManageUsers = () => {
                     rowsPerPageOptions={[10,20]}
                     totalRecords={totalRecords}
                 >
-                    <Column field="name"  sortable header="Name"/>
-                    <Column field="permissions" body={permissionsTemplate} sortable header="Privileges"/>
+                    <Column field="fullName" body={(data) => (titleBody(data))} header="Name"/>
+                    <Column field="permissions" body={permissionsTemplate} header="Privileges"/>
                     <Column field="actions" header="Actions" body={actionsTemplate} style={{width: "250px"}}/>
                 </DataTable>
             </div>
             <Dialog visible={permissionsDialog} style={{ width: '450px' }} header="Confirm" modal footer={permissionsFooter} onHide={() => setPermissionsDialog(false)}>
                 <span className='manage-users-dialog-info'>Click to enable or disable permissions</span>
                 {renderChips()}
+            </Dialog>
+            <Dialog visible={userProfileDialog} style={{ width: '90%', height: '90%', overflowY: 'hidden' }} modal footer={userProfileFooter} onHide={() => setUserProfileDialog(false)}>
+                <SelectedUserProfile user={user}/>
             </Dialog>
         </div>
     )

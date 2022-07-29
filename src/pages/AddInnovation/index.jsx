@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef} from "react";
 import {Steps} from "primereact/steps";
 import {Card} from "primereact/card";
 import {StepsForms, Forms} from "./components";
 import {Button} from "primereact/button";
 import {Link, useNavigate} from "react-router-dom";
+import { Toast } from 'primereact/toast';
 import {useDispatch, useSelector} from "react-redux";
 import {Actions} from "../../reducer/actions";
 import InnovationService from '../../services/httpService/innovation'
@@ -61,6 +62,8 @@ const AddInnovation = () => {
 
     const editingInnovation = useSelector((state) => state.editingInnovation)
     const setEditingInnovation = (payload) => dispatch({ type: Actions.SetEditingInnovation, payload });
+
+    const toast = useRef(null);
 
     const resetInnovation = () => {
 
@@ -144,8 +147,11 @@ const AddInnovation = () => {
         }
         InnovationService.insertInnovation(userData.user.userId, allFields,status)
             .then(() => {
-                resetInnovation()
-                navigate(myInnovationsUrl)
+                toast.current.show({severity:'success', summary: 'Success', detail:`The Innovation was added with status ${status}`, life: 1000});
+                setTimeout(() => {
+                    resetInnovation()
+                    navigate(myInnovationsUrl)
+                }, 1000)
             })
     }
 
@@ -172,9 +178,12 @@ const AddInnovation = () => {
         }
         InnovationService.editInnovation(allFields,innovation.innovId ,status, userData.user.userId)
             .then(() => {
-                resetInnovation()
-                setEditingInnovation({})
-                navigate(myInnovationsUrl)
+                toast.current.show({severity:'success', summary: 'Success', detail:`The Innovation was added with status ${status}`, life: 1000});
+                setTimeout(() => {
+                    resetInnovation()
+                    setEditingInnovation({})
+                    navigate(myInnovationsUrl)
+                }, 1000)
             })
     }
 
@@ -182,6 +191,7 @@ const AddInnovation = () => {
 
         return(
             <div>
+                <Toast ref={toast} />
                 <div className="peach-background-container">
                     <h3>Add innovation</h3>
                 </div>
@@ -202,14 +212,14 @@ const AddInnovation = () => {
                                 (
                                     step === 8 ?
                                     (
-                                        editingInnovation? <Button icon="fad fa-plus fa-lg" label="Edit Innovation" iconPos="right" className="next-step-button" onClick={editInnovation}/>:
-                                            <Button icon="fad fa-plus fa-lg" label="Add Innovation" iconPos="right" className="next-step-button" onClick={addInnovation}/>
+                                        editingInnovation? <Button icon="fad fa-plus fa-lg" label="Save Innovation" iconPos="right" className="next-step-button" onClick={editInnovation}/>:
+                                            <Button icon="fad fa-plus fa-lg" label="Save Innovation" iconPos="right" className="next-step-button" onClick={addInnovation}/>
                                     ) : <></>
                                 ) : (
                                     step === 7 ?
                                         (
-                                            editingInnovation? <Button icon="fad fa-plus fa-lg" label="Edit Innovation" iconPos="right" className="next-step-button" onClick={editInnovation}/>:
-                                                <Button icon="fad fa-plus fa-lg" label="Add Innovation" iconPos="right" className="next-step-button" onClick={addInnovation}/>
+                                            editingInnovation? <Button icon="fad fa-plus fa-lg" label="Save Innovation" iconPos="right" className="next-step-button" onClick={editInnovation}/>:
+                                                <Button icon="fad fa-plus fa-lg" label="Save Innovation" iconPos="right" className="next-step-button" onClick={addInnovation}/>
                                         ) : <></>
                                 )
 

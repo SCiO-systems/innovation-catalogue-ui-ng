@@ -35,10 +35,18 @@ const AccordionTabs = (props) => {
         }
 
         if (results[0]) {
+            console.log(presetValue)
             const temp = results.find(item => item.header === configuration.resultsKeyword)
             return temp.value.map((item,index) => {
+                const presetValueExists = presetValue.find(item => item.id === index);
+                let highlight = false
+                if (presetValueExists) {
+                    if (presetValueExists.value?.length) {
+                        highlight = true
+                    }
+                }
                 return (
-                    <AccordionTab header={item.title}>
+                    <AccordionTab header={item.title} headerStyle={highlight ? {backgroundColor: 'lightgray'} : {}}>
                         <Picklist sourceData={item.value} presetValue={presetValue} item={item} stepValues={stepValues} stepSetValues={stepSetValues} keyName={keyName} configuration={configuration} index={index}/>
                     </AccordionTab>
                 )
