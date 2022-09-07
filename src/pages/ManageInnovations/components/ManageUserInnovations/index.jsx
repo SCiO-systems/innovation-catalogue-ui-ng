@@ -11,6 +11,8 @@ import {AssignAction,DeleteAction,RejectedActions,FinalAction} from './component
 import {useNavigate} from "react-router-dom";
 import {Actions} from "../../../../reducer/actions";
 import {InputTextarea} from "primereact/inputtextarea";
+import {FilterMatchMode} from "primereact/api";
+import {InputText} from "primereact/inputtext";
 
 const ManageUserInnovations = () => {
 
@@ -41,17 +43,49 @@ const ManageUserInnovations = () => {
     const [loading, setLoading] = useState(false);
     const [comments, setComments] = useState('')
     const [viewCommentsDialog, setViewCommentsDialog] = useState(false)
+    const [filters, setFilters] = useState(null);
+    const [globalFilterValue, setGlobalFilterValue] = useState('');
 
     useEffect(() => {
         loadLazyData();
     },[resfreshTrigger])
+
+    useEffect(() => {
+        setFilters({
+            global: { value: null, matchMode: FilterMatchMode.CONTAINS },
+        });
+        setGlobalFilterValue('');
+    }, []);
+
+    const onGlobalFilterChange = (e) => {
+        const { value } = e.target;
+        // eslint-disable-next-line no-underscore-dangle
+        const _filters1 = { ...filters };
+        _filters1.global.value = value;
+
+        setFilters(_filters1);
+        setGlobalFilterValue(value);
+    };
+
+    const renderHeader = () => (
+        <div className="p-d-flex p-jc-between">
+            <span className="p-input-icon-left">
+				<i className="pi pi-search" />
+				<InputText value={globalFilterValue} onChange={onGlobalFilterChange} placeholder="Keyword Search" />
+			</span>
+        </div>
+    );
 
     const loadLazyData = () => {
         setLoading(true);
 
         AdministratorService.getAllInnovations(userData.user.userId)
             .then(res => {
-                setInnovations(res.innovations)
+                const temp = res.innovations?.map(item => {
+                    const title = item.formData.find(item => item.id === "1.1")?.value || '';
+                    return {...item, title: title}
+                })
+                setInnovations(temp)
                 setLoading(false);
             })
     }
@@ -201,7 +235,7 @@ const ManageUserInnovations = () => {
     const titleBody = (data) => {
 
         return (
-            <p id='innovation-title' onClick={() => viewInnovation(data)} >{data.formData.find(item => item.id === "1.1")?.value}</p>
+            <p id='innovation-title' onClick={() => viewInnovation(data)} >{data.formData.find(item => item.id === "1.1")?.value || 'No Name'}</p>
         )
     }
 
@@ -318,14 +352,14 @@ const ManageUserInnovations = () => {
                 <h3>Manage/Assign Innovations</h3>
             </div>
             <div className="card table-margin">
-                <DataTable value={innovations} paginator rows={10} rowsPerPageOptions={[10,20]} loading={loading}>
+                <DataTable value={innovations} paginator rows={10} rowsPerPageOptions={[10,20]} loading={loading} globalFilterFields={['title','status', 'version']} filters={filters} header={renderHeader}>
                     <Column field='title' body={(data) => (titleBody(data))}  sortable header="Title"/>
                     <Column field="status" body={statusTemplate} sortable header="Status"/>
                     <Column field="version" sortable header="Version"/>
                     <Column field="comments" body={(data) => (commentsBody(data))}  header="Reviewer's Comments"/>
                     <Column field="reviewers" body={reviewersTemplate} sortable header="Reviewer"/>
-                    <Column field="createdΑt" body={createdAtTemplate} sortable header="Date Created"/>
-                    <Column field="updatedΑt" body={updatedAtTemplate} sortable header="Last Updated"/>
+                    <Column field="createdΑt" body={createdAtTemplate} header="Date Created"/>
+                    <Column field="updatedΑt" body={updatedAtTemplate} header="Last Updated"/>
                     <Column field="actions" header="Actions" body={actionsTemplate} style={{width: "250px"}}/>
                 </DataTable>
             </div>

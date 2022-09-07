@@ -10,15 +10,12 @@ const LoginRedirected = () => {
 
     const dispatch = useDispatch();
 
-    const csrfToken = useSelector((state) => state.csrfToken)
-
     const setAccessToken = (payload) => dispatch({ type: Actions.SetAccessToken, payload });
 
     const setLoggedIn = (payload) => dispatch({ type: Actions.SetLoggedIn, payload });
 
     useEffect(
         () => {
-            if (csrfToken !== '') {
                 const code = window.location.hash.split('&')[1].slice(5)
                 MelService.getAccessToken(code)
                     .then(res => {
@@ -28,8 +25,8 @@ const LoginRedirected = () => {
                     .catch(err => console.log(err))
                 // setLoggedIn('logged in')
                 navigate('/')
-            }
-        }, [csrfToken]
+
+        }, []
     )
 
     return null

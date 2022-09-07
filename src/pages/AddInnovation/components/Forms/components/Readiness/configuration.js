@@ -7,7 +7,7 @@ const configurationArray = [
                 type: 'list',
                 mandatory: false,
                 minWords: 1,
-                maxWords: 1,
+                maxWords: 10,
                 label: 'Technology Development Stage',
                 fieldInformation: '<span> Please add the stage the innovation has completed at the point of reporting. The terminology used nuances further the different stages of the innovation development process and journey used in One CGIAR. Note that it is not required that all innovations pass through all stages to be reported on, nor is it necessary for an innovation to start at stage 1. Please find below a scheme showing the equivalence with the 4 stages established in One CGIAR with the new terminology used here:<br/> <br/>' +
                     '<b>TRL 1</b> – Basic principles observed (stage 1)<br/> <br/>' +
@@ -37,7 +37,7 @@ const configurationArray = [
                 type: 'list',
                 mandatory: false,
                 minWords: 1,
-                maxWords: 1,
+                maxWords: 10,
                 label: 'Innovation Readiness Levels of the Components',
                 fieldInformation: '<span> Please choose from the following readiness levels: <br/><br/>' +
                     '•  <b>Idea</b>: Formulated idea or hypothesis for an innovation to meet a specific objective for intended users.<br/><br/>' +
@@ -64,7 +64,8 @@ const configurationArray = [
                 fieldInformation: '',
                 valid: true,
                 resultsKeyword: 'clarisa_innovation_use_levels',
-                filter: true
+                filter: true,
+                sr: true,
             },
             {
                 id: "8.5",
@@ -73,6 +74,7 @@ const configurationArray = [
                 label: 'Scaling Readiness Level',
                 fieldInformation: '',
                 valid: false,
+                sr: true,
             },
             {
                 id: "8.6",
@@ -81,6 +83,7 @@ const configurationArray = [
                 label: 'Scaling Readiness Score',
                 fieldInformation: '',
                 valid: false,
+                sr: true,
             },
         ]
     },

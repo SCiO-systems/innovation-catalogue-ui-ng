@@ -111,7 +111,7 @@ const TextArea = (props) => {
             <Tooltip target=".status"  position="top"/>
             <div className="p-inputgroup" id='text-area'>
                 <span className="p-float-label">
-                    <InputTextarea  className={((valid != 'valid') && configuration.mandatory) ? "p-invalid p-d-block" : "p-d-block"} disabled={configuration.disabled ||  (viewing && (configuration.id[0] !== '8'))}  value={value} onChange={(e) => setValue(e.target.value)}/>
+                    <InputTextarea  className={((valid != 'valid') && configuration.mandatory) ? "p-invalid p-d-block" : "p-d-block"} disabled={configuration.disabled || (viewing && (!configuration.sr)) || (!viewing && (configuration.sr))}  value={value} onChange={(e) => setValue(e.target.value)}/>
                     {/*<label htmlFor="username">{configuration.label}</label>*/}
                 </span>
                 <span className="p-inputgroup-addon" id='question' onClick={() => setDisplayDialog(true)}><i className="fad fa-question"/></span>

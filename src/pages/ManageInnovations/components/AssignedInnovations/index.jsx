@@ -50,7 +50,11 @@ const AssignedInnovations = () => {
         () => {
             ReviewerService.getAssignedInnovations(userData.user.userId)
                 .then(res => {
-                    setInnovations(res.innovations)
+                    const temp = res.innovations?.map(item => {
+                        const title = item.formData.find(item => item.id === "1.1")?.value || '';
+                        return {...item, title: title}
+                    })
+                    setInnovations(temp)
                 })
         },[resfreshTrigger]
     )
@@ -153,7 +157,7 @@ const AssignedInnovations = () => {
     const titleBody = (data) => {
 
         return (
-            <p id='innovation-title' onClick={() => viewInnovation(data)} >{data.formData.find(item => item.id === "1.1")?.value}</p>
+            <p id='innovation-title' onClick={() => viewInnovation(data)} >{data.formData.find(item => item.id === "1.1")?.value || 'No Name'}</p>
         )
     }
 
@@ -205,7 +209,7 @@ const AssignedInnovations = () => {
                 <DataTable value={innovations} paginator rows={10} rowsPerPageOptions={[10,20]}>
                     <Column field='title' body={(data) => (titleBody(data))}  sortable header="Title"/>
                     <Column field="comments" body={(data) => (commentsBody(data))}  header="Comments"/>
-                    <Column field="updatedΑt" body={updatedAtTemplate} sortable header="Last Updated"/>
+                    <Column field="updatedΑt" body={updatedAtTemplate} header="Last Updated"/>
                     <Column field="actions" header="Actions" body={actionsTemplate} style={{width: "250px"}}/>
                 </DataTable>
             </div>
