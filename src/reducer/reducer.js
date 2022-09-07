@@ -3,7 +3,6 @@ import {Actions} from './actions'
 const initState = {
     currentPage: '',
     loggedIn: 'logged out',
-    csrfToken: '',
     accessToken: '',
     melUserData: {},
     userData: {},
@@ -37,11 +36,6 @@ const reducer = (currentState = initState, action) => {
             return{
                 ...currentState,
                 loggedIn: action.payload
-            }
-        case Actions.SetCsrfToken:
-            return{
-                ...currentState,
-                csrfToken: action.payload
             }
         case Actions.SetAccessToken:
             return{

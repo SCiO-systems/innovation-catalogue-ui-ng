@@ -33,24 +33,34 @@ const Investment = () => {
             }
         }, []
     )
-    //
-    // const presetValues = (headerIndex, contentIndex) => {
-    //     if (investmentValues.length === 0) {
-    //         return ''
-    //     } else {
-    //         return investmentValues.find(item => item.id === configurationArray[headerIndex].content[contentIndex].id).value
-    //     }
-    // }
 
-    const presetValues = (headerIndex, contentIndex) => {
+    const emptyField = (type) => {
+        switch (type) {
+            case 'accordion': return [];
+            case 'calendar': return '';
+            case 'innovations autocomplete': return [];
+            case 'inputs': return [];
+            case 'keywords': return [];
+            case 'list': return [];
+            case 'number': return 0;
+            case 'autocomplete organizations': return []; // ?
+            case 'text': return '';
+            case 'text area': return '';
+            case 'upload': return []; // ?
+            case 'autocomplete users': return []; // ?
+            default: return '';
+        }
+    }
+
+    const presetValues = (headerIndex, contentIndex, type) => {
         if (investmentValues.length === 0) {
-            return ''
+            return emptyField(type)
         } else {
             const temp = investmentValues.find(item => item.id === contentIndex).value
             if (temp) {
                 return temp
             }else {
-                return ''
+                return emptyField(type)
             }
         }
     }
@@ -63,7 +73,7 @@ const Investment = () => {
                         <label>{field.label}</label>
                     </div>
                     <div className="p-col-12 p-sm-12 p-lg-6">
-                        <Field configuration={field} presetValue={presetValues(0,field.id)} stepValues={investmentValues} stepSetValues={setInvestmentValues} keyName={'investmentValues'}/>
+                        <Field configuration={field} presetValue={presetValues(0,field.id, field.type)} stepValues={investmentValues} stepSetValues={setInvestmentValues} keyName={'investmentValues'}/>
                     </div>
                 </div>
             )

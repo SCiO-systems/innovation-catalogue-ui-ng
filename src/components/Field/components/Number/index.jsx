@@ -108,7 +108,7 @@ const Number = (props) => {
                         min={configuration.minNumber}
                         max={configuration.maxNumber}
                         suffix={configuration.suffix}
-                        disabled={configuration.disabled || (viewing && (configuration.id[0] !== '8'))}
+                        disabled={configuration.disabled || (viewing && (!configuration.sr)) || (!viewing && (configuration.sr))}
                     />
                     {/*<label htmlFor="username">{configuration.label}</label>*/}
                 </span>

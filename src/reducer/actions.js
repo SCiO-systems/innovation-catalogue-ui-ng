@@ -1,7 +1,6 @@
 export const Actions = {
     SetCurrentPage: "SetCurrentPage",
     SetLoggedIn: "SetLoggedIn",
-    SetCsrfToken: "SetCsrfToken",
     SetAccessToken: "SetAccessToken",
     SetMelUserData: "SetMelUserData",
     SetUserData: "SetUserData",

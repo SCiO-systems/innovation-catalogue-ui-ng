@@ -20,6 +20,25 @@ const AccordionTabs = (props) => {
 
     const [displayDialog, setDisplayDialog] = useState(false)
 
+    useEffect(
+        () => {
+            console.log(presetValue)
+            if (stepValues.length === 0) return
+            const _values = stepValues
+            const index = _values.indexOf(_values.find(item => item.id === configuration.id))
+            const validValue = stepValues.find(item => item.id === configuration.id).valid
+            _values.splice(index, 1)
+            _values.push({
+                id: configuration.id,
+                value: presetValue,
+                mandatory: configuration.mandatory,
+                valid: validValue,
+            })
+            stepSetValues(_values)
+            window.localStorage.setItem(keyName, JSON.stringify(_values))
+        }, []
+    )
+
     const renderQuesitonFooter = () => {
         return (
             <div>

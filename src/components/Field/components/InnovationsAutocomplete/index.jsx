@@ -13,8 +13,6 @@ const InnovationsAutocomplete = (props) => {
 
 	const viewing = useSelector((state) => state.viewing)
 
-	const csrfToken = useSelector((state) => state.csrfToken)
-
 	const [displayDialog, setDisplayDialog] = useState(false)
 	const [filteredKeywords, setFilteredKeywords] = useState([]);
 	const [selectedKeyword, setSelectedKeyword] = useState(presetValue);
@@ -26,7 +24,7 @@ const InnovationsAutocomplete = (props) => {
 				.then(res => {
 					setOptions(res.innovations)
 				})
-		},[csrfToken]
+		},[]
 	)
 
 	useEffect(

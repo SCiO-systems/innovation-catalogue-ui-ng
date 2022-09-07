@@ -134,7 +134,7 @@ const List = (props) => {
                             onChange={(e) => setValue(e.value)}
                             options={options}
                             maxSelectedLabels={configuration.maxWords}
-                            disabled={configuration.disabled || (viewing && (configuration.id[0] !== '8'))}
+                            disabled={configuration.disabled || (viewing && (!configuration.sr)) || (!viewing && (configuration.sr))}
                             filter={configuration.filter}
                             optionLabel="value"
                         />
@@ -144,7 +144,7 @@ const List = (props) => {
                             onChange={(e) => setValue(e.value)}
                             options={options}
                             maxSelectedLabels={configuration.maxWords}
-                            disabled={configuration.disabled || (viewing && (configuration.id[0] !== '8'))}
+                            disabled={configuration.disabled || (viewing && (!configuration.sr)) || (!viewing && (configuration.sr))}
                             filter={configuration.filter}
                             optionLabel="value"
                         />}

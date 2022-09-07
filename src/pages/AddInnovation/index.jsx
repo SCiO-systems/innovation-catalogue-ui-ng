@@ -16,8 +16,6 @@ const AddInnovation = () => {
 
     const dispatch = useDispatch();
 
-    const csrfToken = useSelector((state) => state.csrfToken)
-
     const step = useSelector((state) => state.step)
     const setStep = (payload) => dispatch({ type: Actions.SetStep, payload });
 
@@ -197,7 +195,7 @@ const AddInnovation = () => {
                 </div>
                 <div className="steps-container">
                     <Card className="steps-padding step-card">
-                        <Steps model={viewing? sreItems : items} activeIndex={step} onSelect={(e) => setStep(e.index)} readOnly={false} />
+                        <Steps model={sreItems} activeIndex={step} onSelect={(e) => setStep(e.index)} readOnly={false} />
                     </Card>
                 </div>
                 <div className="step-1 steps-forms-container">
@@ -216,7 +214,7 @@ const AddInnovation = () => {
                                             <Button icon="fad fa-plus fa-lg" label="Save Innovation" iconPos="right" className="next-step-button" onClick={addInnovation}/>
                                     ) : <></>
                                 ) : (
-                                    step === 7 ?
+                                    step === 8 ?
                                         (
                                             editingInnovation? <Button icon="fad fa-plus fa-lg" label="Save Innovation" iconPos="right" className="next-step-button" onClick={editInnovation}/>:
                                                 <Button icon="fad fa-plus fa-lg" label="Save Innovation" iconPos="right" className="next-step-button" onClick={addInnovation}/>
@@ -224,7 +222,6 @@ const AddInnovation = () => {
                                 )
 
                             }
-
                         </div>
                     </Card>
                 </div>
