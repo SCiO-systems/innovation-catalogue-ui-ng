@@ -40,9 +40,6 @@ const App = () => {
 
     const dispatch = useDispatch();
 
-    const csrfToken = useSelector((state) => state.csrfToken)
-    const setCsrfToken = (payload) => dispatch({ type: Actions.SetCsrfToken, payload });
-
     const accessToken = useSelector((state) => state.accessToken)
     const setAccessToken = (payload) => dispatch({ type: Actions.SetAccessToken, payload });
 
@@ -58,14 +55,6 @@ const App = () => {
     const [menuActive, setMenuActive] = useState(false);
 
     useEffect(() => {
-
-        CsrfService.getCsrfToken()
-            .then(res => {
-                setCsrfToken(res)
-                http.defaults.headers.post['X-CSRF-Token'] = res
-            })
-            .catch(err => console.log(err))
-
         const token = localStorage.getItem("accessToken");
         if (token) {
             setAccessToken(token)
@@ -78,8 +67,7 @@ const App = () => {
 
     useEffect(
         () => {
-            if (csrfToken !== '') {
-                if (accessToken) {
+                 if (accessToken) {
                     MelService.getMelUserData(accessToken)
                         .then(res => {
                             if (res === 'Access Token has expired') {
@@ -95,15 +83,13 @@ const App = () => {
                         })
                         .catch(err => console.log(err))
                 }
-            }
         }, [accessToken]
     )
 
     useEffect(
         () => {
             if (melUserData.profile_id) {
-                if (csrfToken !== '') {
-                    UserService.getUserData(melUserData.profile_id)
+                UserService.getUserData(melUserData.profile_id)
                         .then(res => {
                             if (res.user) {
                                 setLoggedIn('logged in')
@@ -115,8 +101,7 @@ const App = () => {
                             }
                         })
                 }
-            }
-        },[melUserData,csrfToken]
+        },[melUserData]
     )
 
     const layoutContainerClassName = classNames('layout-container', {

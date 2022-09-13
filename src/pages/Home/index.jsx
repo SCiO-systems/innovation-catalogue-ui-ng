@@ -18,8 +18,6 @@ const Home = () => {
 
     const navigate = useNavigate();
 
-    const csrfToken = useSelector((state) => state.csrfToken)
-
     const setCurrentPage = (payload) => dispatch({ type: Actions.SetCurrentPage, payload });
     const setEditingInnovation = (payload) => dispatch({ type: Actions.SetEditingInnovation, payload });
     const setViewing = (payload) => dispatch({ type: Actions.SetViewing, payload });
@@ -61,7 +59,7 @@ const Home = () => {
             setSDG(countUnique(data?.data?.summaries?.sdg));
             setOrganization(data?.data?.summaries?.organization?.length);
         } );
-    }, [csrfToken]);
+    }, []);
 
 
     return(

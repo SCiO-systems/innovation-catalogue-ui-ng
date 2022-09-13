@@ -4,7 +4,7 @@ import axiosRetry from 'axios-retry';
 export const RELAY = process.env.REACT_APP_RELAY_URL
 
 export const http = axios.create({
-    timeout: 10000,
+    timeout: 20000,
     baseURL: `${RELAY}/rtb-refactored`,
     withCredentials: true,
     headers: {
@@ -17,7 +17,7 @@ axiosRetry(http, {
     retries: 3, // number of retries
     retryDelay: (retryCount) => {
         console.log(`retry attempt: ${retryCount}`);
-        return retryCount * 10000; // time interval between retries
+        return retryCount * 20000; // time interval between retries
     },
 });
 
