@@ -1,8 +1,8 @@
 def subject_content = "${env.JOB_NAME} - Build #${env.BUILD_NUMBER}"
 def body_content = '${JELLY_SCRIPT,template="html"}'
-def stage_tag = 'staging'
+def stage_tag = 'prod'
 def project_name = 'innovation-catalogue-ui-ng'
-def deployment_instance = 'staging.innovation.scio.services'
+def deployment_instance = 'innovation.scio.services'
 
 
 pipeline {
