@@ -6,6 +6,8 @@ import {Dropdown} from "primereact/dropdown";
 import { Button } from 'primereact/button';
 import {Toast} from "primereact/toast";
 import { Chips } from 'primereact/chips';
+import { ConfirmPopup, confirmPopup } from 'primereact/confirmpopup';
+import { Dialog } from 'primereact/dialog';
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import UserService from '../../services/httpService/user'
@@ -27,6 +29,7 @@ const ProfilePage = () => {
     const [selectedRole, setSelectedRole] = useState('');
     const [website, setWebsite] = useState('')
     const [organizationLogo, setOrganizationLogo] = useState('')
+    const [invalidImageDialog, setInvalidImageDialog] = useState(false)
 
     const toast = useRef(null);
 
@@ -73,6 +76,8 @@ const ProfilePage = () => {
 
     const uploadFiles = (event)=>{
 
+        console.log(event)
+
         event.files.map(item => {
 
             var data = new FormData();
@@ -84,6 +89,26 @@ const ProfilePage = () => {
                     event.options.clear()
                 })
         })
+    }
+
+    const onValidationFail = (event) => {
+        console.log(event)
+        // confirmPopup({
+        //     target: document.getElementById('upload'),
+        //     message: "The image provided was invalid",
+        //     icon: 'pi pi-info-circle',
+        //     acceptClassName: 'p-button-danger',
+        //     // accept: () => {},
+        //     reject: () => {},
+        // })
+        setInvalidImageDialog(true)
+    }
+
+    const invalidImageDialogFooter = () => {
+        return (
+            <Button label="Ok" onClick={() => setInvalidImageDialog(false)}/>
+        )
+
     }
 
     if (melUserData.first_name !== '') {
@@ -153,8 +178,10 @@ const ProfilePage = () => {
                                 </div>
                                 <InputText id="website" className="input-profile" placeholder={melUserData.organization} disabled/>
                                 <div className="margin-bottom-40 margin-top-55">
+                                    <ConfirmPopup />
                                     <label htmlFor="organization">Upload Organization Logo - Up to 2MB</label>
                                     <FileUpload
+                                        if="upload"
                                         className="upload-organization-logo"
                                         mode="basic"
                                         customUpload
@@ -164,7 +191,13 @@ const ProfilePage = () => {
                                         auto
                                         chooseLabel="Upload Organization Logo"
                                         uploadHandler={(event) => uploadFiles(event)}
+                                        invalidFileSizeMessageSummary="Invalid Size"
+                                        invalidFileSizeMessageDetail="Maximum Size is 2MB"
+                                        onValidationFail={onValidationFail}
                                     />
+                                    <Dialog header="Invalid Image" visible={invalidImageDialog} style={{ width: '50vw' }} footer={invalidImageDialogFooter} onHide={() => setInvalidImageDialog(false)}>
+                                        <p>The image provided exceeded the size restriction</p>
+                                    </Dialog>
                                 </div>
                                 <div className="margin-bottom-40">
                                     <div style={{marginBottom: '10px'}}>

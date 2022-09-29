@@ -62,7 +62,7 @@ const configurationArray = [
                 id: "2.7",
                 type: 'accordion',
                 mandatory: false,
-                label: 'CGIAR Impact Target',
+                label: 'CGIAR Impact Areas and Targets',
                 fieldInformation: '<span> Select relevant 2030 Global Collective Targets CGIAR Impact Areas where the innovation is directly contributing. <br/> <br/>' +
                     'For more reference visit: <br/> <br/>' +
                     '<a href="https://www.cgiar.org/how-we-work/strategy/">https://www.cgiar.org/how-we-work/strategy/</a><br/> <br/>' +

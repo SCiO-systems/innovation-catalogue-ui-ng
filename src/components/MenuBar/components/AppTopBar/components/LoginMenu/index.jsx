@@ -61,6 +61,7 @@ const LoginMenu = (props) => {
     const onClickLogout = () => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem('melUserData')
+        localStorage.setItem("loginStatus", 'logged out')
         setLoggedIn('logged out')
         setUserData({})
         navigate("/");
@@ -193,7 +194,9 @@ const LoginMenu = (props) => {
     return(
         <div className="layout-topbar-grid-column layout-topbar-grid-column-fixed">
             <button type="button" className="p-link profile-menu-button" onClick={onTopbarUserMenuButtonClick}>
-                <img src={`https://mel.cgiar.org/graph/getcimage/width/500/height/500/image/-user-${melUserData.photo}`} alt="Profile" />
+                {melUserData.photo
+                ? <img src={`https://mel.cgiar.org/graph/getcimage/width/500/height/500/image/-user-${melUserData.photo}`} alt="Profile" />
+                : <></>}
             </button>
             <ul className={topbarMenuClassName} onClick={onTopbarUserMenuClick}>
                 <li role="menuitem">

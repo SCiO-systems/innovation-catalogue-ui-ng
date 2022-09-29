@@ -26,6 +26,7 @@ const ManageUsers = () => {
     const [lazyParams, setLazyParams] = useState({
         first: 0,
         rows: 10,
+        sortOrder: -1
     });
     const [userProfileDialog, setUserProfileDialog] = useState(false)
     const [user, setUser] = useState(null)
@@ -37,7 +38,7 @@ const ManageUsers = () => {
     const loadLazyData = () => {
         setLoading(true);
 
-        AdministratorService.getUsersWithPagination(userData.user.userId,lazyParams.first, lazyParams.first + lazyParams.rows -1)
+        AdministratorService.getUsersWithPagination(userData.user.userId,lazyParams.first, lazyParams.first + lazyParams.rows -1,lazyParams.sortOrder === 1 ? 'ascending' : 'descending')
             .then(res => {
                     setTotalRecords(res.total_users);
                     setUsers(res.users);
@@ -48,6 +49,13 @@ const ManageUsers = () => {
     }
 
     const onPage = (event) => {
+        console.log(event)
+        setLazyParams(event);
+    }
+
+
+    const onSort = (event) => {
+        console.log(event);
         setLazyParams(event);
     }
 
@@ -125,7 +133,6 @@ const ManageUsers = () => {
     );
 
     const titleBody = (data) => {
-        console.log(data)
         return (
             <p id='innovation-title' onClick={() => {
                 setUserProfileDialog(true)
@@ -143,15 +150,18 @@ const ManageUsers = () => {
                 <DataTable
                     value={users}
                     paginator
-                    rows={10}
+                    rows={lazyParams.rows}
                     lazy
                     first={lazyParams.first}
                     onPage={onPage}
                     loading={loading}
                     rowsPerPageOptions={[10,20]}
                     totalRecords={totalRecords}
+                    sortOrder={lazyParams.sortOrder}
+                    sortField={lazyParams.sortField}
+                    onSort={onSort}
                 >
-                    <Column field="fullName" body={(data) => (titleBody(data))} header="Name"/>
+                    <Column field="fullName" body={(data) => (titleBody(data))} header="Name" sortable/>
                     <Column field="permissions" body={permissionsTemplate} header="Privileges"/>
                     <Column field="actions" header="Actions" body={actionsTemplate} style={{width: "250px"}}/>
                 </DataTable>

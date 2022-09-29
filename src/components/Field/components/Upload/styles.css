@@ -79,7 +79,7 @@
     margin: 0;
 }
 .uploaded-file a {
-    overflow: scroll;
+    /*overflow: scroll;*/
 }
 .uploaded-file .p-button {
     position: absolute;

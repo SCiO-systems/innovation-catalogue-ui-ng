@@ -118,6 +118,14 @@ const DetailedInnovation = () => {
                 }
                 return ''
             }
+            if (id === '5.4') {
+                if (temp.value) {
+                    if (temp.value.length) {
+                        return temp.value[0].name
+                    }
+                }
+                return ''
+            }
             return temp.value
         } else {
             return ''
@@ -380,8 +388,8 @@ const DetailedInnovation = () => {
                                         <div>{renderField('5.3')}</div>
                                     </div>
                                     <div>
-                                        <p className="display-inline-block margin-top-20 mini-headings-innovation">Patent Know-How Information:</p>
-                                        <a href={renderField('5.5')} target="_blank">Information URL</a>
+                                        <p className="display-inline-block margin-top-20 mini-headings-innovation">Patent Know-How Information: </p>
+                                        <a href={renderField('5.4')} target="_blank"> Information URL</a>
                                     </div>
                                 </TabPanel>
                                 <TabPanel header="Interventions">

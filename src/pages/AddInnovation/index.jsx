@@ -205,7 +205,7 @@ const AddInnovation = () => {
                     <Card className="margin-bottom-80 buttons-card-steps steps-card">
                         <div className="p-grid p-justify-around">
                             <Button icon="fad fa-chevron-left fa-lg" label="Previous" iconPos="left" className="next-step-button" onClick={buttonPrevHandler}></Button>
-                            {step < items.length -1 ? <Button icon="fad fa-chevron-right fa-lg" label="Next" iconPos="right" className="next-step-button" onClick={buttonNextHandler}></Button>:console.log()}
+                            {step < items.length ? <Button icon="fad fa-chevron-right fa-lg" label="Next" iconPos="right" className="next-step-button" onClick={buttonNextHandler}></Button>:console.log()}
                             {viewing ?
                                 (
                                     step === 8 ?

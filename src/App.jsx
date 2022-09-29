@@ -55,14 +55,26 @@ const App = () => {
     const [menuActive, setMenuActive] = useState(false);
 
     useEffect(() => {
+        const loginStatus = localStorage.getItem("loginStatus");
+        switch (loginStatus) {
+            case 'logged in':
+                setLoggedIn('logged in');
+                break;
+            case 'logged out':
+                setLoggedIn('logged out');
+                break;
+            default:
+                setLoggedIn('logged out');
+                break;
+        }
         const token = localStorage.getItem("accessToken");
         if (token) {
             setAccessToken(token)
         }
-        const data = localStorage.getItem("melUserData");
-        if (data) {
-            setMelUserData(JSON.parse(data))
-        }
+        // const data = localStorage.getItem("melUserData");
+        // if (data) {
+        //     setMelUserData(JSON.parse(data))
+        // }
     }, [])
 
     useEffect(
@@ -70,16 +82,21 @@ const App = () => {
                  if (accessToken) {
                     MelService.getMelUserData(accessToken)
                         .then(res => {
-                            if (res === 'Access Token has expired') {
-                                localStorage.removeItem("accessToken");
-                                localStorage.removeItem("melUserData");
-                                setLoggedIn('logged out')
-                                setMelUserData({})
-                                setAccessToken('')
-                            } else {
+                            if (res.first_name) {
+                                console.log(res)
                                 setMelUserData(res)
                                 localStorage.setItem("melUserData",JSON.stringify(res));
+                            } else {
+                                localStorage.removeItem("accessToken");
+                                localStorage.removeItem("melUserData");
+                                localStorage.setItem("loginStatus", 'logged out')
+                                setLoggedIn('logged out')
+                                setMelUserData({})
+                                setAccessToken(null)
                             }
+                            // if (res === 'Access Token has expired') {
+                            //
+                            // }
                         })
                         .catch(err => console.log(err))
                 }
@@ -92,6 +109,7 @@ const App = () => {
                 UserService.getUserData(melUserData.profile_id)
                         .then(res => {
                             if (res.user) {
+                                localStorage.setItem("loginStatus", 'logged in')
                                 setLoggedIn('logged in')
                                 setUserData(res)
                                 ClarisaService.getClarisaResults()

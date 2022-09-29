@@ -3,7 +3,7 @@ import {Actions} from './actions'
 const initState = {
     currentPage: '',
     loggedIn: 'logged out',
-    accessToken: '',
+    accessToken: null,
     melUserData: {},
     userData: {},
     viewing: false,

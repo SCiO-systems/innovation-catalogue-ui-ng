@@ -7,7 +7,7 @@ const configurationArray = [
                 type: 'list',
                 mandatory: false,
                 minWords: 1,
-                maxWords: 10,
+                maxWords: 1,
                 label: 'Technology Development Stage',
                 fieldInformation: '<span> Please add the stage the innovation has completed at the point of reporting. The terminology used nuances further the different stages of the innovation development process and journey used in One CGIAR. Note that it is not required that all innovations pass through all stages to be reported on, nor is it necessary for an innovation to start at stage 1. Please find below a scheme showing the equivalence with the 4 stages established in One CGIAR with the new terminology used here:<br/> <br/>' +
                     '<b>TRL 1</b> – Basic principles observed (stage 1)<br/> <br/>' +

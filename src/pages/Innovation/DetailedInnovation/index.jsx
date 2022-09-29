@@ -41,6 +41,13 @@ const DetailedInnovation = () => {
     const innovationService = new InnovationService()
     let location = useLocation();
 
+    const assignImageSource = (source) => {
+        if (source.includes("http")) {
+            return source
+        }
+        return `${process.env.REACT_APP_RELAY_URL}/static/${source}`
+    }
+
     useEffect(() =>{
         const innovation_id = location.pathname.split("/")[2];
         resultService.getInnovation(innovation_id).then(data =>{
@@ -178,7 +185,7 @@ const DetailedInnovation = () => {
     }
 
     const itemTemplate2 = (item) => {
-        return <img src={item} alt={item.alt} className="img-width" style={{display: 'block' }} />;
+        return <img src={assignImageSource(item)} alt={item.alt} className="img-width" style={{display: 'block' }} />;
     }
 
     const exportPDF = () =>{
@@ -303,7 +310,7 @@ const DetailedInnovation = () => {
                                     </div>
                                     <div>
                                         <p className="display-inline-block margin-top-20 mini-headings-innovation">Technology Appraisal Image:</p>
-                                        <div><img src={innovation.technology_appraisal_image} width={400}/></div>
+                                        <div><img src={assignImageSource(innovation.technology_appraisal_image)} width={400}/></div>
                                     </div>
                                     <div>
                                         <p className="display-inline-block margin-top-20 mini-headings-innovation">Documentation available upon request to potential investors:</p>
@@ -482,7 +489,7 @@ const DetailedInnovation = () => {
                         <Card className="margin-bottom-40 ">
                             <h2 className="innovation-heading">Image of the Innovation</h2>
                             <center>
-                                <img src={innovation.image_of_the_innovation} className="img-width"/>
+                                <img src={assignImageSource(innovation.image_of_the_innovation)} className="img-width"/>
                             </center>
 
                         </Card>
@@ -528,7 +535,7 @@ const DetailedInnovation = () => {
                                         </strong>
                                     </div>
                                     <div className="margin-top-20 company-submitter-innovation">
-                                        <div className="display-inline"><i className="margin-right-7" /><img src={innovation.innovation_submitter.organizational_logo} width={70}/> </div>
+                                        <div className="display-inline"><i className="margin-right-7" /><img src={assignImageSource(innovation.innovation_submitter.organizational_logo)} width={70}/> </div>
                                         <div className="company-name-submitter-innovation margin-left-20 display-inline ">
                                             <strong><span style={{color:"#56323d"}}>{innovation.innovation_submitter.company}</span></strong>
                                         </div>

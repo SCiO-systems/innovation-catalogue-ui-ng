@@ -7,6 +7,21 @@
 
 /*...general styles...*/
 
+.p-component, .p-link, .p-dropdown-label, label{
+    font-family: Montserrat;
+}
+
+.p-component a {
+    font-family: Montserrat;
+}
+
+p {
+    font-family: Montserrat;
+}
+h1,h2,h3,h4,h5 {
+    font-family: Lato;
+}
+
 body{
     max-width: 100%;
     overflow-x: hidden;
