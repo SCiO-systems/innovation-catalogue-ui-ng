@@ -57,11 +57,12 @@ class AdministratorService {
         return result.data
     }
 
-    getUsersWithPagination = async ( id,offset,limit) => {
+    getUsersWithPagination = async ( id,offset,limit, order) => {
         const result = await http.post(`/api/admin/users/dataPaginated`, {
             user_id: id,
             offset: offset,
-            limit: limit
+            limit: limit,
+            order: order,
         })
         return result.data
     }

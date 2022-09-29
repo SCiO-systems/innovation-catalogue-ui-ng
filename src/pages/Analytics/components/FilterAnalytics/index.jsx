@@ -279,8 +279,10 @@ const FilterAnalytics = (props) => {
 
     const filterRegionsValues = (filterArray) => {
         let sortedArray = filterArray.sort((a,b) => (a.value > b.value)? -1 : 1);
+        sortedArray.reverse()
         return sortedArray.map(e => {
             let entry = e.value +  " (" + e.freq + ")";
+            entry = entry.charAt(0).toUpperCase() + entry.slice(1)
             return  {value: entry, label: entry};
         });
     }

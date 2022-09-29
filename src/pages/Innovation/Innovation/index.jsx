@@ -32,6 +32,7 @@ const Innovation = () => {
     useEffect(() => {
 
         if(innovation) {
+            console.log(innovation.image_of_the_innovation)
             let selectedRole = localStorage.getItem("selectedRole");
             if (selectedRole) {
                 if (selectedRole === "donor") {
@@ -76,8 +77,15 @@ const Innovation = () => {
 
     }, [innovation, governanceValues, budgetValues, innPartnersValues, scalingPartnersValues, demandPartnersValues]);
 
+    const assignImageSource = (source) => {
+        if (source.includes("http")) {
+            return source
+        }
+        return `${process.env.REACT_APP_RELAY_URL}/static/${source}`
+    }
+
     const itemTemplate2 = (item) => {
-        return <img src={item} alt={item.alt} style={{display: 'block' }} className="img-width"/>;
+        return <img src={assignImageSource(item)} alt={item.alt} style={{display: 'block' }} className="img-width"/>;
     }
 
     const moveToDetailedView = () =>{
@@ -112,7 +120,7 @@ const Innovation = () => {
                                     </strong>
                                 </div>
                                 <div className="margin-top-20 company-submitter-innovation">
-                                    <div className="display-inline"><i className="margin-right-7" /><img src={innovation.innovation_submitter.organizational_logo} width={70}/> </div>
+                                    <div className="display-inline"><i className="margin-right-7" /><img src={assignImageSource(innovation.innovation_submitter.organizational_logo)} width={70}/> </div>
                                     <div className="company-name-submitter-innovation margin-left-20 display-inline ">
                                         <strong><span style={{color:"#56323d"}}>{innovation.innovation_submitter.company}</span></strong>
                                     </div>
@@ -282,7 +290,7 @@ const Innovation = () => {
                                     </strong>
                                 </div>
                                 <div className="margin-top-20 company-submitter-innovation">
-                                    <div className="display-inline"><i className="margin-right-7" /><img src={innovation.innovation_submitter.organizational_logo} width={70}/> </div>
+                                    <div className="display-inline"><i className="margin-right-7" /><img src={assignImageSource(innovation.innovation_submitter.organizational_logo)} width={70}/> </div>
                                     <div className="company-name-submitter-innovation margin-left-20 display-inline ">
                                         <strong><span style={{color:"#56323d"}}>{innovation.innovation_submitter.company}</span></strong>
                                     </div>
@@ -441,7 +449,7 @@ const Innovation = () => {
                                     </strong>
                                 </div>
                                 <div className="margin-top-20 company-submitter-innovation">
-                                    <div className="display-inline"><i className="margin-right-7" /><img src={innovation.innovation_submitter.organizational_logo} width={70}/> </div>
+                                    <div className="display-inline"><i className="margin-right-7" /><img src={assignImageSource(innovation.innovation_submitter.organizational_logo)} width={70}/> </div>
                                     <div className="company-name-submitter-innovation margin-left-20 display-inline ">
                                         <strong><span style={{color:"#56323d"}}>{innovation.innovation_submitter.company}</span></strong>
                                     </div>
@@ -592,7 +600,7 @@ const Innovation = () => {
                     <Card className="margin-bottom-40">
                         <h2 className="innovation-heading">Image of the Innovation</h2>
                         <center>
-                            <img src={innovation.image_of_the_innovation} className="img-width"/>
+                            <img src={assignImageSource(innovation.image_of_the_innovation)} className="img-width"/>
                         </center>
                     </Card>
                 </div>
@@ -627,7 +635,7 @@ const Innovation = () => {
                                     </strong>
                                 </div>
                                 <div className="margin-top-20 company-submitter-innovation">
-                                    <div className="display-inline"><i className="margin-right-7" /><img src={innovation.innovation_submitter.organizational_logo} width={70}/> </div>
+                                    <div className="display-inline"><i className="margin-right-7" /><img src={assignImageSource(innovation.innovation_submitter.organizational_logo)} width={70}/> </div>
                                     <div className="company-name-submitter-innovation margin-left-20 display-inline ">
                                         <strong><span style={{color:"#56323d"}}>{innovation.innovation_submitter.company}</span></strong>
                                     </div>
@@ -722,7 +730,7 @@ const Innovation = () => {
                         <Card className="margin-bottom-40">
                             <h2 className="innovation-heading">Image of the Innovation</h2>
                             <center>
-                                <img src={innovation.image_of_the_innovation} className="img-width"/>
+                                <img src={assignImageSource(innovation.image_of_the_innovation)} className="img-width"/>
                             </center>
                         </Card>
                     </div>
@@ -773,7 +781,7 @@ const Innovation = () => {
                                     </strong>
                                 </div>
                                 <div className="margin-top-20 company-submitter-innovation">
-                                    <div className="display-inline"><i className="margin-right-7" /><img src={innovation.innovation_submitter.organizational_logo} width={70}/> </div>
+                                    <div className="display-inline"><i className="margin-right-7" /><img src={assignImageSource(innovation.innovation_submitter.organizational_logo)} width={70}/> </div>
                                     <div className="company-name-submitter-innovation margin-left-20 display-inline ">
                                         <strong><span style={{color:"#56323d"}}>{innovation.innovation_submitter.company}</span></strong>
                                     </div>
@@ -918,7 +926,7 @@ const Innovation = () => {
                                     </strong>
                                 </div>
                                 <div className="margin-top-20 company-submitter-innovation">
-                                    <div className="display-inline"><i className="margin-right-7" /><img src={innovation.innovation_submitter.organizational_logo} width={70}/> </div>
+                                    <div className="display-inline"><i className="margin-right-7" /><img src={assignImageSource(innovation.innovation_submitter.organizational_logo)} width={70}/> </div>
                                     <div className="company-name-submitter-innovation margin-left-20 display-inline ">
                                         <strong><span style={{color:"#56323d"}}>{innovation.innovation_submitter.company}</span></strong>
                                     </div>
@@ -1011,7 +1019,7 @@ const Innovation = () => {
                                     </strong>
                                 </div>
                                 <div className="margin-top-20 company-submitter-innovation">
-                                    <div className="display-inline"><i className="margin-right-7" /><img src={innovation.innovation_submitter.organizational_logo} width={70}/> </div>
+                                    <div className="display-inline"><i className="margin-right-7" /><img src={assignImageSource(innovation.innovation_submitter.organizational_logo)} width={70}/> </div>
                                     <div className="company-name-submitter-innovation margin-left-20 display-inline ">
                                         <strong><span style={{color:"#56323d"}}>{innovation.innovation_submitter.company}</span></strong>
                                     </div>
@@ -1147,7 +1155,7 @@ const Innovation = () => {
                     <Card className="margin-bottom-40">
                         <h2 className="innovation-heading">Image of the Innovation</h2>
                         <center>
-                            <img src={innovation.image_of_the_innovation} className="img-width"/>
+                            <img src={assignImageSource(innovation.image_of_the_innovation)} className="img-width"/>
                         </center>
                     </Card>
                 </div>
