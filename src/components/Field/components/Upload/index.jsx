@@ -177,7 +177,9 @@ const Upload = (props) => {
                         accept={configuration.files ? '*' : "image/*"}
                         maxFileSize={1000000}
                         auto
-                        chooseLabel={configuration.files ? "Upload File" : "Upload Image"} />
+                        chooseLabel={configuration.files ? "Upload File" : "Upload Image"}
+                        // withCredentials={true}
+                    />
                 </span>
                 <span className="p-inputgroup-addon" id='question' onClick={() => setDisplayDialog(true)}><i className="fad fa-question"/></span>
             </div>

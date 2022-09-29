@@ -24,10 +24,11 @@ const CalendarInput = (props) => {
 
     useEffect(
         () => {
+            console.log(stepValues, configuration.id)
             if (presetValue !== '') {
                 setValue(parseDate(presetValue))
             }
-        }, [presetValue]
+        }, []
     )
 
     useEffect(
@@ -44,8 +45,9 @@ const CalendarInput = (props) => {
 
     useEffect(
         () => {
-            if (stepValues.length === 0) return
-            if (!(value instanceof Date)) return
+            if (stepValues.length === 0) return;
+            if (!(value instanceof Date)) return;
+            if (!valid) return;
             const _values = stepValues
             const index = _values.indexOf(_values.find(item => item.id === configuration.id))
             const validValue = stepValues.find(item => item.id === configuration.id).valid
@@ -56,18 +58,10 @@ const CalendarInput = (props) => {
                 mandatory: configuration.mandatory,
                 valid: validValue,
             })
-            stepSetValues(_values)
+            stepSetValues([..._values])
             window.localStorage.setItem(keyName, JSON.stringify(_values))
         }, [value,valid]
     )
-
-    const renderQuesitonFooter = () => {
-        return (
-            <div>
-                <Button label="Ok" icon="pi pi-check" onClick={() => setDisplayDialog(false)} autoFocus />
-            </div>
-        );
-    }
 
     useEffect(
         () => {
@@ -81,12 +75,50 @@ const CalendarInput = (props) => {
         }, [value]
     )
 
+    const renderQuesitonFooter = () => {
+        return (
+            <div>
+                <Button label="Ok" icon="pi pi-check" onClick={() => setDisplayDialog(false)} autoFocus />
+            </div>
+        );
+    }
+
+    const minDate = () => {
+        if (configuration.id === '3.3') {
+            const temp = stepValues.find(item => item.id === '3.2');
+            if (temp) {
+                return parseDate(temp.value)
+            }
+        }
+        return null;
+    }
+
+    const maxDate = () => {
+        if (configuration.id === '3.2') {
+            const temp = stepValues.find(item => item.id === '3.3');
+            if (temp) {
+                return parseDate(temp.value)
+            }
+        }
+        return null;
+    }
+
     return (
         <div className="field">
             <Tooltip target=".status"  position="top"/>
             <div className="p-inputgroup calendar">
                 <span className="p-float-label">
-                <Calendar className={((valid !== 'valid') && configuration.mandatory) ? "p-invalid p-d-block" : "p-d-block"} disabled={configuration.disabled || viewing}  selectionMode={configuration.selectionMode} id="icon" value={value} onChange={(e) => setValue(e.value)} showIcon />
+                <Calendar
+                    className={((valid !== 'valid') && configuration.mandatory) ? "p-invalid p-d-block" : "p-d-block"}
+                    disabled={configuration.disabled || viewing}
+                    selectionMode={configuration.selectionMode}
+                    id="icon"
+                    value={value}
+                    onChange={(e) => setValue(e.value)}
+                    showIcon
+                    minDate={minDate()}
+                    maxDate={maxDate()}
+                />
             </span>
                 <span className="p-inputgroup-addon" id='question' onClick={() => setDisplayDialog(true)}><i className="fad fa-question"/></span>
             </div>

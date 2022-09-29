@@ -337,7 +337,7 @@ const MyInnovations = () => {
             </Dialog>
             <Dialog visible={approveDialog} style={{ width: '450px' }} header="Confirm" modal footer={approveDialogFooter} onHide={() => setApproveDialog(false)}>
                 <div className="confirmation-content">
-                    <span className='manage-users-dialog-info'>Are you sure you want to approve the <b>Innovation</b>?</span>
+                    <p className='manage-users-dialog-info'>Are you sure you want to approve the <> Innovation</>?</p>
                 </div>
             </Dialog>
             <Dialog visible={viewCommentsDialog} style={{ width: '450px' }} header="Comments" modal footer={viewCommentsFooter} onHide={() => setViewCommentsDialog(false)}>
