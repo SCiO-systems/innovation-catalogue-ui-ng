@@ -4,11 +4,33 @@ import {Pie, BarChart, MapChart, CloudWord, RegionsMapChart} from './components'
 
 const ChartsAnalytics = (props) =>{
 
+    const {filterRegions, filterCountries, result} = props
+
     const [chartResults, setChartResults] = useState(null);
     const [charts, setCharts] = useState(null);
-    const [codes, setCodes] = useState(null);
 
+    const [regions, setRegions] = useState([])
+    const [countries, setCountries] = useState([])
 
+    useEffect(
+        () => {
+            if (result?.summaries?.regionsAnalytics && filterRegions.length) {
+                let temp = [...result.summaries.regionsAnalytics]
+                temp = temp.filter(item => item.name === filterRegions.find(region => item.name === region))
+                setRegions([...temp])
+            }
+        },[filterRegions]
+    )
+
+    useEffect(
+        () => {
+            if (result?.summaries?.Countries && filterCountries.length) {
+                let temp = [...result?.summaries?.Countries]
+                temp = temp.filter(item => item.value === filterCountries.find(country => item.value === country))
+                setCountries([...temp])
+            }
+        },[filterCountries]
+    )
 
     useEffect(() => {
         if(props.charts && !chartResults){
@@ -71,7 +93,7 @@ const ChartsAnalytics = (props) =>{
 
             setChartResults({...data});
         }
-
+        console.log(countries)
         if(chartResults){
 
             let selectedRole = localStorage.getItem("selectedRole");
@@ -87,20 +109,12 @@ const ChartsAnalytics = (props) =>{
                 }else if(selectedRole === "user") {
                     setCharts(userCharts);
                 }
-
-                let _codes = [...chartResults.Countries].map(obj => {return {id: obj.code,value: obj.freq}})
-
-                setCodes([..._codes]);
             }
 
             setChartResults(chartResults)
-
-        }else{
-            let _codes = [...props.charts.Countries].map(obj => {return {id: obj.code,value: obj.freq}});
-            setCodes([..._codes]);
         }
 
-    }, [props.charts,chartResults]);
+    }, [props.charts,chartResults,regions,countries]);
 
     //...Donor and Project Manager Displaying Charts Function...
 
@@ -133,13 +147,13 @@ const ChartsAnalytics = (props) =>{
                     <Card className="margin-right card-chart">
                         <h4 className="analytics-h4">Regions of Implementation</h4>
                         {/*<BarChart barData={chartResults.Regions} chartId="bar-chart1" ></BarChart>*/}
-                        <RegionsMapChart regionMapData={props.charts.regionsAnalytics} mapId="regions-map"></RegionsMapChart>
+                        <RegionsMapChart result={result} regions={regions} filterRegions={filterRegions} mapId="regions-map"></RegionsMapChart>
                     </Card>
                 </div>
                 <div className="p-col-6 margin-top-40 responsive-chart-100-width">
                     <Card>
                         <h4 className="analytics-h4">Countries of Implementation</h4>
-                        <MapChart mapData={codes} mapId="map-id1"></MapChart>
+                        <MapChart mapData={countries} mapId="map-id1"></MapChart>
                     </Card>
                 </div>
                 <div className="p-col-12 margin-top-40">
@@ -228,13 +242,13 @@ const ChartsAnalytics = (props) =>{
                 <div className="p-col-6 margin-top-40 responsive-chart-100-width">
                     <Card className="margin-right card-chart">
                         <h4 className="analytics-h4">Regions of Implementation</h4>
-                        <RegionsMapChart regionMapData={props.charts.regionsAnalytics} mapId="regions-map1"></RegionsMapChart>
+                        <RegionsMapChart result={result} regions={regions} filterRegions={filterRegions}  mapId="regions-map1"></RegionsMapChart>
                     </Card>
                 </div>
                 <div className="p-col-6 margin-top-40 responsive-chart-100-width">
                     <Card>
                         <h4 className="analytics-h4">Countries of Implementation</h4>
-                        <MapChart mapData={codes} mapId="map-id2"></MapChart>
+                        <MapChart mapData={countries} mapId="map-id2"></MapChart>
                     </Card>
                 </div>
                 <div className="p-col-12 margin-top-40">
@@ -334,13 +348,13 @@ const ChartsAnalytics = (props) =>{
                 <div className="p-col-6 margin-top-40 responsive-chart-100-width">
                     <Card className="margin-right card-chart">
                         <h4 className="analytics-h4">Regions of Implementation</h4>
-                        <RegionsMapChart regionMapData={props.charts.regionsAnalytics} mapId="regions-map2"></RegionsMapChart>
+                        <RegionsMapChart result={result} regions={regions} filterRegions={filterRegions}  mapId="regions-map2"></RegionsMapChart>
                     </Card>
                 </div>
                 <div className="p-col-6 margin-top-40 responsive-chart-100-width">
                     <Card>
                         <h4 className="analytics-h4">Countries of Implementation</h4>
-                        <MapChart mapData={codes} mapId="map-id3"></MapChart>
+                        <MapChart mapData={countries} mapId="map-id3"></MapChart>
                     </Card>
                 </div>
                 <div className="p-col-12 margin-top-40">
@@ -408,14 +422,14 @@ const ChartsAnalytics = (props) =>{
                 <div className="p-col-6 margin-top-40 responsive-chart-100-width">
                     <Card className="margin-right card-chart">
                         <h4 className="analytics-h4">Regions of Implementation</h4>
-                        <RegionsMapChart regionMapData={props.charts.regionsAnalytics} mapId="regions-map3"></RegionsMapChart>
+                        <RegionsMapChart result={result} regions={regions} filterRegions={filterRegions}  mapId="regions-map3"></RegionsMapChart>
                     </Card>
 
                 </div>
                 <div className="p-col-6 margin-top-40 responsive-chart-100-width">
                     <Card>
                         <h4 className="analytics-h4">Countries of Implementation</h4>
-                        <MapChart mapData={codes} mapId="map-id4"></MapChart>
+                        <MapChart mapData={countries} mapId="map-id4"></MapChart>
                     </Card>
                 </div>
                 <div className="p-col-12 margin-top-40">
@@ -484,13 +498,13 @@ const ChartsAnalytics = (props) =>{
                 <div className="p-col-6 margin-top-40 responsive-chart-100-width">
                     <Card  className="margin-right card-chart">
                         <h4 className="analytics-h4">Regions of Implementation</h4>
-                        <RegionsMapChart regionMapData={props.charts.regionsAnalytics} mapId="regions-map4"></RegionsMapChart>
+                        <RegionsMapChart result={result} regions={regions} filterRegions={filterRegions}  mapId="regions-map4"></RegionsMapChart>
                     </Card>
                 </div>
                 <div className="p-col-6 margin-top-40 responsive-chart-100-width">
                     <Card>
                         <h4 className="analytics-h4">Countries of Implementation</h4>
-                        <MapChart mapData={codes} mapId="map-id5"></MapChart>
+                        <MapChart mapData={countries} mapId="map-id5"></MapChart>
                     </Card>
                 </div>
                 <div className="p-col-12 margin-top-40">

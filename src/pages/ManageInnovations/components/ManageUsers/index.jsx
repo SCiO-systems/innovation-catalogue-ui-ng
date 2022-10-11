@@ -5,6 +5,7 @@ import {Dialog} from "primereact/dialog";
 import { Chips } from 'primereact/chips';
 import { Chip } from 'primereact/chip';
 import { Ripple } from 'primereact/ripple';
+import { InputText } from 'primereact/inputtext';
 import {SelectedUserProfile} from './components'
 import AdministratorService from '../../../../services/httpService/admin'
 import {useSelector} from "react-redux";
@@ -30,15 +31,21 @@ const ManageUsers = () => {
     });
     const [userProfileDialog, setUserProfileDialog] = useState(false)
     const [user, setUser] = useState(null)
+    const [filter, setFilter] = useState('')
+    const [searchPressed, setSearchPressed] = useState('')
 
     useEffect(() => {
-        loadLazyData();
-    },[lazyParams,resfreshTrigger])
+        if (filter.length >= 4) {
+            loadLazyData(searchPressed);
+        } else {
+            loadLazyData('');
+        }
+    },[lazyParams,resfreshTrigger, searchPressed])
 
-    const loadLazyData = () => {
+    const loadLazyData = (filter) => {
         setLoading(true);
 
-        AdministratorService.getUsersWithPagination(userData.user.userId,lazyParams.first, lazyParams.first + lazyParams.rows -1,lazyParams.sortOrder === 1 ? 'ascending' : 'descending')
+        AdministratorService.getUsersWithPagination(userData.user.userId,lazyParams.first, lazyParams.first + lazyParams.rows -1,lazyParams.sortOrder === 1 ? 'ascending' : 'descending', filter)
             .then(res => {
                     setTotalRecords(res.total_users);
                     setUsers(res.users);
@@ -141,6 +148,31 @@ const ManageUsers = () => {
         )
     }
 
+    const headerTemplate = () => {
+        console.log()
+        return (
+            <div className="manage-users-header">
+                <div className="field">
+                    <InputText
+                        id="username2"
+                        aria-describedby="username2-help"
+                        className={(filter.length < 4) && (filter.length) ? "p-invalid block" : ""}
+                        value={filter}
+                        onChange={(e) => setFilter(e.target.value)}
+                        placeholder="Search a User"
+                    />
+                </div>
+                <Button label="Search" onClick={() => {
+                    if (filter.length >= 4) {
+                        setSearchPressed(filter)
+                    } else {
+                        setSearchPressed('')
+                    }
+                }}/>
+            </div>
+        )
+    }
+
     return (
         <div className='my-innovations-table'>
             <div className="peach-background-container">
@@ -160,6 +192,7 @@ const ManageUsers = () => {
                     sortOrder={lazyParams.sortOrder}
                     sortField={lazyParams.sortField}
                     onSort={onSort}
+                    header={headerTemplate}
                 >
                     <Column field="fullName" body={(data) => (titleBody(data))} header="Name" sortable/>
                     <Column field="permissions" body={permissionsTemplate} header="Privileges"/>

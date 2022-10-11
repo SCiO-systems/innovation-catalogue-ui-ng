@@ -274,8 +274,10 @@ const DetailedInnovation = () => {
         if (temp) {
             if (results.length) {
                 const countries = results.find(item => item.header === 'clarisa_countries')
-                if (countries instanceof Array) {
-                    x = countries.value?.filter(item => item.value === temp.value?.find(country => country === item.value))
+                if (countries) {
+                    if (countries.value instanceof Array) {
+                        x = countries.value?.filter(item => item.value === temp.value?.find(country => country === item.value))
+                    }
                 }
                 return x
             } else return []
@@ -616,19 +618,19 @@ const DetailedInnovation = () => {
                         </Card>
                         <Card className="margin-bottom-40">
                             <h2 className="innovation-heading">Locations of Applied Evidence</h2>
-                            <PreviewMapChart mapData={countryData('3.4')} mapId="map1-innovation"/>
+                            <PreviewMapChart results={results} mapData={countryData('3.4')} mapId="map1-innovation"/>
                         </Card>
                         <Card className="margin-bottom-40">
                             <h2 className="innovation-heading">Locations of Implementation</h2>
-                            <PreviewMapChart mapData={countryData('3.1')} mapId="map2-innovation"></PreviewMapChart>
+                            <PreviewMapChart results={results} mapData={countryData('3.1')} mapId="map2-innovation"></PreviewMapChart>
                         </Card>
                         <Card className="margin-bottom-40">
                             <h2 className="innovation-heading">Locations of Experimental Evidence</h2>
-                            <PreviewMapChart mapData={countryData('3.5')} mapId="map3-innovation"></PreviewMapChart>
+                            <PreviewMapChart results={results} mapData={countryData('3.5')} mapId="map3-innovation"></PreviewMapChart>
                         </Card>
                         <Card className="margin-bottom-40">
                             <h2 className="innovation-heading">Locations of Impact/Profit Evidence</h2>
-                            <PreviewMapChart mapData={countryData('3.6')} mapId="map4-innovation"></PreviewMapChart>
+                            <PreviewMapChart results={results} mapData={countryData('3.6')} mapId="map4-innovation"></PreviewMapChart>
                         </Card>
                     </div>
                 </div>

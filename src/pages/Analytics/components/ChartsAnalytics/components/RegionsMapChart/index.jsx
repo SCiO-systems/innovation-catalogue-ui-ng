@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useState,useEffect} from "react";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4maps from "@amcharts/amcharts4/maps";
 import am4geodata_unRegionsHigh from "@amcharts/amcharts4-geodata/unRegionsHigh";
@@ -6,57 +6,64 @@ import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
 const RegionsMapChart = (props) => {
 
-    useEffect(() => {
+    const {regions} = props
 
+    const [sanityData, setSanityData] = useState([])
+
+    useEffect(
+        () => {
+            const temp = regions.map(
+                (item)=>{
+                    let obj = {
+                        name:item.name,
+                        value:item.value
+                    }
+
+                    if(item.id === "easternAfrica"){
+                        obj.id = "eastAfrica";
+                        return  obj;
+                    }else if(item.id === "westernAfrica"){
+                        obj.id = "westAfrica";
+                        return  obj;
+                    }else if(item.id === "southernAsia"){
+                        obj.id = "southAsia";
+                        return  obj;
+                    }else if(item.id === "southernAsia"){
+                        obj.id = "southAsia";
+                        return  obj;
+                    }else if(item.id === "south-EasternAsia"){
+                        obj.id = "southeastAsia";
+                        return  obj;
+                    }else if(item.id === "easternAsia"){
+                        obj.id = "eastAsia";
+                        return  obj;
+                    }else if(item.id === "easternEurope"){
+                        obj.id = "eastEurope";
+                        return  obj;
+                    }else if(item.id === "northernAfrica"){
+                        obj.id = "northAfrica";
+                        return  obj;
+                    }else if(item.id === "westernAsia"){
+                        obj.id = "westAsia";
+                        return  obj;
+                    }else if(item.id === "westernEurope"){
+                        obj.id = "westEurope";
+                        return  obj;
+                    }else{
+                        obj.id = item.id;
+                        return obj;
+                    }
+
+                }
+            )
+            setSanityData([...temp])
+        },[regions]
+    )
+
+    useEffect(() => {
         am4core.useTheme(am4themes_animated);
         let chart = am4core.create(props.mapId, am4maps.MapChart);
 
-        let data = props.regionMapData;
-
-        let sanityData = data.map(
-            (item)=>{
-                let obj = {
-                    name:item.name,
-                    value:item.value
-                }
-
-                if(item.id === "easternAfrica"){
-                    obj.id = "eastAfrica";
-                    return  obj;
-                }else if(item.id === "westernAfrica"){
-                    obj.id = "westAfrica";
-                    return  obj;
-                }else if(item.id === "southernAsia"){
-                    obj.id = "southAsia";
-                    return  obj;
-                }else if(item.id === "southernAsia"){
-                    obj.id = "southAsia";
-                    return  obj;
-                }else if(item.id === "south-EasternAsia"){
-                    obj.id = "southeastAsia";
-                    return  obj;
-                }else if(item.id === "easternAsia"){
-                    obj.id = "eastAsia";
-                    return  obj;
-                }else if(item.id === "easternEurope"){
-                    obj.id = "eastEurope";
-                    return  obj;
-                }else if(item.id === "northernAfrica"){
-                    obj.id = "northAfrica";
-                    return  obj;
-                }else if(item.id === "westernAsia"){
-                    obj.id = "westAsia";
-                    return  obj;
-                }else if(item.id === "westernEurope"){
-                    obj.id = "westEurope";
-                    return  obj;
-                }else{
-                    obj.id = item.id;
-                    return obj;
-                }
-
-            }
-        )
         chart.geodata = am4geodata_unRegionsHigh
 
         chart.projection = new am4maps.projections.Miller();
@@ -102,7 +109,9 @@ const RegionsMapChart = (props) => {
         let hs = polygonTemplate.states.create("hover");
         hs.properties.fill = am4core.color("#3c5bdc");
 
-    }, [props.regionMapData]);
+        return () => chart.dispose()
+
+    }, [sanityData]);
 
     return (
         <>

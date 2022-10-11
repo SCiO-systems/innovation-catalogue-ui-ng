@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useState,useEffect} from "react";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4maps from "@amcharts/amcharts4/maps";
 import am4geodata_worldHigh from "@amcharts/amcharts4-geodata/worldHigh";
@@ -7,8 +7,20 @@ import am4geodata_unRegionsHigh from "@amcharts/amcharts4-geodata/unRegionsHigh"
 
 const MapChart = (props) => {
 
-    useEffect(() => {
+    const {mapData} = props
 
+    const [finalData, setFinalData] = useState([])
+
+    useEffect(
+        () => {
+            let temp = [...mapData]
+            temp = temp.map(obj => {return {id: obj.code,value: obj.freq}})
+            setFinalData([...temp])
+        },[mapData]
+    )
+
+    useEffect(() => {
+        console.log(finalData)
         am4core.useTheme(am4themes_animated);
         let chart = am4core.create(props.mapId, am4maps.MapChart);
         chart.geodata = am4geodata_worldHigh;
@@ -19,7 +31,7 @@ const MapChart = (props) => {
 
         polygonSeries.useGeodata = true;
 
-        polygonSeries.data = props.mapData;
+        polygonSeries.data = [...finalData];
 
         let polygonTemplate = polygonSeries.mapPolygons.template;
         polygonTemplate.tooltipText = "";
@@ -32,8 +44,8 @@ const MapChart = (props) => {
         let north, south, west, east;
 
         chart.events.on("ready", function(ev) {
-            if(props.mapData){
-                props.mapData.forEach(
+            if(finalData){
+                finalData.forEach(
                     (item)=>{
                         if(!item.madeFromGeoData){
                             let country = polygonSeries.getPolygonById(item.id)
@@ -95,9 +107,9 @@ const MapChart = (props) => {
         homeButton.parent = chart.zoomControl;
         homeButton.insertBefore(chart.zoomControl.plusButton);
 
+        return () => chart.dispose()
 
-
-    }, [props.mapData]);
+    }, [finalData]);
 
     return (
         <>
