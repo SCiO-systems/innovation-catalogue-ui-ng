@@ -8,6 +8,29 @@
     border: 0px;
 }
 
+.manage-users-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.manage-users-header .p-button {
+    background-color: #ffd398a6;
+    color: black;
+}
+
+.manage-users-header .p-button:hover, .manage-users-header .p-button:focus {
+    background-color: rgba(255, 211, 152, 0.54);
+    color: rgba(0, 0, 0, 0.84);
+}
+
+.manage-users-header .field {
+    display: flex;
+    flex-direction: column;
+}
+
 .p-chip {
     background-color: #ffd398;
     border-radius: 4px;

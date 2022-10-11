@@ -253,7 +253,7 @@ const Search = () => {
                 <SearchBar queryJson={queryJson} callback={handleChange}></SearchBar>
                 <div className="p-grid p-justify-center search-results-padding">
                     <div className="p-col-fixed margin-right margin-bottom-20 sidebar-filters-width">
-                        <Filters queryJson={queryJson} callback={handleChange} filters={results.summaries} query={query.query}></Filters>
+                        {results.summaries ? <Filters queryJson={queryJson} callback={handleChange} filters={results.summaries} query={query.query}></Filters> : null}
                     </div>
                     <div className="p-col results-innovations-width">
                         <div className="dataview-demo">

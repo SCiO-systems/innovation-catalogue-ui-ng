@@ -61,6 +61,8 @@ const Pie = (props) => {
         chart.legend = new am4charts.Legend();
         chart.legend.valueLabels.template.text = "{value.value}";
 
+        return () => chart.dispose()
+
     }, [props.pieData]);
 
     return(

@@ -208,6 +208,8 @@ const BarChart = (props) => {
         chart.zoomOutButton.disabled = true;
         //----------------
 
+        return () => chart.dispose()
+
     }, [props.chartData]);
 
 

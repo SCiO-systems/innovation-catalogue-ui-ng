@@ -31,6 +31,8 @@ import cgiar8 from "../../../../assets/cgiar/ICONS CGIAR-08.png";
 
 const FilterAnalytics = (props) => {
 
+    const {setFilterRegions, setFilterCountries, result} = props
+
     const [filterResults, setFilterResults] = useState(null);
     const [selectedItem1, setSelectedItem1] = useState(null);
     const [selectedItem2, setSelectedItem2] = useState(null);
@@ -103,6 +105,25 @@ const FilterAnalytics = (props) => {
     ];
 
     // let history = useHistory();
+
+    useEffect(
+        () => {
+            if (regionsOfImplementationItem) {
+                const temp = regionsOfImplementationItem.map(item => {
+                    const newItem = item.split(' (')
+                    return newItem[0]
+                })
+                setFilterRegions(temp)
+            }
+            if (countriesOfImplementationItem) {
+                const temp = countriesOfImplementationItem.map(item => {
+                    const newItem = item.split(' (')
+                    return newItem[0]
+                })
+                setFilterCountries(temp)
+            }
+        },[result]
+    )
 
     useEffect(() => {
         if(props.filter){
