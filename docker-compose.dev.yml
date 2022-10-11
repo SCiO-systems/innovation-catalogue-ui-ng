@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   app:
-    image: sciohub/innovation-catalogue-ui-ng:staging
+    image: sciohub/innovation-catalogue-ui-ng:dev
     container_name: innovation-catalogue-ui-ng
     ports:
       - 50300:80
