@@ -8,7 +8,9 @@ am4core.useTheme(am4themes_animated);
 
 const PreviewMapChart = (props) => {
 
-    const {mapData} = props
+    const {mapData, results} = props
+
+    console.log(mapData)
 
     useEffect(() => {
 
@@ -76,7 +78,7 @@ const PreviewMapChart = (props) => {
 
 
 
-    }, [mapData]);
+    }, [mapData, results]);
 
     return (
         <>

@@ -38,6 +38,8 @@ const CloudWord = (props) => {
         // title.backgroundColor = "#6d6e71";
         // title.textTransform = "Uppercase";
 
+        return () => chart.dispose()
+
     }, [props.dataCloud])
 
     return (

@@ -20,6 +20,9 @@ const Analytics = () => {
 
     const [queryJson, setQueryJson] = useState(jsonTemplate);
 
+    const [filterRegions, setFilterRegions] = useState([])
+    const [filterCountries, setFilterCountries] = useState([])
+
     const [result, setResult] = useState(null);
     const [search, setSearch] = useState(true);
     const [nodata, setNodata] = useState(false);
@@ -47,10 +50,12 @@ const Analytics = () => {
     const query = useParams();
 
     useEffect(() => {
+        // console.log(queryJson)
         setSearch(true);
         resultService.getSearchResults(queryJson,lazyParams).then(data =>{
             if(data){
-                setResult(data.data);
+                setResult({...data.data});
+                // console.log(data.data)
             }else{
                 setNodata(true);
                 setResult(null);
@@ -78,6 +83,7 @@ const Analytics = () => {
 
 
     const renderPage = () =>{
+        // console.log(result?.summaries)
        return (
            <div>
                <Loading visible={search}/>
@@ -101,7 +107,12 @@ const Analytics = () => {
                                <FilterAnalytics
                                    queryJson={queryJson}
                                    callback={handleChange}
-                                   filter={result.summaries} query={query.query}>
+                                   filter={result.summaries}
+                                   query={query.query}
+                                   setFilterRegions={setFilterRegions}
+                                   setFilterCountries={setFilterCountries}
+                                   result={result}
+                               >
                                </FilterAnalytics>:
                                console.log()
                        }
@@ -110,7 +121,7 @@ const Analytics = () => {
                    <div className=" p-col">
                        <div className="p-grid">
                            {
-                               result?<ChartsAnalytics charts={result.summaries}></ChartsAnalytics>:
+                               result?<ChartsAnalytics charts={result.summaries} filterRegions={filterRegions} filterCountries={filterCountries} result={result}></ChartsAnalytics>:
                                    console.log()
                            }
                        </div>
