@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   app:
-    image: sciohub/innovation-catalogue-ui-ng:dev
+    image: sciohub/innovation-catalogue-ui-ng:staging
     container_name: innovation-catalogue-ui-ng
     restart: unless-stopped
     ports:
