@@ -145,11 +145,11 @@ const AddInnovation = () => {
         }
         InnovationService.insertInnovation(userData.user.userId, allFields,status)
             .then(() => {
-                toast.current.show({severity:'success', summary: 'Success', detail:`The Innovation was added with status ${status}`, life: 1000});
+                toast.current.show({severity:'success', summary: 'Success', detail: status === 'DRAFT' ? 'There are mandatory fields missing. The innovation has been saved as "Draft"' : `The innovation has been saved as ${status}`, life: 2000});
                 setTimeout(() => {
                     resetInnovation()
                     navigate(myInnovationsUrl)
-                }, 1000)
+                }, 2000)
             })
     }
 
@@ -176,7 +176,7 @@ const AddInnovation = () => {
         }
         InnovationService.editInnovation(allFields,innovation.innovId ,status, userData.user.userId)
             .then(() => {
-                toast.current.show({severity:'success', summary: 'Success', detail:`The Innovation was added with status ${status}`, life: 1000});
+                toast.current.show({severity:'success', summary: 'Success', detail:status === 'DRAFT' ? 'There are mandatory fields missing. The innovation has been saved as "Draft"' : `The innovation has been saved as ${status}`, life: 1000});
                 setTimeout(() => {
                     resetInnovation()
                     setEditingInnovation({})

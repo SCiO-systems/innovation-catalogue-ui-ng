@@ -73,7 +73,7 @@ const Description = () => {
             return (
                 <div className="p-grid p-justify-start margin-bottom-20">
                     <div className="p-col-12 p-sm-12 p-lg-2 form-heading-layout">
-                        <label>{field.label}</label>
+                        {field.label.includes('*') ? [<label>{field.label.replace('*','')}</label>,<label style={{color: 'red'}}>*</label>] : <label>{field.label}</label>}
                     </div>
                     <div className="p-col-12 p-sm-12 p-lg-6">
                         <Field configuration={field} presetValue={presetValues(0,field.id, field.type)} stepValues={descriptionValues} stepSetValues={setDescriptionValues} keyName={'descriptionValues'}/>

@@ -113,13 +113,16 @@ const ProfilePage = () => {
 
     if (melUserData.first_name !== '') {
         return(
-            <div>
+            <div className="profile-page">
                 <Toast ref={toast} />
                 <div className="peach-background-container">
                     <h3>My profile</h3>
                 </div>
                 <div className="p-grid p-justify-center margin-top-20">
                     <Card className='padding-50'>
+                        <div style={{maxWidth: '60%'}}>
+                            <p>User information is derived from MEL. In case if any updates are needed, please log in to MEL profile <a href={"https://mel.cgiar.org"}>https://mel.cgiar.org</a> to make changes</p>
+                        </div>
                         <div className="p-grid p-justify-center vertical-container">
                             <div className="-p-col-6 p-col-align-start margin-right" style={{maxWidth: '50%'}}>
                                 <div className="margin-bottom-40 margin-top-20">
@@ -213,10 +216,6 @@ const ProfilePage = () => {
                                     }
                                 </div>
                             </div>
-                        </div>
-                        <div className="margin-bottom-40 margin-top-55">
-
-
                         </div>
                         <div className="p-grid p-justify-center margin-top-20">
                             <div className="save-profile-button">

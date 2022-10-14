@@ -4,3 +4,10 @@
 .profile-image {
     width: 200px
 }
+
+.profile-page .p-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

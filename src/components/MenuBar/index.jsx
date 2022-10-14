@@ -16,7 +16,7 @@ const MenuBar = (props) => {
         {label: "About", to:"/about"},
         {label: "Search", to: "/search"},
         {label: "Analytics", to: "/analytics"},
-        {label: "Contact us",to:"/comingsoon"}
+        // {label: "Contact us",to:"/comingsoon"}
     ];
 
     const isMobile = () => {
