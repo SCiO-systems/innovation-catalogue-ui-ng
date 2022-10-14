@@ -54,7 +54,10 @@ const configurationArray = [
                 minCharacters: 1,
                 maxCharacters: 5000,
                 label: 'Keywords*',
-                fieldInformation: '<span> Provide words that are associated or describe the content, goal, and results of the innovation. It will allow to perform a well-defined search in the online portfolio. <br/> <br/>(5000 keywords) </span>',
+                fieldInformation: '<span> Provide words that are associated or describe the content, goal, and results of the innovation. ' +
+                    'It will allow to perform a well-defined search in the online portfolio. <br/> <br/>(5000 keywords) ' +
+                    'After typing a keyword, press "," or "Enter".<br/> <br/>' +
+                    '</span>',
                 valid: false,
             },
             {

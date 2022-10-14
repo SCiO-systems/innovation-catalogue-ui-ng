@@ -221,7 +221,7 @@ const Search = () => {
                         <p className="text-align-justify">{data?.summary}</p>
                     </div>
                     <div className="product-list-action p-grid p-justify-end margin-top-5">
-                        <Link to={innovationUrl + data?.innovation_id}>
+                        <Link to={innovationUrl + data?.innovation_id} target="_blank" rel="noopener noreferrer">
                             <Button label="View" className="button-view-results"></Button>
                         </Link>
                     </div>

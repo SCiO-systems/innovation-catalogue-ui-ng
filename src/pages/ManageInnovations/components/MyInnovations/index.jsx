@@ -342,7 +342,7 @@ const MyInnovations = () => {
             </Dialog>
             <Dialog visible={viewCommentsDialog} style={{ width: '450px' }} header="Comments" modal footer={viewCommentsFooter} onHide={() => setViewCommentsDialog(false)}>
                 <div className="confirmation-content">
-                    <InputTextarea disabled value={comments} autoResize style={{width:'100%', maxWidth: '100%'}}/>
+                    <InputTextarea disabled value={comments} autoResize style={{width:'100%', maxWidth: '100%', opacity: 1}}/>
                 </div>
             </Dialog>
         </div>
