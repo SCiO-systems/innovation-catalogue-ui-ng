@@ -12,7 +12,7 @@ const configurationArray = [
             },
             {
                 id: "5.2",
-                type: 'number',
+                type: 'text',
                 mandatory: false,
                 label: 'Patent Number',
                 fieldInformation: 'Please insert the patent number from the relevant document cited above.',
@@ -20,7 +20,7 @@ const configurationArray = [
             },
             {
                 id: "5.3",
-                type: 'number',
+                type: 'text',
                 mandatory: false,
                 label: 'Patent Office',
                 fieldInformation: '<span> Patents are territorial rights. In general, the exclusive rights are only applicable in the country or region in which a patent has been filed and granted, in accordance with the law of that country or region. Please insert the office where the patent right was granted. <br/> <br/> (400 words) </span>',

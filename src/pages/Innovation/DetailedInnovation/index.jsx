@@ -310,7 +310,11 @@ const DetailedInnovation = () => {
                                     </div>
                                     <div>
                                         <p className="display-inline-block margin-top-20 mini-headings-innovation">Technology Appraisal Image:</p>
-                                        <div><img src={assignImageSource(innovation.technology_appraisal_image)} width={400}/></div>
+                                        <div>
+                                            {innovation.technology_appraisal_image
+                                            ? <img src={assignImageSource(innovation.technology_appraisal_image)} width={400}/>
+                                            : null}
+                                        </div>
                                     </div>
                                     <div>
                                         <p className="display-inline-block margin-top-20 mini-headings-innovation">Documentation available upon request to potential investors:</p>
