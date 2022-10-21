@@ -4,6 +4,7 @@ import {PreviewMapChart, DivBuilder} from '../components'
 import { Button } from 'primereact/button';
 import {TabPanel, TabView} from "primereact/tabview";
 import {Link, useLocation} from "react-router-dom";
+import {DataView} from "primereact/dataview";
 import {Divider} from "primereact/divider";
 import {Galleria} from "primereact/galleria";
 import {Panel} from "primereact/panel";
@@ -15,6 +16,7 @@ import UserService from '../../../services/httpService/user'
 import {Actions} from "../../../reducer/actions";
 import axios from "axios";
 import noImage from '../../../assets/noImage.jpg'
+import './styles.css'
 
 const DetailedInnovation = () => {
 
@@ -46,11 +48,9 @@ const DetailedInnovation = () => {
     useEffect(
         () =>{
             if (previewedInnovation) {
-                console.log(previewedInnovation)
                 setFormData(previewedInnovation.formData)
                 UserService.getUserDataById(previewedInnovation.userIds[0])
                     .then(res => {
-                        console.log(res)
                         setSubmitter(res.user)
                     })
             }
@@ -58,26 +58,31 @@ const DetailedInnovation = () => {
     )
 
     const renderListItem = (data) => {
+        const reformInnovationId = (string) => {
+            string = string.replace('INNOV','')
+            string = string.split('-').join('')
+            return string
+        }
         return (
             <div className="p-col-12">
                 <div className="product-list-item margin-top-20 margin-bottom-20">
-                    <h3>{data.title}</h3>
-                    <div className="product-list-detail">
-                        <div className="margin-bottom-20" style={{display: "flex"}}>
-                            <div className="margin-right">
-                                <p> <i className="fad fa-user fa-lg" style={{color: "#aa671d"}}></i> {data.submitter?.submitter_first_name} {data.submitter?.submitter_last_name}</p>
-                            </div>
-                            <div className="margin-right">
-                                <p> <i className="fad fa-envelope fa-lg" style={{color: "#aa671d"}}></i> {data.submitter?.submitter_email}</p>
-                            </div>
-                            <div className="margin-right">
-                                <p><i className="fad fa-calendar-edit fa-lg" style={{color: "#aa671d"}}></i> {data.last_updated}</p>
-                            </div>
-                        </div>
-                        <p className="text-align-justify">{data.summary}</p>
-                    </div>
+                    <h4>{data.name}</h4>
+                    {/*<div className="product-list-detail">*/}
+                    {/*    <div className="margin-bottom-20" style={{display: "flex"}}>*/}
+                    {/*        <div className="margin-right">*/}
+                    {/*            <p> <i className="fad fa-user fa-lg" style={{color: "#aa671d"}}></i> {data.submitter?.submitter_first_name} {data.submitter?.submitter_last_name}</p>*/}
+                    {/*        </div>*/}
+                    {/*        <div className="margin-right">*/}
+                    {/*            <p> <i className="fad fa-envelope fa-lg" style={{color: "#aa671d"}}></i> {data.submitter?.submitter_email}</p>*/}
+                    {/*        </div>*/}
+                    {/*        <div className="margin-right">*/}
+                    {/*            <p><i className="fad fa-calendar-edit fa-lg" style={{color: "#aa671d"}}></i> {data.last_updated}</p>*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+                    {/*    <p className="text-align-justify">{data.summary}</p>*/}
+                    {/*</div>*/}
                     <div className="product-list-action p-grid p-justify-end">
-                        <Link to={innovationUrl + data.innovation_id}>
+                        <Link to={innovationUrl + reformInnovationId(data.innovation_id)}>
                             <Button  label="View" className="button-view-results"></Button>
                         </Link>
                     </div>
@@ -125,6 +130,9 @@ const DetailedInnovation = () => {
                     }
                 }
                 return ''
+            }
+            if (id === '1.13') {
+                console.log(temp)
             }
             return temp.value
         } else {
@@ -294,9 +302,13 @@ const DetailedInnovation = () => {
             <>
                 <div className="p-grid p-dir-rev innovation-container">
                     <div className="p-col innovation-col-width">
-                        <Card className="margin-bottom-40">
+                        <div className="preview-innovation-header card">
                             <h4 className="innovation-title">{renderField('1.1')}</h4>
-                        </Card>
+                            <a href={renderField('1.6')} target="_blank" rel="noopener noreferrer" style={{color: 'black'}}>
+                                <Button className="innovation-button" label="Access Innovation" />
+                            </a>
+
+                        </div>
                         <Card className="margin-bottom-40">
                             <h2 className="innovation-heading">Summary</h2>
                             <div>{renderField('1.2')}</div>
@@ -340,11 +352,11 @@ const DetailedInnovation = () => {
                                 <TabPanel header="Context">
                                     <div>
                                         <p className="display-inline-block margin-top-20 mini-headings-innovation">Start Date:</p>
-                                        <div>{renderField('3.2')}</div>
+                                        <div>{renderField('3.2') === 'Invalid Date' ? 'N/A' : renderField('3.2')}</div>
                                     </div>
                                     <div>
                                         <p className="display-inline-block margin-top-20 mini-headings-innovation">End Date:</p>
-                                        <div>{renderField('3.3')}</div>
+                                        <div>{renderField('3.3') === 'Invalid Date' ? 'N/A' : renderField('3.3')}</div>
                                     </div>
                                 </TabPanel>
                                 <TabPanel header="Evidence">
@@ -360,7 +372,9 @@ const DetailedInnovation = () => {
                                     <div>
                                         <p className="display-inline-block margin-top-20 mini-headings-innovation">Technology Appraisal Image:</p>
                                         <div>
-                                            <img src={`${process.env.REACT_APP_RELAY_URL}/static/${renderField('4.3')[0]?.name}`} alt={'logo'} className="img-width" width={400}/>
+                                            {renderField('4.3')[0]?.name
+                                                ? <img src={`${process.env.REACT_APP_RELAY_URL}/static/${renderField('4.3')[0]?.name}`} alt={'logo'} className="img-width" width={400}/>
+                                                : null}
                                         </div>
                                     </div>
                                     <div>
@@ -391,7 +405,9 @@ const DetailedInnovation = () => {
                                     </div>
                                     <div>
                                         <p className="display-inline-block margin-top-20 mini-headings-innovation">Patent Know-How Information: </p>
-                                        <a href={renderField('5.4')} target="_blank"> Information URL</a>
+                                        {renderField('5.4')
+                                        ? <a href={renderField('5.4')} target="_blank"> Information URL</a>
+                                        : null}
                                     </div>
                                 </TabPanel>
                                 <TabPanel header="Interventions">
@@ -528,11 +544,11 @@ const DetailedInnovation = () => {
                                 onItemChange={(e)=>onItemChange(e)}
                                 showItemNavigators showThumbnails={false} item={itemTemplate2}/>
                         </Card>
-                        {/*<Card>*/}
-                        {/*    <h2 className="innovation-heading">Related Innovation(s)</h2>*/}
-                        {/*    <DataView style={{padding: "10px"}} value={renderField('1.13')} layout="list"*/}
-                        {/*              itemTemplate={itemTemplate}/>*/}
-                        {/*</Card>*/}
+                        <Card>
+                            <h2 className="innovation-heading">Related Innovation(s)</h2>
+                            <DataView style={{padding: "10px"}} value={renderField('1.13')} layout="list"
+                                      itemTemplate={itemTemplate}/>
+                        </Card>
                     </div>
 
                     <div className="p-col-fixed sidebar-container">

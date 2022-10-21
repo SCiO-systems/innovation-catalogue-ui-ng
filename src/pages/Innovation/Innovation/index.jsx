@@ -600,7 +600,9 @@ const Innovation = () => {
                     <Card className="margin-bottom-40">
                         <h2 className="innovation-heading">Image of the Innovation</h2>
                         <center>
-                            <img src={assignImageSource(innovation.image_of_the_innovation)} className="img-width"/>
+                            {innovation.image_of_the_innovation
+                            ? <img src={assignImageSource(innovation.image_of_the_innovation)} className="img-width"/>
+                            : null}
                         </center>
                     </Card>
                 </div>
