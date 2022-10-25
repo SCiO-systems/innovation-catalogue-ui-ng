@@ -319,7 +319,7 @@ const MyInnovations = () => {
                     <Column field="version" sortable header="Version"/>
                     <Column field="comments" body={(data) => (commentsBody(data))}  header="Reviewer's Comments"/>
                     <Column field="createdΑt" body={createdAtTemplate} header="Date Created" />
-                    <Column field="updatedΑt" body={updatedAtTemplate} header="Last Updated"/>
+                    <Column field="updatedAt" body={updatedAtTemplate} header="Last Updated" sortable/>
                     <Column field="actions" header="Actions" body={actionsTemplate} style={{width: "250px"}}/>
                 </DataTable>
             </div>
