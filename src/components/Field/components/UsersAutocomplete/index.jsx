@@ -27,7 +27,6 @@ const AutocompleteUsers = (props) => {
     useEffect(
         () => {
             if (stepValues.length === 0) return
-            let flag = false
             const temp = value.filter(item => {
                 if (item.value[0]) {
                     if (item.value[0].name) {
@@ -36,7 +35,6 @@ const AutocompleteUsers = (props) => {
                 }
                 return false
             })
-            if (flag) return
             const _values = stepValues
             const index = _values.indexOf(_values.find(item => item.id === configuration.id))
             const validValue = stepValues.find(item => item.id === configuration.id).valid
